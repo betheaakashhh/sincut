@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from "react";
-import "./sinSection.css";
+import "./sinsection.css";
 import RazorpayButton from "../Razorpay/RazorpayButton";
 import StripeButtonWrapper from "../Stripe/StripeButtonWrapper";
 
