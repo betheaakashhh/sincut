@@ -1,5 +1,5 @@
 import React from 'react'
-import './Program.css'
+import './program.css'
 const Program = () => {
   return (
    <div class="card-container">
