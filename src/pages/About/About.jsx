@@ -25,7 +25,7 @@ Founded by a team of passionate individuals who believe in the power of self-ref
 Join us today and experience the transformative effect of reflection, confession, and conscious giving. Because letting go of your past and taking meaningful action today is the first step toward a better, lighter, and more fulfilled tomorrow.</p>
   <div className="term-condition">
      <a href="/terms" target="_blank" rel="noopener noreferrer">
-  <p>Read our Terms & Conditions</p>
+  <p>Read our Terms & Condition</p>
 </a>
 
     </div>
