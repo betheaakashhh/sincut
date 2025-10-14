@@ -1,0 +1,25 @@
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  
+  padding: 12px 0;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.marquee-quote {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 1.1rem;
+  color: white;;
+  padding: 1rem 1.2rem;
+  animation: fadeIn 0.8s ease-in-out;
+  margin: 0 auto 10px;
+  border-radius: 25px;
+  
+}
+
+@keyframes fadeIn {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}

@@ -1,0 +1,84 @@
+.video-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 10%;
+  background-color: #f9f9f9;
+  gap: 50px;
+  flex-wrap: wrap; /* Makes it responsive */
+}
+
+.text-container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.text-container h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #6c0879;
+  margin-bottom: 20px;
+}
+
+.text-container p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.video-container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .video-section {
+    flex-direction: column;
+    padding: 30px 5%;
+  }
+
+  .text-container, .video-container {
+    min-width: 100%;
+  }
+
+  .text-container h2 {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 480px) {
+  .text-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .text-container p {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 320px) {
+  .text-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .text-container p {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 280px) {
+  .text-container h2 {
+    font-size: 1rem;
+  }
+
+  .text-container p {
+    font-size: 0.8rem;
+  }
+}
+.doodle-section {
+  background: linear-gradient(135deg, #6c0879, #12c276);
+}

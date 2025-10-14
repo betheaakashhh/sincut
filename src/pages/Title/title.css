@@ -1,0 +1,22 @@
+.title h2{
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: rgb(18, 2, 53);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    
+}
+.title p{
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}

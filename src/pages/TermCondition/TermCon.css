@@ -1,0 +1,27 @@
+.terms-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+.terms-container h1 {
+            text-align: center;
+            color: #6c0879;
+            margin-bottom: 30px;
+        }
+.terms-container h2 {
+            color: #12c276;
+            margin-top: 25px;
+        }
+.terms-container p {
+            margin-bottom: 15px;
+        }
+.terms-container a {
+            color: #069e61;
+            text-decoration: none;
+        }
+.terms-container a:hover {
+            text-decoration: underline;
+        }
