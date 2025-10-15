@@ -31,8 +31,7 @@ function RazorpayButton({ amount = 1, onClick }) {
     }
   };
  const handleClick = () =>{
-   if(onClick)
-   onClick(handlePayment);
+   if(onClick) onClick(handlePayment);
    else handlePayment();
 };
 
