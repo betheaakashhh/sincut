@@ -5,7 +5,7 @@ function RazorpayButton({ amount = 1, onClick }) {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const handlePayment = async () => {
     try {
-      
+      console.log("fetching of backend data is initialised");
       const res = await fetch("https://sincut-razorpay.vercel.app/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -13,6 +13,7 @@ function RazorpayButton({ amount = 1, onClick }) {
       });
 
       const orderData = await res.json();
+console.log("order received", order data)
 
       const options = {
         key: "YOUR_PUBLIC_KEY", // public key only
@@ -29,7 +30,7 @@ function RazorpayButton({ amount = 1, onClick }) {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      console.error(err);
+      console.error("Payment Failed" ,err);
     }
   };
  const handleClick = () =>{
