@@ -6,7 +6,7 @@ function RazorpayButton({ amount = 1, onClick }) {
   const handlePayment = async () => {
     try {
       
-      const res = await fetch("{BACKEND_URL}/create-order", {
+      const res = await fetch("https://sincut-razorpay.vercel.app/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount }),
