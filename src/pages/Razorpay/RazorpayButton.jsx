@@ -1,7 +1,7 @@
 import React from "react";
 import "./razor.css";
 
-function RazorpayButton({ amount = 1 }) {
+function RazorpayButton({ amount = 1, onClick }) {
   const handlePayment = async () => {
     try {
       const res = await fetch("https://vercel.com/betheaakashhhs-projects/sincut-razorpay/create-order", {
@@ -30,8 +30,13 @@ function RazorpayButton({ amount = 1 }) {
       console.error(err);
     }
   };
+ const handleClick = () =>{
+   if(onClick)
+   onClick(handlePayment);
+   else handlePayment();
+};
 
-  return <button onClick={handlePayment} className="confess-btn">Donate ₹1</button>;
+  return <button onClick={handleClick} className="confess-btn">Donate ₹{amount}</button>;
 }
 
 export default RazorpayButton;
