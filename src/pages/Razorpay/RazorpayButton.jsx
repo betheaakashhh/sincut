@@ -13,7 +13,7 @@ function RazorpayButton({ amount = 1, onClick }) {
       });
 
       const orderData = await res.json();
-console.log("order received", order data)
+console.log("order received", order data);
 
       const options = {
         key: "YOUR_PUBLIC_KEY", // public key only
