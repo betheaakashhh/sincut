@@ -12,7 +12,7 @@ const ConfessSection = ({ onDonate }) => {
         return;
       }
       // Here you can send sinText to your backend or database later
-      alert(`Your sin: "${sinText}" has been recorded. Thank you!`);
+      alert(`GOD BLESS YOU CHILD,Thank you!`);
       onDonate(); // trigger Razorpay or donation flow
       setSinText(""); // clear textarea
     };
