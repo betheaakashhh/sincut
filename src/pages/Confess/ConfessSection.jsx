@@ -53,7 +53,7 @@ const ConfessSection = ({ onDonate }) => {
      {userCountry === null ? (
         <p>Loading payment options...</p>
       ) : userCountry === "IN" ? (
-        <RazorpayButton amount={100} onClick={handleDonate}/>
+        <button onClick={handleDonate}><RazorpayButton amount={100}/><\button>
       ) : (
         <p>Stripe payment for international users (not shown here)</p>
       )}
