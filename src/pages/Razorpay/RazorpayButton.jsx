@@ -1,7 +1,7 @@
 import React from "react";
 import "./razor.css";
 
-function RazorpayButton({ amount = 1, onClick }) {
+function RazorpayButton({ amount = 1}) {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const handlePayment = async () => {
     try {
@@ -37,12 +37,9 @@ if(!window.Razorpay){
       console.error("Payment Failed" ,err);
     }
   };
- const handleClick = () =>{
-   if(onClick) onClick(handlePayment);
-   else handlePayment();
-};
+ 
 
-  return <button onClick={handleClick} className="confess-btn">Donate ₹{amount}</button>;
+  return <button onClick={handlePayment} className="confess-btn">Donate ₹{amount}</button>;
 }
 
 export default RazorpayButton;
