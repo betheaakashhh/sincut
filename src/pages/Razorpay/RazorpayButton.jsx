@@ -4,7 +4,8 @@ import "./razor.css";
 function RazorpayButton({ amount = 1, onClick }) {
   const handlePayment = async () => {
     try {
-      const res = await fetch("https://sincut-razorpay/create-order", {
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const res = await fetch("{BACKEND_URL}/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount }),
