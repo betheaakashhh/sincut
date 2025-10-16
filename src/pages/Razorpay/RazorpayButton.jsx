@@ -34,7 +34,7 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
       await new Promise((resolve) => setTimeout(resolve,1500));
 
       const options = {
-        key: "RAZORPAY_KEY_ID", // replace with real Razorpay key
+        key: "rzp_test_RUEOHvHC3GJJUO", // replace with real Razorpay key
         amount: orderData.amount,
         currency: orderData.currency,
         name: "Cut Your Sin",
