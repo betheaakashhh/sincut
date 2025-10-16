@@ -9,12 +9,13 @@ const ConfessSection = ({ onDonate }) => {
   const handleDonate = () => {
       if (!sinText.trim()) {
         alert("Please write your sin before donating.");
-        return;
+        return false; // stop razorpay flow
       }
       // Here you can send sinText to your backend or database later
       alert(`GOD BLESS YOU CHILD,Thank you!`);
       onDonate(); // trigger Razorpay or donation flow
       setSinText(""); // clear textarea
+    return true; //continue Razorpay flow
     };
     useEffect(() => {
       const fetchUserCountry = async () => {
@@ -53,7 +54,7 @@ const ConfessSection = ({ onDonate }) => {
      {userCountry === null ? (
         <p>Loading payment options...</p>
       ) : userCountry === "IN" ? (
-        <RazorpayButton amount={100} onClick={handleDonate}/>
+        <RazorpayButton amount={100} onBeforePay={handleDonate}/>
       ) : (
         <p>Stripe payment for international users (not shown here)</p>
       )}
