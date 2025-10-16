@@ -77,7 +77,6 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
       onClick={handlePayment} 
       className={`confess-btn ${loading ? "loading": ""}`}
       disabled = {loading}
-      style={{position: "relative",zIndex: 9999}}
       >
       {loading ? <div className="spinner"></div> : <>Donate ₹{amount}</>}
     </button>
