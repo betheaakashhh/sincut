@@ -1,38 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./confess.css";
 import RazorpayButton from "../Razorpay/RazorpayButton";
-import { useEffect } from "react";
-const ConfessSection = ({ onDonate }) => {
+
+const ConfessSection = () => {
   const [sinText, setSinText] = useState("");
   const [userCountry, setUserCountry] = useState(null);
 
-  const handleDonate = () => {
-      if (!sinText.trim()) {
-        alert("Please write your sin before donating.");
-        return false; // stop razorpay flow
+  // This runs when Razorpay button asks permission to continue payment
+  const handleBeforePay = () => {
+    if (!sinText.trim()) {
+      alert("Please write your sin before donating.");
+      return false; // stop payment
+    }
+    alert("GOD BLESS YOU CHILD, Thank you!");
+    setSinText(""); // clear text after valid submission
+    return true; // allow RazorpayButton to proceed
+  };
+
+  useEffect(() => {
+    const fetchUserCountry = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        console.log("Detected country:", data.country);
+        setUserCountry(data.country);
+      } catch (err) {
+        console.error("Country detection failed", err);
       }
-      // Here you can send sinText to your backend or database later
-      alert(`GOD BLESS YOU CHILD,Thank you!`);
-      onDonate(); // trigger Razorpay or donation flow
-      setSinText(""); // clear textarea
-    return true; //continue Razorpay flow
     };
-    useEffect(() => {
-      const fetchUserCountry = async () => {
-        try {
-          const res = await fetch("https://ipapi.co/json/");
-          const data = await res.json();
-          setUserCountry(data.country);
-        } catch (err) {
-          console.error("Country detection failed", err);
-        }
-      };
-      fetchUserCountry();
-    }, []);
-   
+    fetchUserCountry();
+  }, []);
 
   return (
-    <div className=" container confess-section">
+    <div className="container confess-section">
       <div className="confess-heading">
         <span className="line"></span>
         <h2>Confess Your Sin</h2>
@@ -50,11 +50,11 @@ const ConfessSection = ({ onDonate }) => {
         value={sinText}
         onChange={(e) => setSinText(e.target.value)}
       ></textarea>
-      
-     {userCountry === null ? (
+
+      {userCountry === null ? (
         <p>Loading payment options...</p>
       ) : userCountry === "IN" ? (
-        <RazorpayButton amount={100} onBeforePay={handleDonate}/>
+        <RazorpayButton amount={100} onBeforePay={handleBeforePay} />
       ) : (
         <p>Stripe payment for international users (not shown here)</p>
       )}
