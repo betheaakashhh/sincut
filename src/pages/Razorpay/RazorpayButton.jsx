@@ -1,9 +1,11 @@
 import React from "react";
 import "./razor.css";
 
-function RazorpayButton({ amount = 1,onClick}) {
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+function RazorpayButton({ amount = 1, onBeforePay}) {
+  
   const handlePayment = async () => {
+    //run parent validation first
+    if(onBeforePay && onBeforePay() === false) return;
     try {
       console.log("fetching of backend data is initialised");
       const res = await fetch("https://sincut-razorpay.vercel.app/create-order", {
@@ -37,13 +39,10 @@ if(!window.Razorpay){
       console.error("Payment Failed" ,err);
     }
   };
-  const handleClick = () =>{
-    if (onClick) onClick(handlePayment};
-  else handlePayment();
-  };
+  
  
 
-  return <button onClick={handleClick} className="confess-btn">Donate ₹{amount}</button>;
+  return <button onClick={handlePayment} className="confess-btn">Donate ₹{amount}</button>;
 }
 
 export default RazorpayButton;
