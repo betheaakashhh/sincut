@@ -17,7 +17,14 @@
    
 
 }
-
+.confess-btn:hover:not(:disabled) {
+  background-color: #ff3333;
+  transform: scale(1.05);
+}
+.confess-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 .confess-btn:hover {
   background: linear-gradient(90deg, #06b6d4, #12c276);
   box-shadow: 0 4px 25px rgba(0, 255, 204, 0.6);
@@ -26,4 +33,20 @@
 .confess-btn:active {
   transform: translateY(1px);
   box-shadow: 0 2px 10px rgba(0, 255, 204, 0.3);
+}
+/* spinner animation */
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
