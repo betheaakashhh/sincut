@@ -1,8 +1,9 @@
-import React from "react";
+import React ,{useState} from "react";
 import "./razor.css";
 
-function RazorpayButton({ amount = 1, onBeforePay }) {
-  const BACKEND_URL = "https://sincut-razorpay.vercel.app"; // make sure this is correct
+function RazorpayButton({ amount = 1, onBeforePay }) { 
+  const [loading, setLoading] = useState(false);
+  
 
   const handlePayment = async () => {
     // 1️⃣ Run parent validation first
@@ -12,6 +13,8 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
     }
 
     try {
+      setLoading(true);
+      document.body.style.overflow =  "hidden"; //disable scroll while processing
       console.log("Fetching backend order...");
       const res = await fetch(`https://sincut-razorpay.vercel.app/create-order`, {
         method: "POST",
@@ -27,6 +30,9 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
         return;
       }
 
+      // small wait for better UX for 1.5 sec
+      await new Promise((resolve) => setTimeout(resolve,1500));
+
       const options = {
         key: "YOUR_PUBLIC_KEY", // replace with real Razorpay key
         amount: orderData.amount,
@@ -37,6 +43,13 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
         handler: function (response) {
           alert("Payment Successful: " + response.razorpay_payment_id);
         },
+        modal:{
+          ondismiss: function(){
+            //re-enable scroll if payment window is closed
+            document.body.style.overflow = "auto";
+            setLoading(false);
+          },
+    },
         theme: { color: "#F37254" },
       };
 
@@ -45,12 +58,21 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
     } catch (err) {
       console.error("Payment Failed:", err);
       alert("Something went wrong while starting payment.");
+    } finally{
+      //re enable scroll and hide loader
+      setLoading(false);
+      document.body.style.overflow = "auto";
     }
   };
 
   return (
-    <button onClick={handlePayment} className="confess-btn" style={{ position: "relative", zIndex: 9999 }}>
-      Donate ₹{amount}
+    <button
+      onClick={handlePayment} 
+      className={`confess-btn ${loading ? "loading": ""}`}
+      disabled = {loading}
+      style={{position: "relative",zIndex: 9999}}
+      >
+      {loading ? <div className="spinner"></div> : <>Donate ₹{amount}</>}
     </button>
   );
 }
