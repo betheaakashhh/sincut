@@ -24,6 +24,13 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
 
       const orderData = await res.json();
       console.log("Order data received:", orderData);
+      if (!res.ok || !orderData.id) {
+       console.error("Failed to create order on the backend.");
+       alert("Something went wrong. Could not create a payment order.");
+       setLoading(false);
+        document.body.style.overflow = "auto";
+         return; // Stop the function here
+         }
 
       if (!window.Razorpay) {
         alert("Razorpay SDK is not loaded.");
