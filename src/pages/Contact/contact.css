@@ -104,8 +104,8 @@ label {
   color: #111827;
 }
 
-input,
-textarea {
+.contact-from input,
+.contact-from textarea {
   width: 100%;
   padding: 12px 16px;
   font-size: 15px;
@@ -116,14 +116,14 @@ textarea {
   transition: all 0.25s ease;
 }
 
-input:focus,
-textarea:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
   border-color: #3b82f6;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-textarea {
+.contact-from textarea {
   resize: none;
   min-height: 120px;
 }
