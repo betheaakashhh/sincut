@@ -79,7 +79,7 @@
   gap: 8px;
 }
 /* === Image beside heading === */
-.left h2 img {
+.contact-col h2 img {
   width: 15px;
   height: 15px;
   object-fit: contain;
