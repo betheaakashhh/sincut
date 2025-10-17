@@ -104,8 +104,8 @@ label {
   color: #111827;
 }
 
-.contact-from input,
-.contact-from textarea {
+.contact-form input,
+.contact-form textarea {
   width: 100%;
   padding: 12px 16px;
   font-size: 15px;
@@ -123,7 +123,7 @@ label {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.contact-from textarea {
+.contact-form textarea {
   resize: none;
   min-height: 120px;
 }
