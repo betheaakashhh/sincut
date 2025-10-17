@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./contact.css";
 import Title from "../Title/Title";
 import imesege from "../../assets/messege.png";
@@ -6,29 +6,45 @@ import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const form = useRef();
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
+    setStatus("sending"); // button changes to "Sending..."
 
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID, // e.g., 'service_abc123'
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // e.g., 'template_xyz456'
+    try {
+      const result = await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         form.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY // e.g., 'user_123abc'
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          alert("Message sent successfully!");
-        },
-        (error) => {
-          console.log(error.text);
-          alert("Failed to send message, please try again.");
-        }
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
-    e.target.reset();
+      console.log(result.text);
+      setStatus("success"); // show success message
+      e.target.reset();
+
+      // reset back to normal after 3 seconds
+      setTimeout(() => setStatus("idle"), 3000);
+    } catch (error) {
+      console.error(error.text);
+      setStatus("error"); // show error
+      setTimeout(() => setStatus("idle"), 3000);
+    }
+  };
+
+  // Button text based on status
+  const getButtonText = () => {
+    switch (status) {
+      case "sending":
+        return "Sending...";
+      case "success":
+        return "✅ Message Sent!";
+      case "error":
+        return "❌ Failed! Try Again";
+      default:
+        return "Send Message";
+    }
   };
 
   return (
@@ -67,8 +83,12 @@ const Contact = () => {
               placeholder="Send us your message..."
               required
             ></textarea>
-            <button type="submit" className="butn">
-              Submit
+            <button
+              type="submit"
+              className={`butn ${status}`}
+              disabled={status === "sending"} // disable while sending
+            >
+              {getButtonText()}
             </button>
           </form>
         </div>
