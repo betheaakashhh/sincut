@@ -70,7 +70,7 @@ const Contact = () => {
         </div>
 
         <div className="contact-col">
-          <form ref={form} onSubmit={sendEmail} className="contact-from">
+          <form ref={form} onSubmit={sendEmail} className="contact-form">
             <label>Your Name</label>
             <input type="text" name="name" placeholder="Enter Your Name" required />
             <label>Email Address</label>
