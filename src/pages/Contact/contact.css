@@ -31,7 +31,13 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
-
+/* -- contact left column --- */
+.contact-col-left {
+  flex: 1;
+  min-width: 350px;
+  padding: 40px;
+  border-radius: 20px;
+ }
 .contact-col:hover {
   transform: translateY(-4px);
 }
