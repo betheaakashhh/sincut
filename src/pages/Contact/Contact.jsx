@@ -54,7 +54,7 @@ const Contact = () => {
         title="We would love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out to us."
       />
       <div className="contact">
-        <div className="contact-col left">
+        <div className="contact-col">
           <h2>
             Contact Us <img src={imesege} alt="" />
           </h2>
