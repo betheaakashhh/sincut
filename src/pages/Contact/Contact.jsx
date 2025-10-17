@@ -54,7 +54,7 @@ const Contact = () => {
         title="We would love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out to us."
       />
       <div className="contact">
-        <div className="contact-col">
+        <div className="contact-col-left">
           <h2>
             Contact Us <img src={imesege} alt="" />
           </h2>
@@ -69,7 +69,7 @@ const Contact = () => {
           </ul>
         </div>
 
-        <div className="contact-col-left">
+        <div className="contact-col">
           <form ref={form} onSubmit={sendEmail}>
             <label>Your Name</label>
             <input type="text" name="name" placeholder="Enter Your Name" required />
