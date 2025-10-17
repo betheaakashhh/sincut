@@ -12,10 +12,10 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        import.meta.env.YOUR_SERVICE_ID, // e.g., 'service_abc123'
-        import.meta.env.YOUR_TEMPLATE_ID, // e.g., 'template_xyz456'
+        import.meta.env.VITE_EMAILJS_SERVICE_ID, // e.g., 'service_abc123'
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // e.g., 'template_xyz456'
         form.current,
-        import.meta.env.YOUR_PUBLIC_KEY // e.g., 'user_123abc'
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY // e.g., 'user_123abc'
       )
       .then(
         (result) => {
