@@ -68,6 +68,18 @@
   align-items: center;
   gap: 8px;
 }
+/* === Image beside heading === */
+.contact-col h2 img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+  transition: transform 0.25s ease;
+}
+
+.contact-col h2:hover img {
+  transform: scale(1.1) rotate(-5deg);
+}
 
 /* --- Form --- */
 form {
