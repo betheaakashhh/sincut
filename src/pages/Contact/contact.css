@@ -32,7 +32,7 @@
   transition: all 0.3s ease;
 }
 /* -- contact left column --- */
-.contact-col-left {
+.left {
   flex: 1;
   min-width: 350px;
   padding: 40px;
@@ -43,7 +43,7 @@
 }
 
 /* --- Contact Info Section --- */
-.contact-col-left h2 {
+.contact-col h2 {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -53,20 +53,20 @@
   margin-bottom: 20px;
 }
 
-.contact-col-left p {
+.contact-col p {
   font-size: 15px;
   color: #4b5563;
   line-height: 1.7;
   margin-bottom: 20px;
 }
 
-.contact-col-left ul {
+.contact-col ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.contact-col-left ul li {
+.contact-col ul li {
   font-size: 16px;
   color: #1f2937;
   margin: 10px 0;
@@ -75,7 +75,7 @@
   gap: 8px;
 }
 /* === Image beside heading === */
-.contact-col-left h2 img {
+.left h2 img {
   width: 8px;
   height: 8px;
   object-fit: contain;
@@ -83,7 +83,7 @@
   transition: transform 0.25s ease;
 }
 
-.contact-col-left h2:hover img {
+.contact-col h2:hover img {
   transform: scale(1.1) rotate(-5deg);
 }
 
@@ -163,7 +163,7 @@ textarea {
   }
 
   /* Form first, details below */
-  .contact-col-left:nth-child(2) {
+  .contact-col:nth-child(2) {
     order: -1;
   }
 }
@@ -173,7 +173,7 @@ textarea {
     padding: 60px 5%;
   }
 
-  .contact-col-left {
+  .contact-col {
     padding: 25px;
   }
 
