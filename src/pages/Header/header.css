@@ -1,152 +1,525 @@
-.hero{
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.25),rgba(44, 44, 45, 0.7)),url('../../assets/hero.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    box-sizing: border-box;
-    padding: 0 20px;
-    position: relative;
-
+/* header.css */
+.spiritual-hero {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    #0f172a 0%, 
+    #1e293b 25%, 
+    #334155 50%, 
+    #475569 75%, 
+    #64748b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.hero h1{
+/* Spiritual Background Elements */
+.spiritual-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.light-ray {
+  position: absolute;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(59, 130, 246, 0.1) 50%, 
+    transparent 100%);
+  animation: rayMove 8s ease-in-out infinite;
+}
+
+.ray-1 {
+  top: 20%;
+  left: -100px;
+  width: 300px;
+  height: 2px;
+  animation-delay: 0s;
+}
+
+.ray-2 {
+  top: 60%;
+  right: -100px;
+  width: 400px;
+  height: 1px;
+  animation-delay: 2s;
+}
+
+.ray-3 {
+  bottom: 30%;
+  left: -150px;
+  width: 500px;
+  height: 1.5px;
+  animation-delay: 4s;
+}
+
+.floating-particle {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle-1 { top: 15%; left: 10%; animation-delay: 0s; }
+.particle-2 { top: 25%; right: 15%; animation-delay: 1.5s; }
+.particle-3 { bottom: 20%; left: 20%; animation-delay: 3s; }
+.particle-4 { bottom: 30%; right: 10%; animation-delay: 4.5s; }
+
+/* Main Container */
+.spiritual-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 2;
+}
+
+.spiritual-content {
+  text-align: center;
+  color: white;
+}
+
+/* Sacred Symbol */
+.sacred-symbol {
+  margin: 0 auto 3rem;
+  width: 120px;
+  height: 120px;
+}
+
+.symbol-outer {
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rotate 20s linear infinite;
+}
+
+.symbol-middle {
+  width: 80px;
+  height: 80px;
+  border: 1.5px solid rgba(16, 185, 129, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.symbol-inner {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+.karma-char {
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+/* Spiritual Heading */
+.spiritual-heading {
+  margin-bottom: 2.5rem;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.sacred-text {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.title-underline {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Sacred Message */
+.sacred-message {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+
+.spiritual-text {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.highlight {
+  color: #f59e0b;
+  font-weight: 500;
+}
+
+.donation-amount {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.karma-word {
+  color: #ef4444;
+  font-style: italic;
+}
+
+.grace-word {
+  color: #10b981;
+  font-weight: 500;
+}
+
+.sin-word {
+  color: #f59e0b;
+  font-style: italic;
+}
+
+.redemption-word {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+/* Karma Principle */
+.karma-principle {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.principle-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.principle-text {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #e2e8f0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Divine Marquee */
+.divine-marquee-container {
+  margin: 2.5rem auto;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.divine-marquee-container::before {
+  content: '"';
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  font-size: 2rem;
+  color: rgba(59, 130, 246, 0.5);
+}
+
+.divine-marquee-container::after {
+  content: '"';
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  font-size: 2rem;
+  color: rgba(59, 130, 246, 0.5);
+}
+
+/* Sacred Actions */
+.sacred-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+}
+
+.sacred-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.sacred-btn:hover::before {
+  left: 100%;
+}
+
+.confession-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.donate-btn {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  color: white;
+}
+
+.sacred-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+/* Spiritual Stats */
+.spiritual-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #94a3b8;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid #94a3b8;
+  border-bottom: 2px solid #94a3b8;
+  transform: rotate(45deg);
+  margin: 0 auto 0.5rem;
+  animation: bounce 2s infinite;
+}
+
+.scroll-text {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Animations */
+@keyframes rayMove {
+  0%, 100% { transform: translateX(0) scale(1); opacity: 0.3; }
+  50% { transform: translateX(100px) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
+  40% { transform: rotate(45deg) translateY(-10px); }
+  60% { transform: rotate(45deg) translateY(-5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .main-title {
+    font-size: 3rem;
+  }
+  
+  .spiritual-text {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .spiritual-container {
+    width: 95%;
+    padding: 1rem 0;
+  }
+
+  .main-title {
     font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-.hero p{
-    font-size: 20px;
-    margin-bottom: 30px;
-    max-width: 600px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-.hero button{
-    padding: 12px 40px;
-    font-size: 28px;
-    font-weight: 800;
-    color: white;
-    background-color: #ff5733;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.hero button:hover{
-    background-color: #e74c3c;
-}
-.hero button:focus{
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 87, 51, 0.5);
-}
-.hero .hero-text p{
-    max-width: 800px;
-    margin: 0 auto 20px;
-}
-.hero .hero-text h1{
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-.hero .hero-text p span{
-    color: #ff5733;
-    font-weight: 700;
-    line-height: 1.4;
-}
-.marquee{
-    margin-top: 20px;
-    width: 100%;
-    overflow: hidden;
-    
-   
+  }
 
-}
-@media (max-width: 768px){
-    .hero h1{
-        font-size: 36px;
-    }
-    .hero p{
-        font-size: 18px;
-    }
-    .hero button{
-        font-size: 24px;
-        padding: 10px 30px;
-    }
-}
-@media (max-width: 480px){
-    .hero h1{
-        font-size: 28px;
-    }
-    .hero p{
-        font-size: 16px;
-    }
-    .hero button{
-        font-size: 20px;
-        padding: 8px 20px;
-    }
-}
-@media (max-width: 395px){
-    
-    .hero button{
-        font-size: 20px;
-        padding: 8px 20px;
-    }
-    .hero .hero-text p {
-    font-size: 16px;
-    max-width: 350px;
-    margin: 0 auto 20px;
-}
-   .hero .hero-text h1{
-    font-size: 28px;
-   }
-}
-@media (max-width: 435px){
-    
-    .hero button{
-        font-size: 20px;
-        padding: 8px 20px;
-    }
-    .hero .hero-text p {
-    font-size: 16px;
-    max-width: 350px;
-    margin: 0 auto 20px;
-}
-   .hero .hero-text h1{
-    font-size: 28px;
-   }
-   .hero{
-    height: 50vh;
-   }
-}
-@media (max-width: 350px){
-    
-    .hero button{
-        font-size: 20px;
-        padding: 8px 20px;
-    }
-    .hero .hero-text p {
-    font-size: 10px;
-    max-width: 350px;
-    margin: 0 auto 20px;
-}
-   .hero .hero-text h1{
-    font-size: 28px;
-   }
-   .hero{
-    height: 50vh;
-   }
+  .spiritual-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .sacred-symbol {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 2rem;
+  }
+
+  .symbol-middle {
+    width: 70px;
+    height: 70px;
+  }
+
+  .symbol-inner {
+    width: 45px;
+    height: 45px;
+  }
+
+  .sacred-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sacred-btn {
+    width: 250px;
+    justify-content: center;
+  }
+
+  .spiritual-stats {
+    gap: 2rem;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .karma-principle {
+    padding: 1.25rem;
+  }
+
+  .principle-text {
+    font-size: 1rem;
+  }
 }
 
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
 
-    
-    
+  .spiritual-text {
+    font-size: 1rem;
+  }
 
-    
+  .sacred-symbol {
+    width: 80px;
+    height: 80px;
+  }
+
+  .symbol-middle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .symbol-inner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .karma-char {
+    font-size: 1.2rem;
+  }
+
+  .sacred-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .divine-marquee-container {
+    padding: 0.875rem 1.25rem;
+    margin: 2rem auto;
+  }
+
+  .spiritual-stats {
+    gap: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Fixed spacing for consistent layout */
+.spiritual-content > * {
+  margin-bottom: 2.5rem;
+}
+
+.spiritual-content > *:last-child {
+  margin-bottom: 0;
+}
