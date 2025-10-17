@@ -32,6 +32,15 @@
   transition: all 0.3s ease;
 }
 /* -- contact left column --- */
+.left {
+  flex: 1;
+  min-width: 350px;
+  
+  padding: 40px;
+ 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
 
 .contact-col:hover {
   transform: translateY(-4px);
@@ -70,7 +79,7 @@
   gap: 8px;
 }
 /* === Image beside heading === */
-.contact-col h2 img {
+.left h2 img {
   width: 15px;
   height: 15px;
   object-fit: contain;
