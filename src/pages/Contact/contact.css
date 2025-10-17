@@ -43,7 +43,7 @@
 }
 
 /* --- Contact Info Section --- */
-.contact-col h2 {
+.contact-col-left h2 {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -53,20 +53,20 @@
   margin-bottom: 20px;
 }
 
-.contact-col p {
+.contact-col-left p {
   font-size: 15px;
   color: #4b5563;
   line-height: 1.7;
   margin-bottom: 20px;
 }
 
-.contact-col ul {
+.contact-col-left ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.contact-col ul li {
+.contact-col-left ul li {
   font-size: 16px;
   color: #1f2937;
   margin: 10px 0;
@@ -75,7 +75,7 @@
   gap: 8px;
 }
 /* === Image beside heading === */
-.contact-col h2 img {
+.contact-col-left h2 img {
   width: 8px;
   height: 8px;
   object-fit: contain;
@@ -83,7 +83,7 @@
   transition: transform 0.25s ease;
 }
 
-.contact-col h2:hover img {
+.contact-col-left h2:hover img {
   transform: scale(1.1) rotate(-5deg);
 }
 
@@ -163,7 +163,7 @@ textarea {
   }
 
   /* Form first, details below */
-  .contact-col:nth-child(2) {
+  .contact-col-left:nth-child(2) {
     order: -1;
   }
 }
@@ -173,7 +173,7 @@ textarea {
     padding: 60px 5%;
   }
 
-  .contact-col {
+  .contact-col-left {
     padding: 25px;
   }
 
