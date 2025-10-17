@@ -1,7 +1,7 @@
 import React from 'react'
-import './community.css'
+import './program.css'
 
-const Community = () => {
+const Program = () => {
   const features = [
     {
       id: 1,
@@ -103,4 +103,4 @@ const Community = () => {
   )
 }
 
-export default Community
+export default Program
