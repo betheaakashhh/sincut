@@ -98,7 +98,7 @@ form {
   gap: 18px;
 }
 
-label {
+.contact-form label {
   font-size: 15px;
   font-weight: 500;
   color: #111827;
