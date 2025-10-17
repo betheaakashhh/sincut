@@ -136,6 +136,24 @@
     height: 50vh;
    }
 }
+@media (max-width: 350px){
+    
+    .hero button{
+        font-size: 20px;
+        padding: 8px 20px;
+    }
+    .hero .hero-text p {
+    font-size: 10px;
+    max-width: 350px;
+    margin: 0 auto 20px;
+}
+   .hero .hero-text h1{
+    font-size: 28px;
+   }
+   .hero{
+    height: 50vh;
+   }
+}
 
 
     

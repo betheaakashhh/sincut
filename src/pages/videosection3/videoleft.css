@@ -38,3 +38,47 @@
   color: #333;
   margin-bottom: 15px;
 }
+@media (max-width: 768px) {
+  .video-section {
+    flex-direction: column;
+    padding: 30px 5%;
+  }
+
+  .text-container, .video-container {
+    min-width: 100%;
+  }
+
+  .text-container h2 {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 480px) {
+  .text-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .text-container p {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 320px) {
+  .text-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .text-container p {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 280px) {
+  .text-container h2 {
+    font-size: 1rem;
+  }
+
+  .text-container p {
+    font-size: 0.8rem;
+  }
+}
+.doodle-section {
+  background: linear-gradient(135deg, #6c0879, #12c276);
+}
