@@ -15,9 +15,7 @@ const Home = () => {
   return (
   <div>
      <Header /> 
-    <div className="container">
-    <Title subtitle={"Be With Us"} title={"Join our community and embrace a life of kindness, compassion, and positive change. Together, we can make the world a better place, one act of kindness at a time."}/>
-    </div>
+   
     
     <Program />
     
