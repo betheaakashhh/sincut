@@ -1,88 +1,599 @@
-.confess-section {
-  width : 90%;
+/* confess.css */
+.divine-confess-section {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    #0f172a 0%, 
+    #1e293b 25%, 
+    #2d3748 50%, 
+    #4a5568 100%);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 90vh;
-  background: linear-gradient(135deg, #141e30, #243b55);
-  color: #fff;
-  padding: 50px 20px;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-  position: relative;
-  
-  padding: 5rem 2rem;
-  color: white;
+  padding: 4rem 0;
   overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.confess-section::before {
-  content: "";
+
+/* Divine Background Elements */
+.divine-background {
   position: absolute;
-  bottom: -1px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
-  background: #F5F5F5;
-  border-radius: 100% 100% 0 0;
-  transform: scaleX(1.5);
+  height: 100%;
+  pointer-events: none;
 }
 
-.confess-heading {
+.heaven-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(16, 185, 129, 0.05) 30%,
+    transparent 70%
+  );
+  animation: gentlePulse 8s ease-in-out infinite;
+}
+
+.floating-blessing {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.4;
+  animation: floatBlessing 6s ease-in-out infinite;
+}
+
+.floating-blessing:nth-child(2) { top: 20%; left: 10%; animation-delay: 0s; }
+.floating-blessing:nth-child(3) { top: 15%; right: 15%; animation-delay: 2s; }
+.floating-blessing:nth-child(4) { bottom: 25%; left: 20%; animation-delay: 4s; }
+.floating-blessing:nth-child(5) { bottom: 15%; right: 10%; animation-delay: 6s; }
+
+/* Main Container */
+.confess-container {
+  width: 90%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  padding: 3rem;
+  position: relative;
+  z-index: 2;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Sacred Header */
+.sacred-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 2.5rem;
+  gap: 1.5rem;
 }
 
-.confess-heading h2 {
-  font-size: 3rem;
-  letter-spacing: 1px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.line {
+.divine-line {
   flex: 1;
   height: 2px;
-  background: linear-gradient(90deg, #0ff, #12c276, #0ff);
-  max-width: 120px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.6),
+    transparent
+  );
 }
 
-.confess-description {
-  max-width: 600px;
+.confess-title-container {
+  position: relative;
+  text-align: center;
+}
+
+.halo-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.2) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: haloPulse 4s ease-in-out infinite;
+}
+
+.confess-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.divine-subtitle {
+  color: #94a3b8;
   font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Sacred Description */
+.sacred-description-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.protection-icon {
+  font-size: 1.5rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.sacred-description {
+  color: #cbd5e1;
+  font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 25px;
-  opacity: 0.85;
+  text-align: center;
+  margin: 0;
+  font-weight: 300;
 }
 
-.confess-textarea {
-  width: 80%;
-  max-width: 700px;
-  height: 180px;
-  padding: 15px;
-  font-size: 1rem;
-  border-radius: 12px;
+/* Divine Text Area */
+.divine-textarea-container {
+  position: relative;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.divine-textarea-container.active {
+  transform: translateY(-5px);
+}
+
+.textarea-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.3), 
+    rgba(16, 185, 129, 0.3), 
+    rgba(59, 130, 246, 0.3));
+  border-radius: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.divine-textarea-container.active .textarea-glow {
+  opacity: 1;
+  animation: textareaGlow 2s ease-in-out infinite;
+}
+
+.sparkle-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 20%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: 1rem;
+}
+
+.divine-textarea-container.active .sparkle-effect {
+  opacity: 1;
+}
+
+.divine-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.3), 
+    rgba(16, 185, 129, 0.3)) border-box;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.divine-textarea-container.active .divine-border {
+  opacity: 1;
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.divine-textarea {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
   border: none;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: #e2e8f0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 200px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.divine-textarea:focus {
   outline: none;
-  resize: none;
-  box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.divine-textarea::placeholder {
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Character Guidance */
+.character-guidance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0 0.5rem;
+}
+
+.character-count {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.divine-message {
+  color: #10b981;
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: right;
+}
+
+/* Writing Effects */
+.writing-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.glowing-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: particleFloat 2s ease-in-out infinite;
+  opacity: 0;
+}
+
+.glowing-particle:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.glowing-particle:nth-child(2) {
+  top: 60%;
+  left: 80%;
+  animation-delay: 1s;
+}
+
+.glowing-particle:nth-child(3) {
+  top: 40%;
+  left: 50%;
+  animation-delay: 2s;
+}
+
+/* Karma Indicator */
+.karma-indicator {
+  margin-bottom: 2rem;
+}
+
+.karma-bar {
+  width: 100%;
+  height: 6px;
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  backdrop-filter: blur(8px);
-  margin-bottom: 25px;
-  transition: 0.3s ease-in-out;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
 }
 
-.confess-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+.karma-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  position: relative;
 }
 
-.confess-textarea:focus {
-  box-shadow: 0 4px 25px rgba(18, 194, 118, 0.5);
+.karma-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  animation: progressShine 2s ease-in-out infinite;
 }
 
+.karma-label {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  text-align: center;
+  font-style: italic;
+}
 
+/* Divine Action Section */
+.divine-action-section {
+  margin-bottom: 2rem;
+}
 
+.payment-loading {
+  text-align: center;
+  color: #cbd5e1;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(59, 130, 246, 0.3);
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+.razorpay-container {
+  text-align: center;
+}
+
+.blessing-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #10b981;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.blessing-icon {
+  font-size: 1.2rem;
+}
+
+.donation-note {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+.international-payment {
+  text-align: center;
+  color: #cbd5e1;
+}
+
+.global-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.payment-note {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Final Blessing */
+.final-blessing {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.blessing-text {
+  color: #e2e8f0;
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.blessing-signature {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+@keyframes floatBlessing {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
+}
+
+@keyframes haloPulse {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes textareaGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes borderGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes particleFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
+  50% { transform: translateY(-10px) scale(1.5); opacity: 1; }
+}
+
+@keyframes progressShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .confess-container {
+    width: 95%;
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .sacred-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .divine-line {
+    width: 100px;
+    height: 1px;
+  }
+
+  .confess-title {
+    font-size: 2rem;
+  }
+
+  .sacred-description-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .sacred-description {
+    font-size: 1rem;
+  }
+
+  .divine-textarea {
+    padding: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .character-guidance {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .final-blessing {
+    padding: 1.5rem;
+  }
+
+  .blessing-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .divine-confess-section {
+    padding: 2rem 0;
+  }
+
+  .confess-container {
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+  }
+
+  .confess-title {
+    font-size: 1.75rem;
+  }
+
+  .divine-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .sacred-description {
+    font-size: 0.9rem;
+  }
+
+  .divine-textarea {
+    padding: 1rem;
+    font-size: 0.9rem;
+    min-height: 150px;
+  }
+
+  .blessing-message {
+    font-size: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .final-blessing {
+    padding: 1rem;
+  }
+
+  .blessing-text {
+    font-size: 1rem;
+  }
+}
+
+/* Mouse tracking for sparkle effect */
+.divine-textarea-container {
+  position: relative;
+}
+
+.divine-textarea-container:hover .sparkle-effect {
+  opacity: 0.5;
+}
