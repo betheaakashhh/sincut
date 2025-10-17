@@ -76,8 +76,8 @@
 }
 /* === Image beside heading === */
 .left h2 img {
-  width: 8px;
-  height: 8px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
   transition: transform 0.25s ease;
