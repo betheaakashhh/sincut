@@ -33,7 +33,7 @@ const Navbar = () => {
                 const nextIndex = (currentIndex + 1) % logoTransformations.length
                 setLogoText(logoTransformations[nextIndex])
             }
-        }, 3000) // Change every 3 seconds
+        }, 3000)
 
         window.addEventListener('scroll', handleScroll)
         
@@ -45,11 +45,26 @@ const Navbar = () => {
 
     const toggleMenu = () => {
         setMobileMenu(!mobileMenu)
+        // Prevent body scroll when mobile menu is open
+        if (!mobileMenu) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'unset'
+        }
     }
 
     const handleNavClick = (menuItem) => {
         setMenu(menuItem)
         setMobileMenu(false)
+        document.body.style.overflow = 'unset' // Restore scroll when menu item is clicked
+    }
+
+    // Close mobile menu when clicking on overlay background
+    const handleOverlayClick = (e) => {
+        if (e.target.classList.contains('mobile-nav-overlay')) {
+            setMobileMenu(false)
+            document.body.style.overflow = 'unset'
+        }
     }
 
     return (
@@ -121,50 +136,70 @@ const Navbar = () => {
                 </button>
             </div>
 
-            {/* Mobile Navigation Overlay */}
-            <div className={`mobile-nav-overlay ${mobileMenu ? 'active' : ''}`}>
+            {/* Mobile Navigation Overlay - Fixed Position */}
+            <div 
+                className={`mobile-nav-overlay ${mobileMenu ? 'active' : ''}`}
+                onClick={handleOverlayClick}
+            >
                 <div className="mobile-nav-content">
+                    {/* Close Button at Top */}
                     <div className="mobile-nav-header">
-                        <h2 className="mobile-logo">SinCUT</h2>
+                        <div className="mobile-header-top">
+                            <h2 className="mobile-logo">SinCUT</h2>
+                            <button 
+                                className="mobile-close-btn"
+                                onClick={toggleMenu}
+                                aria-label="Close menu"
+                            >
+                                <div className="close-icon">✕</div>
+                            </button>
+                        </div>
                         <div className="mobile-nav-glow"></div>
+                        <p className="mobile-welcome-text">Welcome to your spiritual journey</p>
                     </div>
                     
-                    <ul className="mobile-nav-links">
-                        <li className={menu === "Home" ? "active" : ""}>
-                            <Link to="/" onClick={() => handleNavClick("Home")}>
-                                <span className="nav-icon">🏠</span>
-                                Home
-                                <div className="mobile-glow"></div>
-                            </Link>
-                        </li>
-                        <li className={menu === "About" ? "active" : ""}>
-                            <Link to="/about" onClick={() => handleNavClick("About")}>
-                                <span className="nav-icon">📖</span>
-                                About
-                                <div className="mobile-glow"></div>
-                            </Link>
-                        </li>
-                        <li className={menu === "Contact" ? "active" : ""}>
-                            <Link to="/contact" onClick={() => handleNavClick("Contact")}>
-                                <span className="nav-icon">💬</span>
-                                Contact
-                                <div className="mobile-glow"></div>
-                            </Link>
-                        </li>
-                        <li className={menu === "FAQs" ? "active" : ""}>
-                            <Link to="/FAQs" onClick={() => handleNavClick("FAQs")}>
-                                <span className="nav-icon">❓</span>
-                                FAQs
-                                <div className="mobile-glow"></div>
-                            </Link>
-                        </li>
-                    </ul>
+                    {/* Navigation Links - Centered */}
+                    <div className="mobile-nav-center">
+                        <ul className="mobile-nav-links">
+                            <li className={menu === "Home" ? "active" : ""}>
+                                <Link to="/" onClick={() => handleNavClick("Home")}>
+                                    <span className="nav-icon">🏠</span>
+                                    <span className="nav-text">Home</span>
+                                    <div className="mobile-glow"></div>
+                                </Link>
+                            </li>
+                            <li className={menu === "About" ? "active" : ""}>
+                                <Link to="/about" onClick={() => handleNavClick("About")}>
+                                    <span className="nav-icon">📖</span>
+                                    <span className="nav-text">About</span>
+                                    <div className="mobile-glow"></div>
+                                </Link>
+                            </li>
+                            <li className={menu === "Contact" ? "active" : ""}>
+                                <Link to="/contact" onClick={() => handleNavClick("Contact")}>
+                                    <span className="nav-icon">💬</span>
+                                    <span className="nav-text">Contact</span>
+                                    <div className="mobile-glow"></div>
+                                </Link>
+                            </li>
+                            <li className={menu === "FAQs" ? "active" : ""}>
+                                <Link to="/FAQs" onClick={() => handleNavClick("FAQs")}>
+                                    <span className="nav-icon">❓</span>
+                                    <span className="nav-text">FAQs</span>
+                                    <div className="mobile-glow"></div>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
 
                     {/* Mobile Nav Footer */}
                     <div className="mobile-nav-footer">
-                        <p className="divine-quote">
-                            "Your journey to peace begins here"
-                        </p>
+                        <div className="scroll-indicator">
+                            <div className="scroll-arrow">↓</div>
+                            <p className="divine-quote">
+                                "Your journey to peace begins here"
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
