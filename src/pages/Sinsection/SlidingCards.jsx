@@ -44,21 +44,21 @@ const SlidingCards = () => {
 
   useEffect(() => {
     if (darkMode) {
-      document.body.classList.add('dark-mode');
+      document.body.classList.add('sincut-dark-mode');
     } else {
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove('sincut-dark-mode');
     }
   }, [darkMode]);
 
   return (
-    <div className={`sliding-cards-container ${darkMode ? 'dark' : 'light'}`}>
+    <div className={`sincut-container ${darkMode ? 'dark' : 'light'}`}>
       {/* Header Section */}
-      <header className="header">
-        <div className="header-content">
+      <header className="sincut-header">
+        <div className="sincut-header-content">
           <h1>SINCUT</h1>
           <p>Confess. Contribute. Cleanse.</p>
           <button 
-            className="theme-toggle"
+            className="sincut-theme-toggle"
             onClick={() => setDarkMode(!darkMode)}
           >
             {darkMode ? '☀️ Light' : '🌙 Dark'}
@@ -67,34 +67,32 @@ const SlidingCards = () => {
       </header>
 
       {/* Sliding Cards Section */}
-      <section className="cards-section">
+      <section className="sincut-cards-section">
         <h3>Ready to Start Your Journey?</h3>
-        <p className="section-subtitle">Choose your path to peace and clarity</p>
+        <p className="sincut-section-subtitle">Choose your path to peace and clarity</p>
 
-        <div className="cards-wrapper">
-          <div className="cards-track">
+        <div className="sincut-cards-wrapper">
+          <div className="sincut-cards-track">
             {[...cards, ...cards].map((card, index) => (
               <div
                 key={`${card.id}-${index}`}
-                className="card"
+                className="sincut-card"
                 style={{
                   backgroundColor: card.bgColor,
                   color: card.textColor
                 }}
               >
-                <div className="card-content">
+                <div className="sincut-card-content">
                   <h4>{card.title}</h4>
                   <p>{card.description}</p>
-                  <div className="card-chip"></div>
-                  <div className="card-glow"></div>
+                  <div className="sincut-card-chip"></div>
+                  <div className="sincut-card-glow"></div>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      
     </div>
   );
 };
