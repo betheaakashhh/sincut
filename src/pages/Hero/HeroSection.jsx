@@ -167,7 +167,7 @@ const HeroSection = () => {
                 Divine redemption available worldwide
               </div>
               <div className="stripe-placeholder">
-                <button className="modern-submit-btn" onClick={handleBeforePay}>
+                <button className="modern-submit-btn" >
                   <span className="btn-glow"></span>
                   <span className="btn-text">Complete Redemption ($1)</span>
                   <span className="btn-arrow">→</span>
