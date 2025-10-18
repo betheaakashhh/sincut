@@ -21,8 +21,8 @@ const Home = () => {
     
    
    <ConfessSection />
-   <VideoSection />
    <VideoSectionLeft />
+   <VideoSection />
    <VideoSectionSad />
    
    
