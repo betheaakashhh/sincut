@@ -24,7 +24,7 @@ const HeroSection = () => {
       setHeroText("");
       setCharacterCount(0);
       setIsProcessing(false);
-    }, 2000);
+    }, 1300);
     
     return true; // allow RazorpayButton to proceed
   };
