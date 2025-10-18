@@ -150,9 +150,7 @@ const HeroSection = () => {
                 onBeforePay={handleBeforePay}
                 className="razorpay-custom-btn"
               />
-              <p className="donation-note">
-                Your ₹1 donation plants seeds of goodness and completes your redemption
-              </p>
+              
             </div>
           ) : (
             <div className="international-options">
