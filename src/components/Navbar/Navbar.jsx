@@ -94,28 +94,24 @@ const Navbar = () => {
                 <ul className="nav-links">
                     <li className={menu === "Home" ? "active" : ""}>
                         <Link to="/" onClick={() => handleNavClick("Home")}>
-                            <span className="nav-icon">🏠</span>
                             Home
                             <div className="nav-glow"></div>
                         </Link>
                     </li>
                     <li className={menu === "About" ? "active" : ""}>
                         <Link to="/about" onClick={() => handleNavClick("About")}>
-                            <span className="nav-icon">📖</span>
                             About
                             <div className="nav-glow"></div>
                         </Link>
                     </li>
                     <li className={menu === "Contact" ? "active" : ""}>
                         <Link to="/contact" onClick={() => handleNavClick("Contact")}>
-                            <span className="nav-icon">💬</span>
                             Contact
                             <div className="nav-glow"></div>
                         </Link>
                     </li>
                     <li className={menu === "FAQs" ? "active" : ""}>
                         <Link to="/FAQs" onClick={() => handleNavClick("FAQs")}>
-                            <span className="nav-icon">❓</span>
                             FAQs
                             <div className="nav-glow"></div>
                         </Link>
@@ -163,28 +159,24 @@ const Navbar = () => {
                         <ul className="mobile-nav-links">
                             <li className={menu === "Home" ? "active" : ""}>
                                 <Link to="/" onClick={() => handleNavClick("Home")}>
-                                    <span className="nav-icon">🏠</span>
                                     <span className="nav-text">Home</span>
                                     <div className="mobile-glow"></div>
                                 </Link>
                             </li>
                             <li className={menu === "About" ? "active" : ""}>
                                 <Link to="/about" onClick={() => handleNavClick("About")}>
-                                    <span className="nav-icon">📖</span>
                                     <span className="nav-text">About</span>
                                     <div className="mobile-glow"></div>
                                 </Link>
                             </li>
                             <li className={menu === "Contact" ? "active" : ""}>
                                 <Link to="/contact" onClick={() => handleNavClick("Contact")}>
-                                    <span className="nav-icon">💬</span>
                                     <span className="nav-text">Contact</span>
                                     <div className="mobile-glow"></div>
                                 </Link>
                             </li>
                             <li className={menu === "FAQs" ? "active" : ""}>
                                 <Link to="/FAQs" onClick={() => handleNavClick("FAQs")}>
-                                    <span className="nav-icon">❓</span>
                                     <span className="nav-text">FAQs</span>
                                     <div className="mobile-glow"></div>
                                 </Link>
@@ -207,4 +199,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
