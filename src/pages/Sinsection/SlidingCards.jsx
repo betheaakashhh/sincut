@@ -68,10 +68,8 @@ const SlidingCards = () => {
 
       {/* Sliding Cards Section */}
       <section className="sincut-cards-section">
-        <h3>Ready to Start Your Journey?</h3>
-        <p className="sincut-section-subtitle">Choose your path to peace and clarity</p>
-
-        <div className="sincut-cards-wrapper">
+        
+<div className="sincut-cards-wrapper">
           <div className="sincut-cards-track">
             {[...cards, ...cards].map((card, index) => (
               <div
