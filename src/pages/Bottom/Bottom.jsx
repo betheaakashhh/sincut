@@ -121,7 +121,7 @@ const Bottom = () => {
         <div className="copyright-section">
           <div className="copyright-glow">
             <p className="copyright-text">
-              © 2024 SinCUT. All Rights Reserved. 
+              © 2024 SINCUT. All Rights Reserved. 
               <span className="copyright-emoji"> 🔥</span>
             </p>
           </div>
