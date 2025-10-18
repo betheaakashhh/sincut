@@ -23,9 +23,9 @@ const Home = () => {
     <Program />
     
    
-   <ConfessSection />
+   {/* <ConfessSection /> */}
    <VideoSectionLeft />
-   <VideoSection />
+   {/* <VideoSection /> */}
    <VideoSectionSad />
    
    

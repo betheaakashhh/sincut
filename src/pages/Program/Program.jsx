@@ -1,5 +1,7 @@
 import React from 'react'
 import './program.css'
+import ShareButton from '../ShareButton/ShareButton';
+
 
 const Program = () => {
   const features = [
@@ -9,7 +11,8 @@ const Program = () => {
       description: "Share the goodness. Invite your friends to donate and make a difference.",
       buttonText: "Refer",
       icon: "👥",
-      gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      isShare: true // Add this flag for share button
     },
     {
       id: 2,
@@ -72,12 +75,20 @@ const Program = () => {
                   <div className="feature-icon">{feature.icon}</div>
                   <h3 className="feature-title">{feature.title}</h3>
                   <p className="feature-description">{feature.description}</p>
-                  <button className="feature-button">
-                    {feature.buttonText}
-                    <svg className="button-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
+                  
+                  {/* Conditionally render ShareButton or regular button */}
+                  {feature.isShare ? (
+                    <div className="share-button-wrapper">
+                      <ShareButton />
+                    </div>
+                  ) : (
+                    <button className="feature-button">
+                      {feature.buttonText}
+                      <svg className="button-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                  )}
                 </div>
                 <div className="card-glow"></div>
               </div>
@@ -103,4 +114,4 @@ const Program = () => {
   )
 }
 
-export default Program
+export default Program;
