@@ -185,12 +185,7 @@ const HeroSection = () => {
         </div>
 
         {/* Inspiration Quote */}
-        <div className="inspiration-quote">
-          <div className="quote-text">
-            <QuoteMarquee />
-          </div>
-          <div className="quote-author">- The Path to Redemption</div>
-        </div>
+        
       </div>
     </div>
   );

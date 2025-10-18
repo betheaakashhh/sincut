@@ -56,7 +56,7 @@ const About = () => {
               
               <div className="cta-section">
                 <p className="cta-text">Ready to make a difference?</p>
-                <a href="/donate" className="cta-button">Start Your Journey</a>
+                <a href="/" className="cta-button">Start Your Journey</a>
               </div>
             </div>
             
