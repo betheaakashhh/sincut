@@ -1,24 +1,25 @@
-/* title.css */
+/* title.css - MOBILE OPTIMIZED */
 .divine-title-container {
   position: relative;
-  padding: 4rem 2rem;
+  padding: 2rem 1rem;
   text-align: center;
   background: linear-gradient(135deg, 
     rgba(15, 23, 42, 0.9) 0%, 
     rgba(30, 41, 59, 0.8) 50%, 
     rgba(51, 65, 85, 0.7) 100%);
-  border-radius: 2rem;
-  margin: 2rem auto;
+  border-radius: 1rem;
+  margin: 1rem auto;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 10px 25px -5px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   max-width: 1200px;
-  width: 90%;
+  width: 95%;
+  min-height: auto;
 }
 
-/* Heavenly Background */
+/* Heavenly Background - Reduced for Mobile */
 .heavenly-background {
   position: absolute;
   top: 0;
@@ -33,54 +34,55 @@
   position: absolute;
   border-radius: 50%;
   background: radial-gradient(circle, 
-    rgba(59, 130, 246, 0.3) 0%, 
+    rgba(59, 130, 246, 0.2) 0%, 
     transparent 70%);
   animation: lightPulse 6s ease-in-out infinite;
 }
 
 .light-1 {
-  top: 10%;
-  left: 10%;
-  width: 200px;
-  height: 200px;
+  top: 5%;
+  left: 5%;
+  width: 80px;
+  height: 80px;
   animation-delay: 0s;
 }
 
 .light-2 {
-  top: 60%;
-  right: 15%;
-  width: 150px;
-  height: 150px;
+  top: 70%;
+  right: 10%;
+  width: 60px;
+  height: 60px;
   animation-delay: 2s;
 }
 
 .light-3 {
-  bottom: 20%;
-  left: 20%;
-  width: 180px;
-  height: 180px;
+  bottom: 10%;
+  left: 10%;
+  width: 70px;
+  height: 70px;
   animation-delay: 4s;
 }
 
 .floating-spirit {
   position: absolute;
-  font-size: 1.5rem;
-  opacity: 0.4;
+  font-size: 1rem;
+  opacity: 0.3;
   animation: spiritFloat 8s ease-in-out infinite;
 }
 
-.spirit-1 { top: 15%; right: 20%; animation-delay: 0s; }
-.spirit-2 { top: 25%; left: 15%; animation-delay: 1.5s; }
-.spirit-3 { bottom: 30%; right: 25%; animation-delay: 3s; }
-.spirit-4 { bottom: 15%; left: 30%; animation-delay: 4.5s; }
+.spirit-1 { top: 10%; right: 15%; animation-delay: 0s; }
+.spirit-2 { top: 20%; left: 10%; animation-delay: 1.5s; }
+.spirit-3 { bottom: 25%; right: 20%; animation-delay: 3s; }
+.spirit-4 { bottom: 10%; left: 25%; animation-delay: 4.5s; }
 
 /* Main Content */
 .divine-title-content {
   position: relative;
   z-index: 2;
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+  padding: 0.5rem;
 }
 
 .divine-title-content.visible {
@@ -88,14 +90,14 @@
   transform: translateY(0);
 }
 
-/* Sacred Symbol */
+/* Sacred Symbol - Smaller for Mobile */
 .sacred-symbol-wrapper {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .sacred-symbol {
   display: inline-block;
-  animation: symbolEntrance 1.5s ease-out;
+  animation: symbolEntrance 1.2s ease-out;
 }
 
 .symbol-ring {
@@ -103,83 +105,85 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  animation: ringRotate 20s linear infinite;
+  animation: ringRotate 25s linear infinite;
 }
 
 .outer-ring {
-  width: 100px;
-  height: 100px;
-  border: 2px solid rgba(59, 130, 246, 0.5);
-  padding: 10px;
+  width: 60px;
+  height: 60px;
+  border: 1.5px solid rgba(59, 130, 246, 0.4);
+  padding: 6px;
 }
 
 .middle-ring {
-  width: 80px;
-  height: 80px;
-  border: 1.5px solid rgba(16, 185, 129, 0.4);
-  padding: 8px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 5px;
 }
 
 .inner-ring {
-  width: 60px;
-  height: 60px;
+  width: 36px;
+  height: 36px;
   background: linear-gradient(135deg, #3b82f6, #10b981);
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
 }
 
 .divine-char {
-  font-size: 2rem;
+  font-size: 1.1rem;
   color: white;
   font-weight: bold;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
-/* Subtitle */
+/* Subtitle - Mobile Optimized */
 .subtitle-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
   opacity: 0;
-  animation: subtitleReveal 0.8s ease-out 0.3s forwards;
+  animation: subtitleReveal 0.6s ease-out 0.2s forwards;
 }
 
 .subtitle-line {
   flex: 1;
-  max-width: 100px;
-  height: 2px;
+  max-width: 40px;
+  height: 1px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(59, 130, 246, 0.6),
+    rgba(59, 130, 246, 0.5),
     transparent
   );
 }
 
 .divine-subtitle {
-  font-size: 1.5rem;
-  font-weight: 300;
+  font-size: 0.9rem;
+  font-weight: 400;
   color: #cbd5e1;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   margin: 0;
   background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  line-height: 1.3;
 }
 
-/* Main Title */
+/* Main Title - Mobile Optimized */
 .title-container {
   position: relative;
   display: inline-block;
   opacity: 0;
-  animation: titleReveal 1s ease-out 0.6s forwards;
+  animation: titleReveal 0.8s ease-out 0.4s forwards;
+  margin: 0.5rem 0;
 }
 
 .divine-title {
-  font-size: 3.5rem;
+  font-size: 1.5rem;
   font-weight: 700;
   background: linear-gradient(135deg, 
     #f59e0b 0%, 
@@ -190,11 +194,12 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1.2;
+  line-height: 1.3;
   margin: 0;
-  text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
   position: relative;
   z-index: 2;
+  padding: 0 0.5rem;
 }
 
 .title-glow {
@@ -202,19 +207,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
+  width: 110%;
+  height: 110%;
   background: radial-gradient(
     circle,
-    rgba(59, 130, 246, 0.2) 0%,
+    rgba(59, 130, 246, 0.15) 0%,
     transparent 70%
   );
-  filter: blur(20px);
+  filter: blur(12px);
   z-index: 1;
-  animation: glowPulse 3s ease-in-out infinite;
+  animation: glowPulse 4s ease-in-out infinite;
 }
 
-/* Divine Particles */
+/* Divine Particles - Reduced for Mobile */
 .divine-particles {
   position: absolute;
   top: 0;
@@ -227,80 +232,82 @@
 
 .particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 2px;
+  height: 2px;
   background: #3b82f6;
   border-radius: 50%;
-  animation: particleFloat 4s ease-in-out infinite;
+  animation: particleFloat 5s ease-in-out infinite;
   opacity: 0;
 }
 
 .particle:nth-child(1) {
-  top: 20%;
-  left: 10%;
+  top: 15%;
+  left: 8%;
   animation-delay: 0s;
 }
 .particle:nth-child(2) {
-  top: 60%;
-  left: 80%;
+  top: 65%;
+  left: 85%;
   animation-delay: 1s;
 }
 .particle:nth-child(3) {
-  top: 40%;
-  left: 30%;
+  top: 35%;
+  left: 25%;
   animation-delay: 2s;
 }
 .particle:nth-child(4) {
-  top: 80%;
-  left: 60%;
+  top: 75%;
+  left: 55%;
   animation-delay: 3s;
 }
 .particle:nth-child(5) {
-  top: 30%;
-  left: 70%;
+  top: 25%;
+  left: 65%;
   animation-delay: 4s;
 }
 
-/* Blessing Text */
+/* Blessing Text - Mobile Optimized */
 .blessing-text {
-  margin-top: 2rem;
+  margin-top: 1rem;
   color: #94a3b8;
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-style: italic;
   opacity: 0;
-  animation: blessingReveal 0.8s ease-out 0.9s forwards;
+  animation: blessingReveal 0.6s ease-out 0.6s forwards;
+  line-height: 1.4;
+  padding: 0 0.5rem;
 }
 
-/* Divine Border Animation */
+/* Divine Border Animation - Subtle for Mobile */
 .divine-border-animation {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 2rem;
+  border-radius: 1rem;
   background: linear-gradient(45deg, 
     #3b82f6, #10b981, #f59e0b, #ef4444, #3b82f6);
-  background-size: 400% 400%;
-  animation: borderFlow 6s ease-in-out infinite;
+  background-size: 300% 300%;
+  animation: borderFlow 8s ease-in-out infinite;
   z-index: -1;
-  opacity: 0.3;
-  filter: blur(10px);
+  opacity: 0.2;
+  filter: blur(5px);
 }
 
-/* Animations */
+/* Animations - Optimized for Performance */
 @keyframes lightPulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.1); }
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
 }
 
 @keyframes spiritFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-  50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+  50% { transform: translateY(-10px) rotate(90deg); opacity: 0.4; }
 }
 
 @keyframes symbolEntrance {
-  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  0% { transform: scale(0.8) rotate(-90deg); opacity: 0; }
   100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
@@ -310,15 +317,15 @@
 }
 
 @keyframes subtitleReveal {
-  from { opacity: 0; transform: translateX(-20px); }
+  from { opacity: 0; transform: translateX(-15px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes titleReveal {
   from { 
     opacity: 0; 
-    transform: scale(0.8) translateY(20px); 
-    filter: blur(10px);
+    transform: scale(0.9) translateY(15px); 
+    filter: blur(5px);
   }
   to { 
     opacity: 1; 
@@ -328,17 +335,17 @@
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.05); }
 }
 
 @keyframes particleFloat {
   0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
-  50% { transform: translateY(-30px) scale(1.5); opacity: 1; }
+  50% { transform: translateY(-15px) scale(1.2); opacity: 0.6; }
 }
 
 @keyframes blessingReveal {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -347,47 +354,12 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Tablet Styles */
+@media (min-width: 768px) {
   .divine-title-container {
-    padding: 3rem 1.5rem;
+    padding: 3rem 2rem;
     margin: 1.5rem auto;
-  }
-  
-  .divine-title {
-    font-size: 3rem;
-  }
-  
-  .divine-subtitle {
-    font-size: 1.3rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .divine-title-container {
-    width: 95%;
-    padding: 2.5rem 1rem;
     border-radius: 1.5rem;
-    margin: 1rem auto;
-  }
-
-  .sacred-symbol .outer-ring {
-    width: 80px;
-    height: 80px;
-  }
-
-  .sacred-symbol .middle-ring {
-    width: 65px;
-    height: 65px;
-  }
-
-  .sacred-symbol .inner-ring {
-    width: 50px;
-    height: 50px;
-  }
-
-  .divine-char {
-    font-size: 1.5rem;
   }
 
   .divine-title {
@@ -399,87 +371,108 @@
     letter-spacing: 2px;
   }
 
-  .subtitle-container {
-    gap: 1rem;
+  .sacred-symbol .outer-ring {
+    width: 80px;
+    height: 80px;
   }
 
-  .subtitle-line {
-    max-width: 60px;
+  .sacred-symbol .middle-ring {
+    width: 64px;
+    height: 64px;
+  }
+
+  .sacred-symbol .inner-ring {
+    width: 48px;
+    height: 48px;
+  }
+
+  .divine-char {
+    font-size: 1.5rem;
   }
 
   .blessing-text {
     font-size: 0.9rem;
-    margin-top: 1.5rem;
   }
 
   .light-1, .light-2, .light-3 {
     width: 120px;
     height: 120px;
   }
+
+  .floating-spirit {
+    font-size: 1.3rem;
+  }
 }
 
-@media (max-width: 480px) {
+/* Desktop Styles */
+@media (min-width: 1024px) {
   .divine-title-container {
-    padding: 2rem 0.75rem;
-    border-radius: 1rem;
+    padding: 4rem 3rem;
+    margin: 2rem auto;
+    border-radius: 2rem;
   }
 
   .divine-title {
-    font-size: 2rem;
-    line-height: 1.3;
+    font-size: 3.5rem;
   }
 
   .divine-subtitle {
-    font-size: 1rem;
-    letter-spacing: 1px;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
   }
 
   .sacred-symbol .outer-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .sacred-symbol .middle-ring {
+    width: 80px;
+    height: 80px;
+  }
+
+  .sacred-symbol .inner-ring {
     width: 60px;
     height: 60px;
   }
 
-  .sacred-symbol .middle-ring {
-    width: 50px;
-    height: 50px;
-  }
-
-  .sacred-symbol .inner-ring {
-    width: 40px;
-    height: 40px;
-  }
-
   .divine-char {
-    font-size: 1.2rem;
-  }
-
-  .subtitle-container {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .subtitle-line {
-    width: 80px;
-    height: 1px;
+    font-size: 2rem;
   }
 
   .blessing-text {
-    font-size: 0.8rem;
-    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .subtitle-line {
+    max-width: 80px;
+  }
+
+  .light-1, .light-2, .light-3 {
+    width: 150px;
+    height: 150px;
   }
 
   .floating-spirit {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 }
 
-/* Ensure perfect mobile fit */
-@media (max-width: 380px) {
+/* Large Desktop */
+@media (min-width: 1440px) {
   .divine-title {
-    font-size: 1.75rem;
+    font-size: 4rem;
   }
-  
-  .divine-subtitle {
-    font-size: 0.9rem;
-  }
+}
+
+/* Prevent text overflow */
+.divine-title, .divine-subtitle, .blessing-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Ensure content fits within viewport */
+.divine-title-content {
+  max-width: 100%;
+  box-sizing: border-box;
 }
