@@ -1,4 +1,4 @@
-import React from 'react'
+inimport React from 'react'
 import Header from '../Header/Header'
 import SlidingCards from '../Sinsection/SlidingCards'
 import Navbar from '../../components/Navbar/Navbar'
@@ -20,7 +20,7 @@ const Home = () => {
      <HeroSection />
    
     
-    <Program />
+    
     
    
    {/* <ConfessSection /> */}
@@ -28,7 +28,7 @@ const Home = () => {
    {/* <VideoSection /> */}
   {/* <VideoSectionSad />*/}
 <SlidingCards/>
-   
+       <Program />
    
    
   </div>
