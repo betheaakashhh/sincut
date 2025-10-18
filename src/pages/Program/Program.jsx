@@ -110,7 +110,7 @@ const Program = () => {
               Witness how your small act of giving became someone’s moment of relief..
             </p>
             <div className="cta-buttons">
-              <button className="cta-button primary" onClick={handleGalleryNavigation}>Get Started</button>
+              <button className="cta-button primary" onClick={handleGalleryNavigation}>See The Impact</button>
               <button className="cta-button secondary">Learn More</button>
             </div>
           </div>
