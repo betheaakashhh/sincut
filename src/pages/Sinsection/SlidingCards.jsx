@@ -66,19 +66,7 @@ const SlidingCards = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h2>Fear of Karma? Hurt Someone?</h2>
-          <p className="hero-subtitle">
-            Want to confess without judgment? It's between you and your consciousness!
-          </p>
-          <div className="cta-buttons">
-            <button className="cta-primary">Start Your Healing Journey</button>
-            <button className="cta-secondary">Learn More</button>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Sliding Cards Section */}
       <section className="cards-section">
@@ -135,13 +123,7 @@ const SlidingCards = () => {
       </section>
 
       {/* Footer CTA */}
-      <footer className="footer-cta">
-        <div className="footer-content">
-          <h3>Ready to Confess?</h3>
-          <p>Take the first step towards inner peace. Your $1 donation makes a difference.</p>
-          <button className="confess-button">Confess Now - $1</button>
-        </div>
-      </footer>
+      
     </div>
   );
 };
