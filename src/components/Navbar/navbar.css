@@ -1,11 +1,11 @@
-
+/* navbar.css - UPDATED */
 .divine-navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 1rem 2rem;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
@@ -244,7 +244,7 @@
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Mobile Navigation Overlay */
+/* Mobile Navigation Overlay - FIXED */
 .mobile-nav-overlay {
     position: fixed;
     top: 0;
@@ -257,6 +257,7 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.4s ease;
+    overflow-y: auto; /* Enable scrolling for very small screens */
 }
 
 .mobile-nav-overlay.active {
@@ -266,42 +267,93 @@
 }
 
 .mobile-nav-content {
-    padding: 6rem 2rem 2rem;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    padding: 0;
 }
 
+/* Mobile Header */
 .mobile-nav-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    position: relative;
+    padding: 2rem 2rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
 }
 
 .mobile-logo {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     background: linear-gradient(135deg, #f59e0b, #3b82f6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 1rem;
+    margin: 0;
+}
+
+.mobile-close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #cbd5e1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+.close-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .mobile-nav-glow {
     width: 100px;
     height: 3px;
     background: linear-gradient(90deg, #3b82f6, #10b981);
-    margin: 0 auto;
     border-radius: 2px;
     animation: glowPulse 2s ease-in-out infinite;
+    margin-bottom: 1rem;
+}
+
+.mobile-welcome-text {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Mobile Navigation Center */
+.mobile-nav-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
 .mobile-nav-links {
     list-style: none;
     padding: 0;
     margin: 0;
-    flex: 1;
+    width: 100%;
+    max-width: 300px;
 }
 
 .mobile-nav-links li {
@@ -330,6 +382,10 @@
     transform: translateX(10px);
 }
 
+.nav-text {
+    flex: 1;
+}
+
 .mobile-glow {
     position: absolute;
     top: 0;
@@ -348,10 +404,25 @@
     opacity: 1;
 }
 
+/* Mobile Nav Footer */
 .mobile-nav-footer {
+    padding: 2rem;
     text-align: center;
-    padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.scroll-arrow {
+    font-size: 1.5rem;
+    color: #3b82f6;
+    animation: bounce 2s ease-in-out infinite;
 }
 
 .divine-quote {
@@ -388,6 +459,12 @@
     50% { opacity: 1; }
 }
 
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .divine-navbar {
@@ -413,15 +490,27 @@
     .divine-logo.scrolled .logo-text {
         font-size: 1.5rem;
     }
+
+    .mobile-nav-header {
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    .mobile-nav-center {
+        padding: 1rem;
+    }
+
+    .mobile-nav-footer {
+        padding: 1.5rem 1rem;
+    }
 }
 
 @media (max-width: 480px) {
-    .mobile-nav-content {
-        padding: 5rem 1rem 1rem;
+    .mobile-nav-header {
+        padding: 1rem 0.75rem 0.75rem;
     }
 
     .mobile-logo {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .mobile-nav-links a {
@@ -431,6 +520,10 @@
 
     .logo-text {
         font-size: 1.5rem;
+    }
+
+    .mobile-nav-center {
+        padding: 0.5rem;
     }
 }
 
@@ -451,8 +544,7 @@
     box-sizing: border-box;
 }
 
-/* Prevent horizontal scroll */
-.divine-navbar {
-    max-width: 100vw;
-    overflow-x: hidden;
+/* Prevent body scroll when mobile menu is open */
+body.no-scroll {
+    overflow: hidden;
 }
