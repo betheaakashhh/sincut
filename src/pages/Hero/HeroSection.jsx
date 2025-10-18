@@ -20,7 +20,7 @@ const HeroSection = () => {
     
     // Simulate processing
     setTimeout(() => {
-      alert("Your confession has been received. May you find peace and redemption.");
+      alert("May you find peace and redemption.");
       setHeroText("");
       setCharacterCount(0);
       setIsProcessing(false);
