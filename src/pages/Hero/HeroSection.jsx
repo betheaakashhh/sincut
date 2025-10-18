@@ -147,10 +147,7 @@ const HeroSection = () => {
             </div>
           ) : userCountry === "IN" ? (
             <div className="razorpay-integration">
-              <div className="confession-message">
-                <span className="blessing-icon">🙏</span>
-                Your confession prepares you for transformation
-              </div>
+             
               <RazorpayButton 
                 amount={100} 
                 onBeforePay={handleBeforePay}
