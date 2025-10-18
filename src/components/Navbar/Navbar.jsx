@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import menu_icon from '../../assets/menu.png'
-import close_icon from '../../assets/close.png' // You'll need a close icon
+import close_icon from '../../assets/close.png'
 import './navbar.css'
 import { Link } from 'react-router-dom'
 
