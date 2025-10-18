@@ -66,13 +66,11 @@ const SlidingCards = () => {
         </div>
       </header>
 
-      
-
       {/* Sliding Cards Section */}
       <section className="cards-section">
         <h3>Ready to Start Your Journey?</h3>
         <p className="section-subtitle">Choose your path to peace and clarity</p>
-        
+
         <div className="cards-wrapper">
           <div className="cards-track">
             {[...cards, ...cards].map((card, index) => (
@@ -96,7 +94,7 @@ const SlidingCards = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - Removed extra padding */}
       <section className="features-section">
         <div className="features-grid">
           <div className="feature">
@@ -121,9 +119,6 @@ const SlidingCards = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer CTA */}
-      
     </div>
   );
 };
