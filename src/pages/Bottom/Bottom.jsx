@@ -89,7 +89,7 @@ const Bottom = () => {
         <div className="navigation-sections">
           <section className="company-section">
             <h4 className="section-title">
-              <span className="title-icon'>🔥</span>
+              <span className="title-icon">🔥</span>
               Company
             </h4>
             <ul className="nav-links">
