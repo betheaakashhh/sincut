@@ -13,6 +13,7 @@ import { populateQuotes } from './indexedDBInit'
 import QuoteMarquee from './components/marquee/QouteMarque'
 import Header from './pages/Header/Header'
 import TermCondition from './pages/TermCondition/TermCondition'
+import PhotoGallery from './pages/Stripe/PhotoGallery'
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         < Route path='/contact' element={<Contact/>} />
          < Route path='/FAQs' element={<FAQ/>} /> 
           < Route path='/terms' element={<TermCondition/>} />
+ < Route path='/gallery' element={<PhotoGallery />} />
           
         
        
