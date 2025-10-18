@@ -1,7 +1,7 @@
 // Contact.jsx
 import React, { useRef, useState } from "react";
 import "./contact.css";
-import Title from "../Title/Title";
+
 import imesege from "../../assets/messege.png";
 import emailjs from "@emailjs/browser";
 
