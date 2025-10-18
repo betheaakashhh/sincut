@@ -67,10 +67,7 @@ const HeroSection = () => {
             <span className="title-gradient">Confess Your</span>
             <span className="title-glitch">Sins</span>
           </h1>
-          <p className="hero-subtitle">
-            Release your burdens and find redemption. Your confession is sacred, 
-            anonymous, and brings you closer to inner peace.
-          </p>
+          
         </div>
 
         {/* Dynamic Text Area */}
@@ -170,15 +167,11 @@ const HeroSection = () => {
                   <span className="btn-arrow">→</span>
                 </button>
               </div>
-              <p className="donation-note">
-                Your contribution supports spiritual healing worldwide
-              </p>
+              
             </div>
           )}
           
-          <p className="action-note">
-            Your confession is sacred and completely anonymous
-          </p>
+          
         </div>
 
         {/* Inspiration Quote */}
