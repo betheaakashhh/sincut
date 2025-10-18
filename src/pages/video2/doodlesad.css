@@ -1,84 +1,481 @@
-.video-section {
+/* doodlesad.css */
+.divine-sad-video-section {
+  position: relative;
+  width: 100%;
+  min-height: 60vh; /* Reduced from 100vh */
+  background: linear-gradient(135deg, 
+    #0f172a 0%, 
+    #1e293b 50%, 
+    #334155 100%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 50px 10%;
-  background-color: #f9f9f9;
-  gap: 50px;
-  flex-wrap: wrap; /* Makes it responsive */
+  justify-content: center;
+  padding: 1rem; /* Reduced padding for desktop */
+  overflow: hidden;
 }
 
-.text-container {
-  flex: 1;
-  min-width: 300px;
-}
-
-.text-container h2 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #6c0879;
-  margin-bottom: 20px;
-}
-
-.text-container p {
-  font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.video-container {
-  flex: 1;
-  min-width: 300px;
-}
-
-.video-container video {
+/* Divine Background Elements */
+.divine-sad-video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sad-heavenly-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%; /* Reduced size */
+  height: 120%;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.08) 0%, /* Lighter opacity */
+    rgba(16, 185, 129, 0.04) 30%,
+    transparent 70%
+  );
+  animation: sadGentleGlow 10s ease-in-out infinite; /* Slower animation */
+}
+
+.sad-floating-sparkle {
+  position: absolute;
+  width: 3px; /* Smaller */
+  height: 3px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: sadSparkleFloat 8s ease-in-out infinite; /* Slower */
+  opacity: 0;
+}
+
+.sad-floating-sparkle:nth-child(2) {
+  top: 20%;
+  left: 15%;
+  animation-delay: 1s;
+}
+
+.sad-floating-sparkle:nth-child(3) {
+  top: 60%;
+  right: 20%;
+  animation-delay: 3s;
+}
+
+.sad-floating-sparkle:nth-child(4) {
+  bottom: 30%;
+  left: 25%;
+  animation-delay: 5s;
+}
+
+/* Main Container */
+.divine-sad-video-container {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem; /* Reduced gap */
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Video Wrapper */
+.sad-video-wrapper {
+  position: relative;
+  border-radius: 1rem; /* Smaller radius */
+  overflow: hidden;
+  box-shadow: 
+    0 15px 30px -8px rgba(0, 0, 0, 0.4), /* Reduced shadow */
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  aspect-ratio: 16/9;
+}
+
+.sad-video-wrapper:hover {
+  transform: translateY(-3px); /* Smaller hover effect */
+  box-shadow: 
+    0 20px 40px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+.sad-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(15, 23, 42, 0.3) 0%, /* Lighter overlay */
+    transparent 50%,
+    rgba(59, 130, 246, 0.15) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.divine-sad-video {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-radius: 1rem;
+  display: block;
 }
+
+/* Mobile Text Overlay */
+.sad-mobile-text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.92) 0%, /* Slightly lighter */
+    rgba(30, 41, 59, 0.88) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 3;
+  border-radius: 1rem;
+}
+
+.sad-mobile-text-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sad-mobile-text-overlay .sad-text-content {
+  text-align: center;
+  color: white;
+  max-width: 350px;
+}
+
+.sad-divine-icon {
+  font-size: 1.8rem; /* Slightly smaller */
+  margin-bottom: 0.8rem;
+  animation: sadIconGlow 2.5s ease-in-out infinite;
+}
+
+.sad-video-title {
+  font-size: 1.4rem; /* Adjusted size */
+  font-weight: 700;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.sad-video-description {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  margin-bottom: 1.2rem;
+}
+
+.sad-divine-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.sad-cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.sad-divine-cta:hover .sad-cta-arrow {
+  transform: translateX(2px);
+}
+
+/* Desktop Text Container */
+.sad-desktop-text-container {
+  padding: 0.5rem; /* Reduced padding */
+}
+
+.sad-text-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem; /* Reduced gap */
+  margin-bottom: 1.5rem; /* Reduced margin */
+}
+
+.sad-divine-line {
+  flex: 1;
+  height: 1.5px; /* Thinner line */
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.5), /* Lighter */
+    transparent
+  );
+}
+
+.sad-desktop-title {
+  font-size: 2rem; /* Smaller title */
+  font-weight: 700;
+  background: linear-gradient(135deg, 
+    #f59e0b 0%, 
+    #eab308 25%, 
+    #10b981 50%, 
+    #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sad-text-content-desktop {
+  color: #e2e8f0;
+}
+
+.sad-desktop-description {
+  font-size: 1rem; /* Slightly smaller */
+  line-height: 1.5; /* Tighter line height */
+  margin-bottom: 1rem; /* Reduced margin */
+  color: #cbd5e1;
+}
+
+/* Divine Features */
+.sad-divine-features {
+  margin: 1.5rem 0; /* Reduced margin */
+}
+
+.sad-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.04); /* Lighter background */
+  border-radius: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.sad-feature-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(3px);
+}
+
+.sad-feature-icon {
+  font-size: 1.1rem;
+}
+
+.sad-feature-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+/* Action Button */
+.sad-divine-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem; /* Smaller button */
+  border-radius: 0.6rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sad-divine-action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s ease;
+}
+
+.sad-divine-action-btn:hover::before {
+  left: 100%;
+}
+
+.sad-divine-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.3);
+}
+
+.sad-btn-sparkle {
+  animation: sadSparkleTwinkle 2s ease-in-out infinite;
+}
+
+/* Animations - Slower and Subtler */
+@keyframes sadGentleGlow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes sadSparkleFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
+  50% { transform: translateY(-15px) scale(1.3); opacity: 0.8; }
+}
+
+@keyframes sadIconGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+@keyframes sadSparkleTwinkle {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+/* Mobile Responsive Design - Same as before */
 @media (max-width: 768px) {
-  .video-section {
-    flex-direction: column;
-    padding: 30px 5%;
+  .divine-sad-video-section {
+    padding: 1.5rem 1rem;
+    min-height: auto;
   }
 
-  .text-container, .video-container {
-    min-width: 100%;
+  .divine-sad-video-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
-  .text-container h2 {
-    font-size: 2rem;
+  .sad-desktop-text-container {
+    display: none;
+  }
+
+  .sad-video-wrapper {
+    aspect-ratio: 9/16;
+  }
+
+  .sad-mobile-text-overlay {
+    padding: 1.5rem;
+  }
+
+  .sad-video-title {
+    font-size: 1.25rem;
+  }
+
+  .sad-video-description {
+    font-size: 0.85rem;
+  }
+
+  .sad-divine-cta {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
   }
 }
+
 @media (max-width: 480px) {
-  .text-container h2 {
+  .divine-sad-video-section {
+    padding: 1rem 0.75rem;
+  }
+
+  .sad-video-wrapper {
+    border-radius: 0.8rem;
+  }
+
+  .sad-mobile-text-overlay {
+    padding: 1rem;
+  }
+
+  .sad-mobile-text-overlay .sad-text-content {
+    max-width: 100%;
+  }
+
+  .sad-video-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sad-video-description {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .sad-divine-icon {
     font-size: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
-  .text-container p {
-    font-size: 1rem;
-  }
-}
-@media (max-width: 320px) {
-  .text-container h2 {
-    font-size: 1.2rem;
-  }
-
-  .text-container p {
-    font-size: 0.9rem;
-  }
-}
-@media (max-width: 280px) {
-  .text-container h2 {
-    font-size: 1rem;
-  }
-
-  .text-container p {
+  .sad-divine-cta {
+    padding: 0.5rem 1rem;
     font-size: 0.8rem;
   }
+
+  .sad-heavenly-light {
+    width: 180%;
+    height: 180%;
+  }
 }
-.doodle-section {
-  background: linear-gradient(135deg, #6c0879, #12c276);
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .divine-sad-video-container {
+    gap: 1.5rem;
+  }
+
+  .sad-desktop-title {
+    font-size: 1.8rem;
+  }
+
+  .sad-desktop-description {
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop-specific reductions */
+@media (min-width: 1025px) {
+  .divine-sad-video-section {
+    padding: 2rem 1rem; /* Even less padding on large desktop */
+    min-height: 50vh;
+  }
+}
+
+/* Hide mobile overlay on desktop */
+@media (min-width: 769px) {
+  .sad-mobile-text-overlay {
+    display: none;
+  }
+}
+
+/* Show desktop text only on desktop */
+@media (max-width: 768px) {
+  .sad-desktop-text-container {
+    display: none;
+  }
+}
+
+/* Ensure video fits perfectly */
+.divine-sad-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Prevent horizontal overflow */
+.divine-sad-video-section,
+.divine-sad-video-container,
+.sad-video-wrapper {
+  max-width: 100%;
+  box-sizing: border-box;
 }
