@@ -1,10 +1,15 @@
-import React from 'react' //react
+import React  from 'react'
+import {useNavigate} from "react-router-dom"; //react
 import './program.css'
 import ShareButton from '../ShareButton/ShareButton';
 import PhotoGallery from '../Stripe/PhotoGallery'
 
 
 const Program = () => {
+  const navigate = useNavigate();
+  const handleGalleryNavigation = () => {
+    navigate('/gallery');
+};
   const features = [
     {
       id: 1,
@@ -105,7 +110,7 @@ const Program = () => {
               Join thousands of others who are already making a difference in the world.
             </p>
             <div className="cta-buttons">
-              <button className="cta-button primary" on Click={<PhotoGallery/>}>Get Started</button>
+              <button className="cta-button primary" onClick={handleGalleryNavigation}>Get Started</button>
               <button className="cta-button secondary">Learn More</button>
             </div>
           </div>
