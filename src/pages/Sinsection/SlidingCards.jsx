@@ -94,31 +94,7 @@ const SlidingCards = () => {
         </div>
       </section>
 
-      {/* Features Section - Removed extra padding */}
-      <section className="features-section">
-        <div className="features-grid">
-          <div className="feature">
-            <div className="feature-icon">🔒</div>
-            <h4>100% Anonymous</h4>
-            <p>Your identity remains completely hidden</p>
-          </div>
-          <div className="feature">
-            <div className="feature-icon">💝</div>
-            <h4>Charity Donation</h4>
-            <p>$1 goes to verified charitable causes</p>
-          </div>
-          <div className="feature">
-            <div className="feature-icon">⚖️</div>
-            <h4>Karma Balance</h4>
-            <p>Clear your conscience through good deeds</p>
-          </div>
-          <div className="feature">
-            <div className="feature-icon">🕊️</div>
-            <h4>Peace of Mind</h4>
-            <p>Find inner peace without judgment</p>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 };
