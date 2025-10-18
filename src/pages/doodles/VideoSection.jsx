@@ -1,5 +1,5 @@
 import React from "react";
-import sampleVideo from "../../assets/maskman.mp4"; // Put your video in the src folder or public folder
+import sampleVideo from "../../assets/maskman.mp4";
 import "./doodle.css";
 
 const VideoSection = () => {
@@ -18,7 +18,13 @@ const VideoSection = () => {
         </p>
       </div>
       <div className="video-container">
-        <video autoPlay loop muted playsInline>
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          preload="metadata"
+        >
           <source src={sampleVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
