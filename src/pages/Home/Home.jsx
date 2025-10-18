@@ -25,10 +25,7 @@ const Home = () => {
    <VideoSectionLeft />
    <VideoSectionSad />
    
-   <div className="container">
-
-    <Title subtitle={"What Legends Say"} title={"Hear from those who have experienced the transformative power of SinCut. Their stories of redemption and positive change will inspire you to take the first step towards a better you."}/>
-   </div>
+   
    
   </div>
   )
