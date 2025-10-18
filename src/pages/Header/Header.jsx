@@ -94,12 +94,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="scroll-indicator">
-        <div className="scroll-arrow"></div>
-        <span className="scroll-text">Begin Your Journey</span>
-      </div>
-    </div>
+     
   );
 };
 
