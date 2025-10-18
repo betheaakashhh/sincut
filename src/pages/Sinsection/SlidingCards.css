@@ -1,59 +1,47 @@
-/* Base Styles and Variables */
 :root {
-  --primary-bg: #ffffff;
-  --secondary-bg: #f8fafc;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  --border-radius: 16px;
-  --transition: all 0.3s ease;
+  --sincut-primary-bg: #ffffff;
+  --sincut-secondary-bg: #f8fafc;
+  --sincut-text-primary: #1e293b;
+  --sincut-text-secondary: #64748b;
+  --sincut-card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --sincut-border-radius: 16px;
+  --sincut-transition: all 0.3s ease;
 }
 
-.dark-mode {
-  --primary-bg: #0f172a;
-  --secondary-bg: #1e293b;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
+.sincut-dark-mode {
+  --sincut-primary-bg: #0f172a;
+  --sincut-secondary-bg: #1e293b;
+  --sincut-text-primary: #f1f5f9;
+  --sincut-text-secondary: #94a3b8;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--primary-bg);
-  color: var(--text-primary);
-  transition: var(--transition);
-}
-
-.sliding-cards-container {
+.sincut-container {
   min-height: 100vh;
-  background-color: var(--primary-bg);
+  background-color: var(--sincut-primary-bg);
+  color: var(--sincut-text-primary);
+  transition: var(--sincut-transition);
 }
 
-/* Header Styles */
-.header {
+/* Header */
+.sincut-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 2rem 1rem;
   text-align: center;
 }
 
-.header-content h1 {
+.sincut-header-content h1 {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
-.header-content p {
+.sincut-header-content p {
   font-size: 1.2rem;
   opacity: 0.9;
 }
 
-.theme-toggle {
+.sincut-theme-toggle {
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
@@ -62,58 +50,55 @@ body {
   cursor: pointer;
   margin-top: 1rem;
   backdrop-filter: blur(10px);
-  transition: var(--transition);
+  transition: var(--sincut-transition);
 }
 
-.theme-toggle:hover {
+.sincut-theme-toggle:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
 /* Cards Section */
-.cards-section {
-  padding: 3rem 1rem 2rem 1rem; /* Reduced bottom padding */
+.sincut-cards-section {
+  padding: 3rem 1rem 2rem 1rem;
   text-align: center;
 }
 
-.cards-section h3 {
+.sincut-cards-section h3 {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
-.section-subtitle {
-  color: var(--text-secondary);
-  margin-bottom: 2rem; /* Reduced margin */
+.sincut-section-subtitle {
+  color: var(--sincut-text-secondary);
+  margin-bottom: 2rem;
   font-size: 1.1rem;
 }
 
-.cards-wrapper {
+/* Wrapper */
+.sincut-cards-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 1.5rem 0; /* Reduced padding */
+  padding: 1.5rem 0;
 }
 
-/* =============================== */
-/* CARD DESIGN – COMPACT QUESTION STYLE */
-/* =============================== */
-
-.cards-track {
+.sincut-cards-track {
   display: flex;
-  animation: slide 35s linear infinite;
+  animation: sincut-slide 35s linear infinite;
   gap: 1.25rem;
   padding: 0 1rem;
 }
 
-/* Compact, vertical playing-card look */
-.card {
+/* Cards */
+.sincut-card {
   min-width: 200px;
   height: 280px;
   border-radius: 18px;
   padding: 1.2rem;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--card-shadow);
-  transition: var(--transition);
+  box-shadow: var(--sincut-card-shadow);
+  transition: var(--sincut-transition);
   flex-shrink: 0;
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -122,12 +107,12 @@ body {
   text-align: center;
 }
 
-.card:hover {
+.sincut-card:hover {
   transform: translateY(-8px) scale(1.05);
   box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.3);
 }
 
-.card-content {
+.sincut-card-content {
   position: relative;
   z-index: 2;
   display: flex;
@@ -136,7 +121,7 @@ body {
   align-items: center;
 }
 
-.card-content h4 {
+.sincut-card-content h4 {
   font-size: 1.4rem;
   font-weight: 800;
   line-height: 1.3;
@@ -145,91 +130,75 @@ body {
   text-wrap: balance;
 }
 
-.card-content p {
+.sincut-card-content p {
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.4;
   text-align: center;
   max-width: 160px;
   opacity: 0.95;
-  text-wrap: balance;
 }
 
-/* Card glow and chip remain same */
-.card-chip {
+.sincut-card-chip {
   top: 0.8rem;
   right: 0.8rem;
   width: 30px;
   height: 20px;
 }
 
-@keyframes slide {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-200px * 5 - 1.25rem * 5));
-  }
+@keyframes sincut-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-200px * 5 - 1.25rem * 5)); }
 }
 
-/* ===================================== */
-/* RESPONSIVE DESIGN FOR MOBILE / TABLET */
-/* ===================================== */
+/* Responsive */
 @media (max-width: 768px) {
-  .cards-track {
+  .sincut-cards-track {
     gap: 1rem;
   }
 
-  .card {
+  .sincut-card {
     min-width: 160px !important;
     height: 230px !important;
     border-radius: 14px;
     padding: 1rem;
   }
 
-  .card-content h4 {
+  .sincut-card-content h4 {
     font-size: 1rem !important;
     font-weight: 800;
   }
 
-  .card-content p {
+  .sincut-card-content p {
     font-size: 0.75rem !important;
     line-height: 1.3;
     max-width: 130px;
   }
 
-  @keyframes slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-160px * 5 - 1rem * 5));
-    }
+  @keyframes sincut-slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-160px * 5 - 1rem * 5)); }
   }
 }
 
 @media (max-width: 480px) {
-  .card {
+  .sincut-card {
     min-width: 140px !important;
     height: 200px !important;
     padding: 0.8rem;
   }
 
-  .card-content h4 {
+  .sincut-card-content h4 {
     font-size: 0.9rem !important;
   }
 
-  .card-content p {
+  .sincut-card-content p {
     font-size: 0.7rem !important;
     max-width: 110px;
   }
 
-  @keyframes slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-140px * 5 - 1rem * 5));
-    }
+  @keyframes sincut-slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-140px * 5 - 1rem * 5)); }
   }
 }
