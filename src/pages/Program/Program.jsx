@@ -105,9 +105,9 @@ const Program = () => {
         {/* CTA Section */}
         <div className="cta-section">
           <div className="cta-content">
-            <h3 className="cta-title">Ready to Start Your Journey?</h3>
+            <h3 className="cta-title">You Confessed. Someone Smiled.</h3>
             <p className="cta-description">
-              Join thousands of others who are already making a difference in the world.
+              Witness how your small act of giving became someone’s moment of relief..
             </p>
             <div className="cta-buttons">
               <button className="cta-button primary" onClick={handleGalleryNavigation}>Get Started</button>
