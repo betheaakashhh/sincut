@@ -1,6 +1,7 @@
 import React from 'react' //react
 import './program.css'
 import ShareButton from '../ShareButton/ShareButton';
+import PhotoGallery from '../Stripe/PhotoGallery'
 
 
 const Program = () => {
@@ -104,7 +105,7 @@ const Program = () => {
               Join thousands of others who are already making a difference in the world.
             </p>
             <div className="cta-buttons">
-              <button className="cta-button primary">Get Started</button>
+              <button className="cta-button primary" on Click={<PhotoGallery/>}>Get Started</button>
               <button className="cta-button secondary">Learn More</button>
             </div>
           </div>
