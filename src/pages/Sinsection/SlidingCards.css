@@ -93,256 +93,126 @@ body {
   padding: 1.5rem 0; /* Reduced padding */
 }
 
+/* =============================== */
+/* CARD DESIGN – COMPACT QUESTION STYLE */
+/* =============================== */
+
 .cards-track {
   display: flex;
-  animation: slide 30s linear infinite;
-  gap: 1rem; /* Reduced gap */
+  animation: slide 35s linear infinite;
+  gap: 1.25rem;
   padding: 0 1rem;
 }
 
-/* Default Card Styles (Desktop) */
+/* Compact, vertical playing-card look */
 .card {
-  min-width: 280px; /* Smaller default */
-  height: 160px; /* Smaller height */
-  border-radius: var(--border-radius);
-  padding: 1.5rem; /* Reduced padding */
+  min-width: 200px;
+  height: 280px;
+  border-radius: 18px;
+  padding: 1.2rem;
   position: relative;
   overflow: hidden;
   box-shadow: var(--card-shadow);
   transition: var(--transition);
   flex-shrink: 0;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.3);
 }
 
 .card-content {
   position: relative;
   z-index: 2;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-content h4 {
-  font-size: 1.3rem; /* Smaller font */
-  margin-bottom: 0.75rem;
-  font-weight: 700; /* Bolder */
+  font-size: 1.4rem;
+  font-weight: 800;
   line-height: 1.3;
-  text-wrap: pretty; /* Better text wrapping */
+  margin-bottom: 0.75rem;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .card-content p {
-  font-size: 0.85rem; /* Smaller font */
-  opacity: 0.9;
+  font-size: 0.9rem;
+  font-weight: 500;
   line-height: 1.4;
-  font-weight: 500; /* Bolder */
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to 3 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-chip {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 35px; /* Smaller */
-  height: 25px; /* Smaller */
-  background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
-  border-radius: 5px;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.card-glow {
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  transform: rotate(30deg);
-}
-
-/* Features Section - Reduced padding */
-.features-section {
-  padding: 2rem 1rem; /* Reduced padding */
-  background-color: var(--secondary-bg);
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem; /* Reduced gap */
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.feature {
   text-align: center;
-  padding: 1.5rem; /* Reduced padding */
-  background: var(--primary-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--card-shadow);
-  transition: var(--transition);
+  max-width: 160px;
+  opacity: 0.95;
+  text-wrap: balance;
 }
 
-.feature:hover {
-  transform: translateY(-3px); /* Reduced hover effect */
+/* Card glow and chip remain same */
+.card-chip {
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 30px;
+  height: 20px;
 }
 
-.feature-icon {
-  font-size: 2.5rem; /* Smaller icon */
-  margin-bottom: 1rem;
-}
-
-.feature h4 {
-  font-size: 1.2rem; /* Smaller font */
-  margin-bottom: 0.75rem;
-  color: var(--text-primary);
-  font-weight: 600; /* Bolder */
-}
-
-.feature p {
-  color: var(--text-secondary);
-  line-height: 1.5;
-  font-size: 0.9rem; /* Smaller font */
-  font-weight: 500; /* Bolder */
-}
-
-/* Animations */
 @keyframes slide {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-280px * 5 - 1rem * 5)); /* Updated for new card width */
+    transform: translateX(calc(-200px * 5 - 1.25rem * 5));
   }
 }
 
-/* Pause animation on hover */
-.cards-wrapper:hover .cards-track {
-  animation-play-state: paused;
-}
-
-/* MOBILE STYLES - Playing Card Size */
+/* ===================================== */
+/* RESPONSIVE DESIGN FOR MOBILE / TABLET */
+/* ===================================== */
 @media (max-width: 768px) {
-  .header-content h1 {
-    font-size: 2.5rem;
-  }
-
-  .cards-section {
-    padding: 2rem 1rem 1.5rem 1rem; /* Further reduced padding for mobile */
-  }
-
-  .cards-section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .section-subtitle {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .cards-wrapper {
-    padding: 1rem 0; /* Less padding */
-  }
-
   .cards-track {
-    gap: 0.75rem; /* Tighter gap */
-  }
-
-  /* Mobile Card Size - Playing Card Dimensions */
-  .card {
-    min-width: 160px !important; /* Playing card width */
-    height: 220px !important; /* Playing card height - taller than wide */
-    padding: 1rem; /* Compact padding */
-    border-radius: 12px; /* Slightly smaller radius */
-  }
-
-  .card-content h4 {
-    font-size: 1rem !important; /* Smaller, bolder text */
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
-    text-align: center;
-  }
-
-  .card-content p {
-    font-size: 0.75rem !important; /* Smaller text */
-    font-weight: 600;
-    line-height: 1.3;
-    -webkit-line-clamp: 4; /* Show more lines in taller card */
-    text-align: center;
-  }
-
-  .card-chip {
-    width: 25px;
-    height: 20px;
-    top: 0.75rem;
-    right: 0.75rem;
-  }
-
-  .features-section {
-    padding: 1.5rem 1rem; /* Even less padding on mobile */
-  }
-
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
     gap: 1rem;
   }
 
-  .feature {
+  .card {
+    min-width: 160px !important;
+    height: 230px !important;
+    border-radius: 14px;
     padding: 1rem;
   }
 
-  .feature-icon {
-    font-size: 2rem;
+  .card-content h4 {
+    font-size: 1rem !important;
+    font-weight: 800;
   }
 
-  .feature h4 {
-    font-size: 1rem;
+  .card-content p {
+    font-size: 0.75rem !important;
+    line-height: 1.3;
+    max-width: 130px;
   }
 
-  .feature p {
-    font-size: 0.8rem;
-  }
-
-  /* Update animation for mobile card width */
   @keyframes slide {
     0% {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-160px * 5 - 0.75rem * 5));
+      transform: translateX(calc(-160px * 5 - 1rem * 5));
     }
   }
 }
 
-/* Small Mobile Adjustments */
 @media (max-width: 480px) {
-  .header-content h1 {
-    font-size: 2rem;
-  }
-
-  .cards-section {
-    padding: 1.5rem 0.5rem 1rem 0.5rem;
-  }
-
-  .cards-track {
-    gap: 0.5rem;
-    padding: 0 0.5rem;
-  }
-
   .card {
-    min-width: 150px !important;
+    min-width: 140px !important;
     height: 200px !important;
-    padding: 0.75rem;
+    padding: 0.8rem;
   }
 
   .card-content h4 {
@@ -351,11 +221,7 @@ body {
 
   .card-content p {
     font-size: 0.7rem !important;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr; /* Single column on very small screens */
-    gap: 0.75rem;
+    max-width: 110px;
   }
 
   @keyframes slide {
@@ -363,20 +229,7 @@ body {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-150px * 5 - 0.5rem * 5));
+      transform: translateX(calc(-140px * 5 - 1rem * 5));
     }
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .cards-track {
-    animation: none;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .card:hover {
-    transform: none;
   }
 }
