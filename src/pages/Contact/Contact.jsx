@@ -48,10 +48,7 @@ const Contact = () => {
 
   return (
     <section className="contact-section">
-      <Title
-        subtitle="Get in Touch"
-        title="We would love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out to us."
-      />
+     
       
       <div className="contact-container">
         <div className="contact-info">
