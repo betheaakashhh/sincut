@@ -4,6 +4,379 @@
   box-sizing: border-box;
 }
 
+/* Cosmic Animated Background */
+.cosmic-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(ellipse at center, #0a0e2a 0%, #000000 70%),
+    linear-gradient(135deg, #0a0e2a 0%, #1a1f4b 50%, #2d1b69 100%);
+  overflow: hidden;
+}
+
+/* Grid Lines */
+.grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, rgba(74, 107, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(74, 107, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+}
+
+/* Aurora Lights */
+.aurora {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  opacity: 0.6;
+  filter: blur(60px);
+}
+
+.aurora-1 {
+  background: radial-gradient(ellipse at center, 
+    rgba(0, 247, 255, 0.8) 0%,
+    rgba(0, 149, 255, 0.6) 25%,
+    rgba(138, 43, 226, 0.4) 50%,
+    transparent 70%);
+  animation: auroraFloat 15s ease-in-out infinite alternate;
+}
+
+.aurora-2 {
+  background: radial-gradient(ellipse at center, 
+    rgba(255, 0, 212, 0.6) 0%,
+    rgba(255, 77, 0, 0.5) 25%,
+    rgba(255, 200, 0, 0.3) 50%,
+    transparent 70%);
+  animation: auroraFloat 12s ease-in-out infinite alternate-reverse;
+}
+
+.aurora-3 {
+  background: radial-gradient(ellipse at center, 
+    rgba(0, 255, 157, 0.5) 0%,
+    rgba(0, 217, 255, 0.4) 25%,
+    rgba(157, 0, 255, 0.3) 50%,
+    transparent 70%);
+  animation: auroraFloat 18s ease-in-out infinite alternate;
+}
+
+/* Cosmic Particles */
+.cosmic-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: float 6s infinite ease-in-out;
+}
+
+.particle:nth-child(1) {
+  width: 3px;
+  height: 3px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  width: 2px;
+  height: 2px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 1s;
+}
+
+.particle:nth-child(3) {
+  width: 4px;
+  height: 4px;
+  top: 40%;
+  left: 30%;
+  animation-delay: 2s;
+}
+
+.particle:nth-child(4) {
+  width: 2px;
+  height: 2px;
+  top: 80%;
+  left: 60%;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(5) {
+  width: 3px;
+  height: 3px;
+  top: 30%;
+  left: 90%;
+  animation-delay: 4s;
+}
+
+/* Lightning Bolts */
+.lightning {
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, 
+    transparent 0%,
+    rgba(0, 247, 255, 0.8) 30%,
+    rgba(138, 43, 226, 0.9) 50%,
+    rgba(0, 247, 255, 0.8) 70%,
+    transparent 100%);
+  opacity: 0;
+  animation: lightningStrike 8s infinite;
+}
+
+.lightning-1 {
+  left: 20%;
+  animation-delay: 2s;
+}
+
+.lightning-2 {
+  left: 50%;
+  animation-delay: 5s;
+}
+
+.lightning-3 {
+  left: 80%;
+  animation-delay: 7s;
+}
+
+/* Nebula Clouds */
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.3;
+}
+
+.nebula-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, 
+    rgba(106, 13, 173, 0.6) 0%,
+    rgba(48, 16, 102, 0.3) 50%,
+    transparent 70%);
+  top: 10%;
+  left: 10%;
+  animation: nebulaFloat 25s infinite ease-in-out;
+}
+
+.nebula-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, 
+    rgba(0, 150, 255, 0.5) 0%,
+    rgba(0, 77, 128, 0.2) 50%,
+    transparent 70%);
+  top: 60%;
+  left: 70%;
+  animation: nebulaFloat 30s infinite ease-in-out reverse;
+}
+
+.nebula-3 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, 
+    rgba(255, 0, 128, 0.4) 0%,
+    rgba(128, 0, 64, 0.2) 50%,
+    transparent 70%);
+  top: 30%;
+  left: 40%;
+  animation: nebulaFloat 20s infinite ease-in-out;
+}
+
+/* Animations */
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+@keyframes auroraFloat {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+  33% {
+    transform: translate(100px, 50px) rotate(120deg);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translate(-50px, 100px) rotate(240deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes lightningStrike {
+  0%, 95% {
+    height: 0;
+    opacity: 0;
+    top: 0;
+  }
+  96% {
+    height: 100px;
+    opacity: 0.8;
+    top: 0;
+  }
+  98% {
+    height: 200px;
+    opacity: 1;
+    top: 100px;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+    top: 300px;
+  }
+}
+
+@keyframes nebulaFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(100px, 50px) scale(1.1);
+  }
+  50% {
+    transform: translate(50px, 100px) scale(0.9);
+  }
+  75% {
+    transform: translate(-50px, 50px) scale(1.05);
+  }
+}
+
+/* Enhanced App Styles */
+.app {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Update existing styles for better contrast with new background */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 14, 42, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.testimonials-section {
+  padding: 6rem 2rem;
+  background: rgba(10, 14, 42, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+}
+
+/* Rest of your existing CSS remains the same, but I'll adjust some colors for better contrast */
+
+/* Update text colors for better readability on dark background */
+.left-section h1,
+.full-layout h1,
+.left-section p,
+.full-layout p,
+.right-section h3,
+.testimonials-section h2,
+.testimonial-text,
+.client-info h4,
+.client-info p,
+.client-info span {
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhance glass effects */
+.cta-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  text-shadow: none;
+}
+
+.cta-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 247, 255, 0.3);
+}
+
+.testimonials-slider {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.slider-nav,
+.testimonial-prev,
+.testimonial-next {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.slider-nav:hover,
+.testimonial-prev:hover,
+.testimonial-next:hover {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.4);
+}
+
+/* Keep the rest of your existing responsive styles */
+/* ... (all the existing responsive CSS from previous code) ... */
+
 body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
