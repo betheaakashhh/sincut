@@ -146,8 +146,9 @@ const PhotoGallery = () => {
           <p>Visual journey towards inner peace</p>
         </div>
         <div className="loading-spinner">
+          
           <div className="spinner"></div>
-          <p>Loading peaceful moments...</p>
+          
         </div>
       </div>
     );

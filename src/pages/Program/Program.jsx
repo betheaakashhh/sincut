@@ -2,7 +2,8 @@ import React  from 'react'
 import {useNavigate} from "react-router-dom"; //react
 import './program.css'
 import ShareButton from '../ShareButton/ShareButton';
-
+import DonateButton from '../Donate/DonateButton';
+import Plant from '../Plant/Plant'
 
 const Program = () => {
 const navigate = useNavigate();
@@ -25,21 +26,23 @@ title: "Clean a Drop",
 description: "Donate $1 to help clean one drop of water — small purity, big change.",
 buttonText: "Donate",
 icon: "💧",
-gradient: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)"
+gradient: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+isDonate: true
 },
 {
 id: 3,
 title: "Plant Your Karma",
 description: "Each dollar plants hope. Turn guilt into green by supporting reforestation.",
-buttonText: "Plant",
+buttonText: "Plant Your Karma",
 icon: "🌱",
-gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+isPlant: true
 },
 {
 id: 4,
 title: "Redeem a Sin",
 description: "Every sin deserves a second chance. Give $1, spread kindness, start fresh.",
-buttonText: "Redeem",
+buttonText: "Redeem a Sin",
 icon: "✨",
 gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
 }
@@ -82,18 +85,27 @@ Together, we can make the world a better place, one act of kindness at a time.
               <p className="feature-description">{feature.description}</p>  
 
               {/* Conditionally render ShareButton or regular button */}  
-              {feature.isShare ? (  
-                <div className="share-button-wrapper">  
-                  <ShareButton />  
-                </div>  
-              ) : (  
-                <button className="feature-button">  
-                  {feature.buttonText}  
-                  <svg className="button-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none">  
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>  
-                  </svg>  
-                </button>  
-              )}  
+              {feature.isShare ? (
+  <div className="share-button-wrapper">
+    <ShareButton />
+  </div>
+) : feature.isDonate ? (
+  <div className="donate-button-wrapper">
+    <DonateButton />
+  </div>
+) :  feature.isPlant ? (
+  <div className="plant-button-wrapper">
+    <Plant/>
+  </div>
+): (
+  <button className="feature-button" style={{ background: feature.gradient }}>
+    {feature.buttonText}
+    <svg className="button-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  </button>
+)}
+ 
             </div>  
             <div className="card-glow"></div>  
           </div>  
