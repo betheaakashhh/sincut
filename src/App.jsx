@@ -15,6 +15,7 @@ import Header from './pages/Header/Header'
 import TermCondition from './pages/TermCondition/TermCondition'
 import PhotoGallery from './pages/PhotoGallery/PhotoGallery'
 import Program from './pages/Program/Program'
+import Announce from './pages/Donate/Announce'
 
 
 const App = () => {
@@ -34,6 +35,8 @@ const App = () => {
           < Route path='/terms' element={<TermCondition/>} />
 < Route path='/Program' element={<Program/>} />
  < Route path='/gallery' element={<PhotoGallery />} />
+< Route path='/announce' element={<Announce />} />
+          
           
         
        
