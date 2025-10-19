@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './announce.css';
 
-const App = () => {
+const Announce = () => {
   // ... (all your existing state and data remains the same)
 
   return (
@@ -40,4 +40,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Announce;
