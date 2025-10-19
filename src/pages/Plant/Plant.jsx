@@ -6,7 +6,7 @@ const DonateButton = () => {
   const navigate = useNavigate();
 
   const handleClickPlant = () => {
-    navigate('/plant-your-karma'); // route to your new page
+    navigate('/announce'); // route to your new page
   };
 
   return (
