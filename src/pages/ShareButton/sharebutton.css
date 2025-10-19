@@ -250,7 +250,7 @@
     transform: translateY(100%) !important;
     margin-bottom: 0 !important;
     border-radius: 20px 20px 0 0 !important;
-    max-height: 70vh !important; /* Limit mobile height */
+    max-height: 50vh !important; /* Limit mobile height */
   }
 
   .share-options.open {
@@ -260,7 +260,7 @@
   .share-options-content {
     border-radius: 20px 20px 0 0 !important;
     min-width: auto !important;
-    max-height: 70vh !important; /* Ensure scrolling on mobile */
+    max-height: 50vh !important; /* Ensure scrolling on mobile */
     overflow-y: auto !important;
   }
 
