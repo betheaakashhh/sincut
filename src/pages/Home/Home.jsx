@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../Header/Header'
-import SlidingCards from '../Sinsection/SlidingCards'
+import SlidingCards from '../SlidingCard/SlidingCards'
 import Navbar from '../../components/Navbar/Navbar'
 import Program from '../Program/Program'
 import ConfessSection from '../Confess/ConfessSection'

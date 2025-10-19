@@ -51,25 +51,13 @@ const SlidingCards = () => {
   }, [darkMode]);
 
   return (
-    <div className={`sincut-container ${darkMode ? 'dark' : 'light'}`}>
-      {/* Header Section */}
-      <header className="sincut-header">
-        <div className="sincut-header-content">
-          <h1>SINCUT</h1>
-          <p>Confess. Contribute. Cleanse.</p>
-          <button 
-            className="sincut-theme-toggle"
-            onClick={() => setDarkMode(!darkMode)}
-          >
-            {darkMode ? '☀️ Light' : '🌙 Dark'}
-          </button>
-        </div>
-      </header>
+    <div className="sincut-container">
+      {/* 🔘 Just keep the toggle for switching modes */}
+      
 
-      {/* Sliding Cards Section */}
+      {/* 🎴 SLIDING CARDS SECTION */}
       <section className="sincut-cards-section">
-        
-<div className="sincut-cards-wrapper">
+        <div className="sincut-cards-wrapper">
           <div className="sincut-cards-track">
             {[...cards, ...cards].map((card, index) => (
               <div

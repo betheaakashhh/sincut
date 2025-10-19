@@ -13,7 +13,7 @@ import { populateQuotes } from './indexedDBInit'
 import QuoteMarquee from './components/marquee/QouteMarque'
 import Header from './pages/Header/Header'
 import TermCondition from './pages/TermCondition/TermCondition'
-import PhotoGallery from './pages/Stripe/PhotoGallery'
+import PhotoGallery from './pages/PhotoGallery/PhotoGallery'
 import Program from './pages/Program/Program'
 
 

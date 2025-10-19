@@ -2,7 +2,7 @@ import React  from 'react'
 import {useNavigate} from "react-router-dom"; //react
 import './program.css'
 import ShareButton from '../ShareButton/ShareButton';
-import PhotoGallery from '../Stripe/PhotoGallery'
+
 
 const Program = () => {
 const navigate = useNavigate();
