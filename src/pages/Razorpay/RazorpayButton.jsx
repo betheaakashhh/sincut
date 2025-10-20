@@ -5,10 +5,7 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async () => {
-    if (onBeforePay && onBeforePay() === false) {
-      console.log("Payment cancelled by validation");
-      return;
-    }
+    if (onBeforePay && onBeforePay() === false) return;
 
     try {
       setLoading(true);
@@ -22,7 +19,7 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
 
       const orderData = await res.json();
       if (!res.ok || !orderData.id) {
-        alert("Something went wrong. Could not create a payment order.");
+        alert("Something went wrong while creating order.");
         setLoading(false);
         document.body.style.overflow = "auto";
         return;
@@ -30,10 +27,12 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
 
       if (!window.Razorpay) {
         alert("Razorpay SDK not loaded.");
+        setLoading(false);
+        document.body.style.overflow = "auto";
         return;
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((r) => setTimeout(r, 1000)); // better UX
 
       const options = {
         key: "rzp_test_RUEOHvHC3GJJUO",
@@ -43,14 +42,11 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
         description: "Donation to redeem your guilt",
         order_id: orderData.id,
         handler: function (response) {
-          console.log("Payment success:", response);
-          alert("Payment Successful: " + response.razorpay_payment_id);
-
-          // ✅ Call parent function with amount
+          console.log("✅ Payment success:", response);
           if (onPaymentSuccess) {
+            // call parent popup trigger
             onPaymentSuccess(amount, response);
           }
-
           document.body.style.overflow = "auto";
           setLoading(false);
         },

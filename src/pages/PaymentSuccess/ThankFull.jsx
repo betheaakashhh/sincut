@@ -1,14 +1,16 @@
 import React from "react";
 import "./thankfull.css";
 
-const ThankFull= ({ amount, onClose }) => {
+const ThankFull = ({ amount, onClose }) => {
   return (
     <div className="thankful-overlay">
       <div className="thankful-popup">
         <button className="close-btn" onClick={onClose}>✕</button>
 
         <h2>🙏 Payment Successful</h2>
-        <p className="amount-text">You have contributed ₹{amount} towards your Karma Relief.</p>
+        <p className="amount-text">
+          You have contributed ₹{amount} towards your Karma Relief.
+        </p>
 
         <div className="gratitude-section">
           <h3>🌸 Thank You for Your Confession</h3>
