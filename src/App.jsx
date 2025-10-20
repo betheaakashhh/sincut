@@ -5,11 +5,10 @@ import About from './pages/About/About'
 import Contact from './pages/Contact/Contact'
 import FAQ from './pages/faqs/FAQ'
 
-import './App.css'
-import Navbar from './components/Navbar/Navbar'
+
 import Bottom from './pages/Bottom/Bottom'
-import { useEffect } from 'react'
-import { populateQuotes } from './indexedDBInit'
+
+
 import QuoteMarquee from './components/marquee/QouteMarque'
 import Header from './pages/Header/Header'
 import TermCondition from './pages/TermCondition/TermCondition'
@@ -17,8 +16,6 @@ import PhotoGallery from './pages/PhotoGallery/PhotoGallery'
 import Program from './pages/Program/Program'
 import Announce from './pages/Donate/Announce'
 
-import ConfessSection from './pages/Confess/ConfessSection'
-import ThankfulPage from './pages/PaymentSuccess/ThankfulPage' // Fixed import name
 
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
@@ -29,10 +26,7 @@ import ThankfulPage from './pages/PaymentSuccess/ThankfulPage'
 
 
 
-const App = () => {
-   useEffect(() => {
-    populateQuotes();
-  }, []);
+
 
   return (
     <div className='app'>
