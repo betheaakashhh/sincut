@@ -32,7 +32,7 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
         return;
       }
 
-      await new Promise((r) => setTimeout(r, 1000)); // better UX
+      await new Promise((r) => setTimeout(r, 1000));
 
       const options = {
         key: "rzp_test_RUEOHvHC3GJJUO",
@@ -44,7 +44,6 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
         handler: function (response) {
           console.log("✅ Payment success:", response);
           if (onPaymentSuccess) {
-            // call parent popup trigger
             onPaymentSuccess(amount, response);
           }
           document.body.style.overflow = "auto";

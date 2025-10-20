@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./confess.css";
 import RazorpayButton from "../Razorpay/RazorpayButton";
-import ThankfulPopup from "../ThankfulPopup/ThankfulPopup"; // ✅ import popup
 
 const ConfessSection = () => {
   const [sinText, setSinText] = useState("");
   const [userCountry, setUserCountry] = useState(null);
   const [isWriting, setIsWriting] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
-  const [showThankful, setShowThankful] = useState(false); // ✅ new state
-  const [amountPaid, setAmountPaid] = useState(0); // ✅ to pass to popup
+  const navigate = useNavigate();
 
   const handleBeforePay = () => {
     if (!sinText.trim()) {
@@ -22,10 +21,10 @@ const ConfessSection = () => {
     return true;
   };
 
-  const handlePaymentSuccess = (response) => {
+  const handlePaymentSuccess = (amount, response) => {
     console.log("Payment successful:", response);
-    setAmountPaid(100); // ✅ or dynamic if needed
-    setShowThankful(true); // ✅ show popup
+    // Navigate to thankful page with amount in state
+    navigate("/thanks", { state: { amount } });
   };
 
   const handleTextChange = (e) => {
@@ -97,6 +96,7 @@ const ConfessSection = () => {
             value={sinText}
             onChange={handleTextChange}
             rows={6}
+            maxLength={500}
           ></textarea>
 
           <div className="character-guidance">
@@ -154,7 +154,7 @@ const ConfessSection = () => {
               <RazorpayButton
                 amount={100}
                 onBeforePay={handleBeforePay}
-                onPaymentSuccess={handlePaymentSuccess} // ✅ attached
+                onPaymentSuccess={handlePaymentSuccess}
               />
               <p className="donation-note">
                 Your ₹100 donation plants seeds of goodness and completes your
@@ -181,14 +181,6 @@ const ConfessSection = () => {
           <div className="blessing-signature">- The Path to Redemption</div>
         </div>
       </div>
-
-      {/* ✅ Thankful Popup (shows after payment success) */}
-      {showThankful && (
-        <ThankfulPopup
-          amount={amountPaid}
-          onClose={() => setShowThankful(false)}
-        />
-      )}
     </div>
   );
 };
