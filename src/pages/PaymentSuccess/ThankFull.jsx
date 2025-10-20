@@ -38,4 +38,4 @@ const ThankFull = () => {
   );
 };
 
-export default ThankFull;
+export default Thankull;

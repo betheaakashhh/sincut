@@ -25,13 +25,14 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
         return;
       }
 
-      // Ensure Razorpay SDK is loaded
-      if (typeof window.Razorpay === "undefined") {
-        alert("Razorpay SDK not loaded. Please refresh and try again.");
+      if (!window.Razorpay) {
+        alert("Razorpay SDK not loaded.");
         setLoading(false);
         document.body.style.overflow = "auto";
         return;
       }
+
+      await new Promise((r) => setTimeout(r, 1000)); // better UX
 
       const options = {
         key: "rzp_test_RUEOHvHC3GJJUO",
@@ -42,13 +43,10 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
         order_id: orderData.id,
         handler: function (response) {
           console.log("✅ Payment success:", response);
-          alert("Payment Successful 🎉");
-
-          // 🔥 Trigger parent popup
-          if (typeof onPaymentSuccess === "function") {
+          if (onPaymentSuccess) {
+            // call parent popup trigger
             onPaymentSuccess(amount, response);
           }
-
           document.body.style.overflow = "auto";
           setLoading(false);
         },
@@ -64,8 +62,8 @@ function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      console.error("❌ Payment Failed:", err);
-      alert("Something went wrong during payment.");
+      console.error("Payment Failed:", err);
+      alert("Something went wrong while starting payment.");
     } finally {
       setLoading(false);
       document.body.style.overflow = "auto";

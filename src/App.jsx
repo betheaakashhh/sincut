@@ -40,8 +40,7 @@ const App = () => {
 < Route path='/Program' element={<Program/>} />
  < Route path='/gallery' element={<PhotoGallery />} />
 < Route path='/announce' element={<Announce />} />
-< Route path='/confess' element={<ConfessSection/>} />
-< Route path='/thanks' element={<ThankFull />} />
+
           
           
         
