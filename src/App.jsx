@@ -52,6 +52,6 @@ import ThankfulPage from './pages/PaymentSuccess/ThankfulPage'
       <Footer />
         </div>
   )
-}
+
 
 export default App
