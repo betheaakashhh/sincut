@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./hero.css";
-
+import { useNavigate } from "react-router-dom";
 import RazorpayButton from "../Razorpay/RazorpayButton";
 
 const HeroSection = () => {
@@ -9,7 +9,7 @@ const HeroSection = () => {
   const [characterCount, setCharacterCount] = useState(0);
   const [userCountry, setUserCountry] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  
+  const navigate = useNavigate();
 
   // This runs when Razorpay button asks permission to continue payment
   const handleBeforePay = () => {
