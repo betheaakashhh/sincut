@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./hero.css";
-import QuoteMarquee from "../../components/marquee/QouteMarque";
+
 import RazorpayButton from "../Razorpay/RazorpayButton";
 
 const HeroSection = () => {
@@ -9,6 +9,7 @@ const HeroSection = () => {
   const [characterCount, setCharacterCount] = useState(0);
   const [userCountry, setUserCountry] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  
 
   // This runs when Razorpay button asks permission to continue payment
   const handleBeforePay = () => {
@@ -27,6 +28,11 @@ const HeroSection = () => {
     }, 1300);
     
     return true; // allow RazorpayButton to proceed
+  };
+  const handlePaymentSuccess = (amount, response) => {
+    console.log("Payment successful:", response);
+    // Navigate to thankful page with amount in state
+    navigate("/thanks", { state: { amount } });
   };
 
   const handleTextChange = (e) => {
@@ -145,10 +151,10 @@ const HeroSection = () => {
           ) : userCountry === "IN" ? (
             <div className="razorpay-integration">
              
-              <RazorpayButton 
-                amount={100} 
+              <RazorpayButton
+                amount={100}
                 onBeforePay={handleBeforePay}
-                className="razorpay-custom-btn"
+                onPaymentSuccess={handlePaymentSuccess}
               />
               
             </div>
