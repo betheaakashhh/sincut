@@ -16,14 +16,6 @@ import TermCondition from './pages/TermCondition/TermCondition'
 import PhotoGallery from './pages/PhotoGallery/PhotoGallery'
 import Program from './pages/Program/Program'
 import Announce from './pages/Donate/Announce'
-
-
-import ConfessSection from './pages/Confess/ConfessSection'
-import ThankfulPage from './pages/PaymentSuccess/ThankfulPage' // Fixed import name
-
-import './App.css'
-import Navbar from './components/Navbar/Navbar'
-
 import Footer from './data/Footer/Footer'
 import ConfessSection from './pages/Confess/ConfessSection'
 import ThankfulPage from './pages/PaymentSuccess/ThankfulPage'
@@ -61,4 +53,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
