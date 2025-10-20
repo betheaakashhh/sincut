@@ -16,6 +16,7 @@ import TermCondition from './pages/TermCondition/TermCondition'
 import PhotoGallery from './pages/PhotoGallery/PhotoGallery'
 import Program from './pages/Program/Program'
 import Announce from './pages/Donate/Announce'
+import Footer from './data/Footer/Footer'
 
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
        
         </Routes> 
       {/*  <Bottom /> */}
+      <Footer />
         </div>
   )
 }

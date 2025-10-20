@@ -1,0 +1,124 @@
+.footer {
+  background-color: #e0dfdf; /* greyish-white */
+  border-top: 1px solid #e9ecef;
+  padding: 20px 0;
+  width: 100%;
+  position: relative;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 0 20px;
+}
+
+.footer-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #495057;
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.social-link {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+/* WhatsApp */
+.social-link.whatsapp {
+  color: #25D366;
+  border-color: #25D366;
+  background-color: transparent;
+}
+
+.social-link.whatsapp:hover {
+  background-color: #25D366;
+  color: white;
+}
+
+/* Instagram */
+.social-link.instagram {
+  color: #E4405F;
+  border-color: #E4405F;
+  background-color: transparent;
+}
+
+.social-link.instagram:hover {
+  background-color: #E4405F;
+  color: white;
+}
+
+/* Twitter */
+.social-link.twitter {
+  color: #1DA1F2;
+  border-color: #1DA1F2;
+  background-color: transparent;
+}
+
+.social-link.twitter:hover {
+  background-color: #1DA1F2;
+  color: white;
+}
+
+/* Telegram */
+.social-link.telegram {
+  color: #0088cc;
+  border-color: #0088cc;
+  background-color: transparent;
+}
+
+.social-link.telegram:hover {
+  background-color: #0088cc;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 0 15px;
+  }
+  
+  .social-links {
+    gap: 15px;
+  }
+  
+  .social-link {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 15px 0;
+  }
+  
+  .footer-text {
+    font-size: 14px;
+  }
+  
+  .social-links {
+    gap: 10px;
+  }
+  
+  .social-link {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}

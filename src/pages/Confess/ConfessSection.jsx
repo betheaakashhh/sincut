@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./confess.css";
 import RazorpayButton from "../Razorpay/RazorpayButton";
+import ThankFull from "../PaymentSuccess/ThankFull";
 
 const ConfessSection = () => {
   const [sinText, setSinText] = useState("");
   const [userCountry, setUserCountry] = useState(null);
   const [isWriting, setIsWriting] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [paidAmount, setPaidAmount] = useState(0);
 
   // This runs when Razorpay button asks permission to continue payment
   const handleBeforePay = () => {
@@ -19,6 +22,10 @@ const ConfessSection = () => {
     setCharacterCount(0);
     return true; // allow RazorpayButton to proceed
   };
+  const handlePaymentSuccess = (amount) => {
+  setPaidAmount(amount);
+  setShowPopup(true);
+   };
 
   const handleTextChange = (e) => {
     const text = e.target.value;
@@ -144,10 +151,20 @@ const ConfessSection = () => {
                 <span className="blessing-icon">💫</span>
                 Your confession prepares you for transformation
               </div>
-              <RazorpayButton amount={100} onBeforePay={handleBeforePay} />
+              <RazorpayButton 
+              amount={100} 
+              onBeforePay={handleBeforePay} 
+              onPaymentSuccess={handlePaymentSuccess}
+              />
               <p className="donation-note">
                 Your $1 donation plants seeds of goodness and completes your redemption
               </p>
+              {showPopup && (
+              <ThankFull
+               amount={paidAmount}
+               onClose={() => setShowPopup(false)}
+              />
+              )}
             </div>
           ) : (
             <div className="international-payment">

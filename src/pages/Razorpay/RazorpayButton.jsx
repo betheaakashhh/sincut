@@ -1,12 +1,10 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import "./razor.css";
 
-function RazorpayButton({ amount = 1, onBeforePay }) { 
+function RazorpayButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
   const [loading, setLoading] = useState(false);
-  
 
   const handlePayment = async () => {
-    // 1️⃣ Run parent validation first
     if (onBeforePay && onBeforePay() === false) {
       console.log("Payment cancelled by validation");
       return;
@@ -14,8 +12,8 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
 
     try {
       setLoading(true);
-      document.body.style.overflow =  "hidden"; //disable scroll while processing
-      console.log("Fetching backend order...");
+      document.body.style.overflow = "hidden";
+
       const res = await fetch(`https://sincut-razorpay.vercel.app/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -23,40 +21,45 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
       });
 
       const orderData = await res.json();
-      console.log("Order data received:", orderData);
       if (!res.ok || !orderData.id) {
-       console.error("Failed to create order on the backend.");
-       alert("Something went wrong. Could not create a payment order.");
-       setLoading(false);
+        alert("Something went wrong. Could not create a payment order.");
+        setLoading(false);
         document.body.style.overflow = "auto";
-         return; // Stop the function here
-         }
-
-      if (!window.Razorpay) {
-        alert("Razorpay SDK is not loaded.");
         return;
       }
 
-      // small wait for better UX for 1.5 sec
-      await new Promise((resolve) => setTimeout(resolve,1500));
+      if (!window.Razorpay) {
+        alert("Razorpay SDK not loaded.");
+        return;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const options = {
-        key: "rzp_test_RUEOHvHC3GJJUO", // replace with real Razorpay key
+        key: "rzp_test_RUEOHvHC3GJJUO",
         amount: orderData.amount,
         currency: orderData.currency,
         name: "Cut Your Sin",
         description: "Donation to redeem your guilt",
         order_id: orderData.id,
         handler: function (response) {
+          console.log("Payment success:", response);
           alert("Payment Successful: " + response.razorpay_payment_id);
+
+          // ✅ Call parent function with amount
+          if (onPaymentSuccess) {
+            onPaymentSuccess(amount, response);
+          }
+
+          document.body.style.overflow = "auto";
+          setLoading(false);
         },
-        modal:{
-          ondismiss: function(){
-            //re-enable scroll if payment window is closed
+        modal: {
+          ondismiss: function () {
             document.body.style.overflow = "auto";
             setLoading(false);
           },
-    },
+        },
         theme: { color: "#F37254" },
       };
 
@@ -65,8 +68,7 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
     } catch (err) {
       console.error("Payment Failed:", err);
       alert("Something went wrong while starting payment.");
-    } finally{
-      //re enable scroll and hide loader
+    } finally {
       setLoading(false);
       document.body.style.overflow = "auto";
     }
@@ -74,10 +76,10 @@ function RazorpayButton({ amount = 1, onBeforePay }) {
 
   return (
     <button
-      onClick={handlePayment} 
-      className={`confess-btn ${loading ? "loading": ""}`}
-      disabled = {loading}
-      >
+      onClick={handlePayment}
+      className={`confess-btn ${loading ? "loading" : ""}`}
+      disabled={loading}
+    >
       {loading ? <div className="spinner"></div> : <>Donate ₹{amount}</>}
     </button>
   );
