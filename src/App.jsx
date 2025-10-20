@@ -19,6 +19,7 @@ import Announce from './pages/Donate/Announce'
 import Footer from './data/Footer/Footer'
 import ConfessSection from './pages/Confess/ConfessSection'
 import ThankfulPage from './pages/PaymentSuccess/ThankfulPage'
+import HeroSection from './pages/Hero/HeroSection'
 
 
 
@@ -40,6 +41,7 @@ const App = () => {
 < Route path='/Program' element={<Program/>} />
  < Route path='/gallery' element={<PhotoGallery />} />
 < Route path='/announce' element={<Announce />} />
+< Route path='main0confess' element={<HeroSection />} />
 < Route path='/confess' element={<ConfessSection/>} />
 < Route path='/thanks' element={<ThankfulPage/>} />
           
