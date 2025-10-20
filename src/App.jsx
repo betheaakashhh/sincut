@@ -9,7 +9,7 @@ import PhotoGallery from './pages/PhotoGallery/PhotoGallery'
 import Program from './pages/Program/Program'
 import Announce from './pages/Donate/Announce'
 import ConfessSection from './pages/Confess/ConfessSection'
-import ThankfulPage from './pages/PaymentSuccess/Thankfulpage' // Fixed import name
+import ThankfulPage from './pages/PaymentSuccess/ThankfulPage' // Fixed import name
 
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
