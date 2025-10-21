@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./hero.css";
 
-import PaymentButton from "../Razorpay/PaymentButton"; // ✅ Fixed import
+import PaymentButton from "../Razorpay/PaymentButton";
 import ThankfulPage from "../PaymentSuccess/ThankfulPage";
 
 const HeroSection = () => {
   const [heroText, setHeroText] = useState("");
   const [isWriting, setIsWriting] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
-  const [userCountry, setUserCountry] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showThankful, setShowThankful] = useState(false);
   const [paidAmount, setPaidAmount] = useState(0);
 
-  // This runs when payment button asks permission to continue payment
   const handleBeforePay = () => {
     if (!heroText.trim()) {
       alert("Please write your confession before proceeding.");
-      return false; // stop payment
+      return false;
     }
     setIsProcessing(true);
 
-    // Simulate processing
     setTimeout(() => {
       alert("May you find peace and redemption.");
       setHeroText("");
@@ -29,7 +26,7 @@ const HeroSection = () => {
       setIsProcessing(false);
     }, 1300);
 
-    return true; // allow PaymentButton to proceed
+    return true;
   };
   
   const handlePaymentSuccess = (amount, response) => {
@@ -44,20 +41,6 @@ const HeroSection = () => {
     setCharacterCount(text.length);
     setIsWriting(text.length > 0);
   };
-
-  useEffect(() => {
-    const fetchUserCountry = async () => {
-      try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        console.log("Detected country:", data.country);
-        setUserCountry(data.country);
-      } catch (err) {
-        console.error("Country detection failed", err);
-      }
-    };
-    fetchUserCountry();
-  }, []);
 
   return (
     <div className="modern-hero-section">
@@ -149,32 +132,25 @@ const HeroSection = () => {
           </div>
         )}
 
-        {/* ✅ Fixed Payment Section */}
+        {/* Action Section */}
         <div className="hero-action-section">
           {isProcessing ? (
             <div className="processing-overlay">
               <div className="processing-spinner"></div>
               <p>Processing your confession...</p>
             </div>
-          ) : userCountry === null ? (
-            <div className="payment-loading">
-              <div className="loading-spinner"></div>
-              <p>Connecting to divine redemption...</p>
-            </div>
           ) : (
             <div className="payment-integration">
               <PaymentButton
-                
                 onBeforePay={handleBeforePay}
                 onPaymentSuccess={handlePaymentSuccess}
               />
             </div>
           )}
         </div>
-        {/* ✅ Fixed: Properly closed the hero-container div */}
       </div>
 
-      {/* ✅ Popup (ThankfulPage modal) */}
+      {/* Thankful Page Modal */}
       {showThankful && (
         <div className="thankful-modal-overlay">
           <div className="thankful-modal-content">
