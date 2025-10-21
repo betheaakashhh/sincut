@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./hero.css";
 import { useNavigate } from "react-router-dom";
 import RazorpayButton from "../Razorpay/RazorpayButton";
+import ThankfulPage from "../PaymentSuccess/ThankfulPage";
 
 const HeroSection = () => {
   const [heroText, setHeroText] = useState("");
