@@ -18,11 +18,7 @@ import Program from './pages/Program/Program'
 import Announce from './pages/Donate/Announce'
 import Footer from './data/Footer/Footer'
 import ConfessSection from './pages/Confess/ConfessSection'
-<<<<<<< HEAD
-// import ThankfulPage from './pages/PaymentSuccess/ThankfulPage'
-=======
 import ThankfulPage from './pages/PaymentSuccess/ThankfulPage'
->>>>>>> c6a145a (asd)
 import HeroSection from './pages/Hero/HeroSection'
 
 
@@ -47,7 +43,7 @@ const App = () => {
 < Route path='/announce' element={<Announce />} />
 < Route path='/main' element={<HeroSection />} />
 < Route path='/confess' element={<ConfessSection/>} />
-{/* < Route path='/thanks' element={<ThankfulPage/>} /> */}
+< Route path='/thanks' element={<ThankfulPage/>} />
           
           
         
@@ -59,8 +55,4 @@ const App = () => {
   )
 }
 
-<<<<<<< HEAD
 export default App;
-=======
-export default App;
->>>>>>> c6a145a (asd)
