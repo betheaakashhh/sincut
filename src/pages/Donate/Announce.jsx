@@ -209,10 +209,10 @@ const Announce = () => {
 
         {/* Slider Navigation */}
         <button className="slider-nav prev" onClick={prevSlide}>
-          ‹
+          
         </button>
         <button className="slider-nav next" onClick={nextSlide}>
-          ›
+          
         </button>
 
         {/* Slider Indicators */}
