@@ -32,6 +32,7 @@ const HeroSection = () => {
 
     return true; // allow RazorpayButton to proceed
   };
+  
   const handlePaymentSuccess = (amount, response) => {
     console.log("Payment successful:", response);
     // Navigate to thankful page with amount in state
