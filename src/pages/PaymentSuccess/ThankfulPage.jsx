@@ -110,7 +110,7 @@ const ThankfulPage = ({amount = 100, onClose }) => {
           </div>
         </div>
 
-        <button className="thankful-return-btn" onClick={() => navigate("/")}>
+        <button className="thankful-return-btn" onClick={onClose ? onClose : () => navigate("/confess")}>
           Return to Confession
         </button>
       </div>
