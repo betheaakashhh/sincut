@@ -2,9 +2,10 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./thankfull.css";
 
-const ThankfulPage = ({amount = 100, onClose }) => {
+const ThankfulPage = ({amount:propAmount = 100, onClose }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const amount = location.state?.amount || propAmount;
   
 
   return (
