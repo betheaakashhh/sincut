@@ -9,6 +9,8 @@ const HeroSection = () => {
   const [characterCount, setCharacterCount] = useState(0);
   const [userCountry, setUserCountry] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showThankful, setShowThankful] = useState(false); //new state for thankful
+  const [paidAmount, setPaidAmount] = useState(0); //new state for amount
   const navigate = useNavigate();
 
   // This runs when Razorpay button asks permission to continue payment
@@ -18,7 +20,7 @@ const HeroSection = () => {
       return false; // stop payment
     }
     setIsProcessing(true);
-    
+
     // Simulate processing
     setTimeout(() => {
       alert("May you find peace and redemption.");
@@ -26,13 +28,14 @@ const HeroSection = () => {
       setCharacterCount(0);
       setIsProcessing(false);
     }, 1300);
-    
+
     return true; // allow RazorpayButton to proceed
   };
   const handlePaymentSuccess = (amount, response) => {
     console.log("Payment successful:", response);
     // Navigate to thankful page with amount in state
-    navigate("/thanks", { state: { amount } });
+    setPaidAmount(amount);
+    setShowThankful(true); //open popup instead of navigate
   };
 
   const handleTextChange = (e) => {
@@ -73,11 +76,14 @@ const HeroSection = () => {
             <span className="title-gradient">Confess Your</span>
             <span className="title-glitch">Sins</span>
           </h1>
-          
         </div>
 
         {/* Dynamic Text Area */}
-        <div className={`modern-textarea-container ${isWriting ? 'writing-active' : ''}`}>
+        <div
+          className={`modern-textarea-container ${
+            isWriting ? "writing-active" : ""
+          }`}
+        >
           <div className="textarea-glow-effect"></div>
           <div className="dynamic-border"></div>
           <div className="sparkle-container">
@@ -85,7 +91,7 @@ const HeroSection = () => {
             <div className="sparkle s2"></div>
             <div className="sparkle s3"></div>
           </div>
-          
+
           <textarea
             className="modern-textarea"
             placeholder="Write your confession here... Let your heart speak freely"
@@ -101,10 +107,13 @@ const HeroSection = () => {
             </div>
             {characterCount > 0 && (
               <div className="writing-feedback">
-                {characterCount < 100 ? "Begin your healing journey..." :
-                 characterCount < 400 ? "The divine is listening to your heart..." :
-                 characterCount < 700 ? "Your honesty brings you closer to peace..." :
-                 "You are being cleansed with every word..."}
+                {characterCount < 100
+                  ? "Begin your healing journey..."
+                  : characterCount < 400
+                  ? "The divine is listening to your heart..."
+                  : characterCount < 700
+                  ? "Your honesty brings you closer to peace..."
+                  : "You are being cleansed with every word..."}
               </div>
             )}
           </div>
@@ -123,15 +132,19 @@ const HeroSection = () => {
         {characterCount > 0 && (
           <div className="progress-indicator">
             <div className="progress-track">
-              <div 
-                className="progress-fill" 
-                style={{width: `${Math.min(100, (characterCount / 1000) * 100)}%`}}
+              <div
+                className="progress-fill"
+                style={{
+                  width: `${Math.min(100, (characterCount / 1000) * 100)}%`,
+                }}
               ></div>
             </div>
             <div className="progress-label">
-              {characterCount < 200 ? "Burden Lifting..." :
-               characterCount < 500 ? "Soul Cleansing..." :
-               "Almost Free..."}
+              {characterCount < 200
+                ? "Burden Lifting..."
+                : characterCount < 500
+                ? "Soul Cleansing..."
+                : "Almost Free..."}
             </div>
           </div>
         )}
@@ -150,13 +163,11 @@ const HeroSection = () => {
             </div>
           ) : userCountry === "IN" ? (
             <div className="razorpay-integration">
-             
               <RazorpayButton
                 amount={100}
                 onBeforePay={handleBeforePay}
                 onPaymentSuccess={handlePaymentSuccess}
               />
-              
             </div>
           ) : (
             <div className="international-options">
@@ -165,22 +176,27 @@ const HeroSection = () => {
                 Divine redemption available worldwide
               </div>
               <div className="stripe-placeholder">
-                <button className="modern-submit-btn" >
+                <button className="modern-submit-btn">
                   <span className="btn-glow"></span>
                   <span className="btn-text">Complete Redemption ($1)</span>
                   <span className="btn-arrow">→</span>
                 </button>
               </div>
-              
             </div>
           )}
-          
-          
         </div>
-
-        {/* Inspiration Quote */}
-        
       </div>
+      {/* ✅ Popup (ThankfulPage modal) */}
+      {showThankful && (
+        <div className="thankful-modal-overlay">
+          <div className="thankful-modal-content">
+            <ThankfulPage
+              amount={paidAmount}
+              onClose={() => setShowThankful(false)} // to close modal
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

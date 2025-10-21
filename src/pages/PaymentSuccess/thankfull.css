@@ -1,24 +1,20 @@
-/* Thankful Page Container */
+/* ─────────────── Global Container ─────────────── */
 .thankful-page-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Divine Aura Background */
 .thankful-page-container::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: 
     radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.4) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
@@ -27,90 +23,74 @@
 }
 
 @keyframes thankful-aura-pulse {
-  0%, 100% { 
-    opacity: 0.6; 
-    transform: scale(1); 
-  }
-  50% { 
-    opacity: 0.8; 
-    transform: scale(1.05); 
-  }
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
 }
 
-/* Main Content Box */
+/* ─────────────── Main Content ─────────────── */
 .thankful-page-content {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(25px);
-  border-radius: 25px;
-  padding: 50px 40px;
+  position: relative;
   max-width: 900px;
   width: 100%;
-  position: relative;
+  padding: 50px 40px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(25px);
   box-shadow: 
     0 25px 50px rgba(0, 0, 0, 0.15),
     0 0 120px rgba(255, 255, 255, 0.4),
     inset 0 2px 0 rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.4);
   animation: thankful-popup-appear 0.7s ease-out;
 }
 
 @keyframes thankful-popup-appear {
-  0% { 
-    opacity: 0; 
-    transform: scale(0.85) translateY(30px); 
-  }
-  100% { 
-    opacity: 1; 
-    transform: scale(1) translateY(0); 
-  }
+  0% { opacity: 0; transform: scale(0.85) translateY(30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Close Button */
+/* ─────────────── Close Button ─────────────── */
 .thankful-close-btn {
   position: absolute;
   top: 20px;
   right: 25px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #666;
-  transition: all 0.3s ease;
-  z-index: 10;
   width: 40px;
   height: 40px;
+  border: none;
   border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #666;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 .thankful-close-btn:hover {
   color: #333;
-  background: rgba(255, 255, 255, 1);
+  background: #fff;
   transform: rotate(90deg);
 }
 
-/* Header Section */
+/* ─────────────── Header ─────────────── */
 .thankful-page-header {
   text-align: center;
   margin-bottom: 40px;
   position: relative;
-  padding: 0 20px;
 }
 
 .thankful-halo-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 250px;
   height: 250px;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.35) 0%, transparent 70%);
   border-radius: 50%;
-  animation: thankful-halo-rotate 12s linear infinite;
   filter: blur(10px);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.35) 0%, transparent 70%);
+  animation: thankful-halo-rotate 12s linear infinite;
 }
 
 @keyframes thankful-halo-rotate {
@@ -122,87 +102,68 @@
 .thankful-main-title {
   color: #2c3e50;
   font-size: 2.8em;
-  margin-bottom: 15px;
   font-weight: 300;
-  position: relative;
   line-height: 1.3;
+  margin-bottom: 15px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .thankful-page-subtitle {
   color: #7f8c8d;
   font-size: 1.2em;
   font-style: italic;
-  margin: 0;
   font-weight: 300;
 }
 
-/* Payment Success Section */
+/* ─────────────── Payment Success ─────────────── */
 .thankful-payment-success {
   text-align: center;
   margin-bottom: 50px;
   padding: 30px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 20px;
   border-left: 6px solid #28a745;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   position: relative;
   overflow: hidden;
 }
-
 .thankful-payment-success::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
   background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
   animation: thankful-shine 3s ease-in-out infinite;
 }
 
 @keyframes thankful-shine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  0% { transform: translate(-100%, -100%) rotate(45deg); }
+  100% { transform: translate(100%, 100%) rotate(45deg); }
 }
 
 .thankful-success-icon {
   font-size: 3.5em;
   margin-bottom: 20px;
   animation: thankful-float 3.5s ease-in-out infinite;
-  display: inline-block;
 }
-
 @keyframes thankful-float {
-  0%, 100% { 
-    transform: translateY(0px) rotate(0deg); 
-  }
-  33% { 
-    transform: translateY(-15px) rotate(5deg); 
-  }
-  66% { 
-    transform: translateY(-8px) rotate(-5deg); 
-  }
+  0%, 100% { transform: translateY(0); }
+  33% { transform: translateY(-15px) rotate(5deg); }
+  66% { transform: translateY(-8px) rotate(-5deg); }
 }
-
 .thankful-success-text {
   font-size: 1.5em;
   color: #28a745;
   font-weight: 600;
   margin-bottom: 15px;
-  position: relative;
 }
-
 .thankful-divine-message {
   color: #5a6c7d;
   font-size: 1.15em;
   line-height: 1.7;
-  margin: 0;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
-/* Healing Sections Container */
+/* ─────────────── Healing Sections ─────────────── */
 .thankful-healing-sections {
   display: flex;
   flex-direction: column;
@@ -210,7 +171,6 @@
   margin-bottom: 50px;
 }
 
-/* Common Section Styles */
 .thankful-healing-steps,
 .thankful-dos-donts,
 .thankful-introspection-guide,
@@ -218,12 +178,11 @@
   background: rgba(255, 255, 255, 0.8);
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .thankful-healing-steps:hover,
 .thankful-dos-donts:hover,
 .thankful-introspection-guide:hover,
@@ -232,34 +191,28 @@
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
+/* ─────────────── Section Titles ─────────────── */
 .thankful-section-title {
   color: #2c3e50;
   margin-bottom: 25px;
   text-align: center;
   font-weight: 400;
   font-size: 1.8em;
-  position: relative;
   padding-bottom: 15px;
+  position: relative;
 }
-
 .thankful-section-title::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 50%;
+  bottom: 0; left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  width: 80px; height: 3px;
   border-radius: 2px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
 }
 
-/* Healing Steps */
-.thankful-steps-list {
-  padding-left: 25px;
-  margin: 0;
-}
-
+/* ─────────────── Lists and Steps ─────────────── */
+.thankful-steps-list { padding-left: 25px; margin: 0; }
 .thankful-step-item {
   margin-bottom: 16px;
   line-height: 1.7;
@@ -268,45 +221,32 @@
   padding-left: 10px;
   transition: color 0.3s ease;
 }
+.thankful-step-item:hover { color: #2c3e50; }
+.thankful-step-item::marker { color: #667eea; font-weight: bold; }
 
-.thankful-step-item:hover {
-  color: #2c3e50;
-}
-
-.thankful-step-item::marker {
-  color: #667eea;
-  font-weight: bold;
-}
-
-/* Dos & Don'ts */
+/* ─────────────── Do’s & Don’ts ─────────────── */
 .thankful-dos-donts-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
 }
-
 .thankful-dos-section,
 .thankful-donts-section {
   padding: 25px;
   border-radius: 15px;
   transition: transform 0.3s ease;
 }
-
 .thankful-dos-section:hover,
-.thankful-donts-section:hover {
-  transform: scale(1.02);
-}
+.thankful-donts-section:hover { transform: scale(1.02); }
 
 .thankful-dos-section {
-  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
   border-left: 5px solid #28a745;
 }
-
 .thankful-donts-section {
-  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
   border-left: 5px solid #dc3545;
 }
-
 .thankful-dos-title,
 .thankful-donts-title {
   margin-bottom: 20px;
@@ -314,14 +254,8 @@
   font-size: 1.3em;
   text-align: center;
 }
-
 .thankful-dos-list,
-.thankful-donts-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
+.thankful-donts-list { list-style: none; margin: 0; padding: 0; }
 .thankful-dos-item,
 .thankful-donts-item {
   margin-bottom: 12px;
@@ -330,243 +264,173 @@
   line-height: 1.6;
   font-size: 1.05em;
 }
-
-.thankful-dos-item::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: #28a745;
-  font-weight: bold;
-  font-size: 1.2em;
-  top: -1px;
-}
-
+.thankful-dos-item::before,
 .thankful-donts-item::before {
-  content: "✗";
   position: absolute;
-  left: 0;
-  color: #dc3545;
+  left: 0; top: -1px;
   font-weight: bold;
   font-size: 1.2em;
-  top: -1px;
 }
+.thankful-dos-item::before { content: "✓"; color: #28a745; }
+.thankful-donts-item::before { content: "✗"; color: #dc3545; }
 
-/* Introspection Guide */
+/* ─────────────── Introspection Guide ─────────────── */
 .thankful-introspection-steps {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
-
 .thankful-intro-step {
   display: flex;
   align-items: flex-start;
   gap: 20px;
   padding: 20px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 15px;
-  transition: all 0.3s ease;
   border-left: 4px solid transparent;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  transition: all 0.3s ease;
 }
-
 .thankful-intro-step:hover {
   transform: translateX(10px);
   border-left-color: #667eea;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
 }
-
 .thankful-step-number {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  width: 35px;
-  height: 35px;
+  width: 35px; height: 35px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; color: #fff;
   font-size: 1.1em;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
-
-.thankful-step-content {
-  flex: 1;
-}
-
+.thankful-step-content { flex: 1; }
 .thankful-step-heading {
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
   color: #2c3e50;
   font-size: 1.2em;
   font-weight: 600;
 }
-
 .thankful-step-description {
   margin: 0;
   color: #5a6c7d;
-  line-height: 1.6;
   font-size: 1.05em;
+  line-height: 1.6;
 }
 
-/* Motivational Messages */
-.thankful-wisdom-quotes {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
+/* ─────────────── Motivational Quotes ─────────────── */
+.thankful-wisdom-quotes { display: flex; flex-direction: column; gap: 20px; }
 .thankful-quote {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   padding: 25px;
   border-radius: 15px;
   border-left: 6px solid #667eea;
   font-style: italic;
   color: #5a6c7d;
-  margin: 0;
   line-height: 1.7;
   font-size: 1.1em;
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
 }
-
 .thankful-quote::before {
   content: '"';
   position: absolute;
-  top: 10px;
-  left: 15px;
+  top: 10px; left: 15px;
   font-size: 4em;
   color: rgba(102, 126, 234, 0.1);
   font-family: Georgia, serif;
-  line-height: 1;
 }
-
 .thankful-quote:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Return Button */
+/* ─────────────── Return Button ─────────────── */
 .thankful-return-btn {
   width: 100%;
   padding: 18px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
   border: none;
   border-radius: 12px;
   font-size: 1.2em;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   cursor: pointer;
   transition: all 0.4s ease;
-  font-weight: 600;
-  letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;
 }
-
 .thankful-return-btn::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: left 0.5s ease;
 }
-
 .thankful-return-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
 }
+.thankful-return-btn:hover::before { left: 100%; }
+.thankful-return-btn:active { transform: translateY(-1px); }
 
-.thankful-return-btn:hover::before {
-  left: 100%;
-}
-
-.thankful-return-btn:active {
-  transform: translateY(-1px);
-}
-
-/* Responsive Design */
+/* ─────────────── Responsive ─────────────── */
 @media (max-width: 768px) {
-  .thankful-page-content {
-    padding: 40px 25px;
-    margin: 20px;
-    border-radius: 20px;
-  }
-
-  .thankful-main-title {
-    font-size: 2.2em;
-  }
-
-  .thankful-dos-donts-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
+  .thankful-page-content { padding: 40px 25px; margin: 20px; border-radius: 20px; }
+  .thankful-main-title { font-size: 2.2em; }
+  .thankful-dos-donts-grid { grid-template-columns: 1fr; gap: 20px; }
   .thankful-healing-steps,
   .thankful-dos-donts,
   .thankful-introspection-guide,
-  .thankful-motivational-messages {
-    padding: 25px 20px;
-  }
-
-  .thankful-intro-step {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-  }
-
-  .thankful-step-number {
-    align-self: center;
-  }
-
-  .thankful-section-title {
-    font-size: 1.6em;
-  }
+  .thankful-motivational-messages { padding: 25px 20px; }
+  .thankful-intro-step { flex-direction: column; text-align: center; gap: 15px; }
+  .thankful-step-number { align-self: center; }
+  .thankful-section-title { font-size: 1.6em; }
 }
 
 @media (max-width: 480px) {
-  .thankful-page-container {
-    padding: 15px;
-  }
-
-  .thankful-page-content {
-    padding: 30px 20px;
-    border-radius: 18px;
-  }
-
-  .thankful-main-title {
-    font-size: 1.8em;
-  }
-
-  .thankful-success-text {
-    font-size: 1.3em;
-  }
-
-  .thankful-payment-success {
-    padding: 25px 20px;
-  }
-
-  .thankful-return-btn {
-    padding: 16px;
-    font-size: 1.1em;
-  }
+  .thankful-page-container { padding: 15px; }
+  .thankful-page-content { padding: 30px 20px; border-radius: 18px; }
+  .thankful-main-title { font-size: 1.8em; }
+  .thankful-success-text { font-size: 1.3em; }
+  .thankful-payment-success { padding: 25px 20px; }
+  .thankful-return-btn { padding: 16px; font-size: 1.1em; }
 }
 
-/* Print Styles */
+/* ─────────────── Print ─────────────── */
 @media print {
-  .thankful-close-btn,
-  .thankful-return-btn {
-    display: none;
-  }
-  
-  .thankful-page-container {
-    background: white !important;
-  }
-  
+  .thankful-close-btn, .thankful-return-btn { display: none; }
+  .thankful-page-container { background: white !important; }
   .thankful-page-content {
     box-shadow: none !important;
     border: 1px solid #ccc !important;
   }
+}
+.thankful-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.thankful-modal-content {
+  background: #fff;
+  border-radius: 20px;
+  overflow-y: auto;
+  max-height: 90vh;
+  width: 90%;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.95);}
+  to {opacity: 1; transform: scale(1);}
 }
