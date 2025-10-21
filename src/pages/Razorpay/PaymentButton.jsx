@@ -223,48 +223,7 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
       return `(Equivalent to ₹${inrAmount} INR)`;
     }
   };
-    useEffect(() => {
-    const detectCountry = async () => {
-      try {
-        setLoading(true);
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds
-
-        const res = await fetch("https://ipapi.co/json/", {
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        const data = await res.json();
-        if (data && data.country_code) {
-          const countryCode = data.country_code;
-          setCountry(countryCode);
-          
-          if (countryCode === "IN") {
-            setPaymentMethod("razorpay");
-            setCurrency("INR");
-            setAmount(11);
-          } else {
-            setPaymentMethod("paypal");
-            setCurrency("USD");
-            setAmount(1);
-          }
-          setLocationAvailable(true);
-          setShowManualSelection(false);
-        } else {
-          setLocationAvailable(false);
-          setShowManualSelection(true);
-        }
-      } catch (err) {
-        console.error("Location detection failed:", err);
-        setLocationAvailable(false);
-        setShowManualSelection(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    detectCountry();
-  }, []);
+  
 
   return (
     <div className="payment-button-container">
