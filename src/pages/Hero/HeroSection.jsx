@@ -164,7 +164,7 @@ const HeroSection = () => {
           ) : (
             <div className="payment-integration">
               <PaymentButton
-                amount={userCountry === "IN" ? 100 : 1}
+                
                 onBeforePay={handleBeforePay}
                 onPaymentSuccess={handlePaymentSuccess}
               />
