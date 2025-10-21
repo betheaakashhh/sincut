@@ -2,28 +2,75 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./thankfull.css";
 
-const ThankfulPage = ({amount:propAmount = 100, onClose }) => {
+const ThankfulPage = ({ amount: propAmount = 100, onClose }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const amount = location.state?.amount || propAmount;
-  
+
+  const handleClose = () => onClose ? onClose() : navigate("/confess");
+
+  const healingSteps = [
+    "Accept your past without fear or shame",
+    "Practice forgiveness — both for yourself and others",
+    "Spend 5 minutes in silent reflection daily",
+    "Do one selfless act of kindness every day",
+    "Maintain gratitude — write one thing you're thankful for daily",
+    "Let go of guilt and walk forward with faith and clarity"
+  ];
+
+  const dosList = [
+    "Practice daily meditation",
+    "Be kind to yourself and others",
+    "Express gratitude regularly",
+    "Seek positive company",
+    "Help those in need"
+  ];
+
+  const dontsList = [
+    "Dwell on past mistakes",
+    "Compare yourself to others",
+    "Hold onto resentment",
+    "Neglect self-care",
+    "Isolate yourself"
+  ];
+
+  const introspectionSteps = [
+    {
+      title: "Morning Reflection",
+      description: "Start each day with 5 minutes of quiet contemplation. Ask yourself: 'What good can I do today?'"
+    },
+    {
+      title: "Evening Review",
+      description: "Before sleep, reflect on your day. Acknowledge both successes and learning opportunities."
+    },
+    {
+      title: "Weekly Assessment",
+      description: "Each week, note your growth in compassion, patience, and understanding."
+    }
+  ];
+
+  const quotes = [
+    '"The wound is the place where the Light enters you." - Rumi',
+    '"You yourself, as much as anybody in the entire universe, deserve your love and affection." - Buddha',
+    '"Peace comes from within. Do not seek it without." - Buddha',
+    '"What we think, we become." - Buddha'
+  ];
 
   return (
     <div className="thankful-page-container">
       <div className="thankful-page-content">
-        <button className="thankful-close-btn" onClick={() => navigate("/confess")}>
+        <button className="thankful-close-btn" onClick={handleClose}>
           ✖
         </button>
         
-        {/* Divine Header */}
+        {/* Header */}
         <div className="thankful-page-header">
           <div className="thankful-halo-glow"></div>
           <h1 className="thankful-main-title">🙏 Thank You for Your Contribution 🙏</h1>
-          <p className="thankful-page-subtitle">
-            Your Journey to Peace Begins Now
-          </p>
+          <p className="thankful-page-subtitle">Your Journey to Peace Begins Now</p>
         </div>
 
+        {/* Payment Success */}
         <div className="thankful-payment-success">
           <div className="thankful-success-icon">✨</div>
           <p className="thankful-success-text">You have successfully paid ₹{amount}</p>
@@ -33,89 +80,69 @@ const ThankfulPage = ({amount:propAmount = 100, onClose }) => {
           </p>
         </div>
 
-        {/* Healing Guidance Sections */}
+        {/* Healing Sections */}
         <div className="thankful-healing-sections">
-          <div className="thankful-healing-steps">
+          {/* Self-Healing Journey */}
+          <div className="thankful-section-card">
             <h2 className="thankful-section-title">🕊️ Self-Healing Journey 🕊️</h2>
             <ol className="thankful-steps-list">
-              <li className="thankful-step-item">Accept your past without fear or shame</li>
-              <li className="thankful-step-item">Practice forgiveness — both for yourself and others</li>
-              <li className="thankful-step-item">Spend 5 minutes in silent reflection daily</li>
-              <li className="thankful-step-item">Do one selfless act of kindness every day</li>
-              <li className="thankful-step-item">Maintain gratitude — write one thing you're thankful for daily</li>
-              <li className="thankful-step-item">Let go of guilt and walk forward with faith and clarity</li>
+              {healingSteps.map((step, index) => (
+                <li key={index} className="thankful-step-item">{step}</li>
+              ))}
             </ol>
           </div>
 
-          <div className="thankful-dos-donts">
+          {/* Dos & Don'ts */}
+          <div className="thankful-section-card">
             <h2 className="thankful-section-title">🌟 Dos & Don'ts for Inner Peace 🌟</h2>
             <div className="thankful-dos-donts-grid">
               <div className="thankful-dos-section">
                 <h3 className="thankful-dos-title">✅ Do</h3>
                 <ul className="thankful-dos-list">
-                  <li className="thankful-dos-item">Practice daily meditation</li>
-                  <li className="thankful-dos-item">Be kind to yourself and others</li>
-                  <li className="thankful-dos-item">Express gratitude regularly</li>
-                  <li className="thankful-dos-item">Seek positive company</li>
-                  <li className="thankful-dos-item">Help those in need</li>
+                  {dosList.map((item, index) => (
+                    <li key={index} className="thankful-dos-item">{item}</li>
+                  ))}
                 </ul>
               </div>
               <div className="thankful-donts-section">
                 <h3 className="thankful-donts-title">❌ Don't</h3>
                 <ul className="thankful-donts-list">
-                  <li className="thankful-donts-item">Dwell on past mistakes</li>
-                  <li className="thankful-donts-item">Compare yourself to others</li>
-                  <li className="thankful-donts-item">Hold onto resentment</li>
-                  <li className="thankful-donts-item">Neglect self-care</li>
-                  <li className="thankful-donts-item">Isolate yourself</li>
+                  {dontsList.map((item, index) => (
+                    <li key={index} className="thankful-donts-item">{item}</li>
+                  ))}
                 </ul>
               </div>
             </div>
           </div>
 
-          <div className="thankful-introspection-guide">
+          {/* Introspection Guide */}
+          <div className="thankful-section-card">
             <h2 className="thankful-section-title">📝 Self-Introspection Guide 📝</h2>
             <div className="thankful-introspection-steps">
-              <div className="thankful-intro-step">
-                <span className="thankful-step-number">1</span>
-                <div className="thankful-step-content">
-                  <h4 className="thankful-step-heading">Morning Reflection</h4>
-                  <p className="thankful-step-description">Start each day with 5 minutes of quiet contemplation. Ask yourself: "What good can I do today?"</p>
+              {introspectionSteps.map((step, index) => (
+                <div key={index} className="thankful-intro-step">
+                  <span className="thankful-step-number">{index + 1}</span>
+                  <div className="thankful-step-content">
+                    <h4 className="thankful-step-heading">{step.title}</h4>
+                    <p className="thankful-step-description">{step.description}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="thankful-intro-step">
-                <span className="thankful-step-number">2</span>
-                <div className="thankful-step-content">
-                  <h4 className="thankful-step-heading">Evening Review</h4>
-                  <p className="thankful-step-description">Before sleep, reflect on your day. Acknowledge both successes and learning opportunities.</p>
-                </div>
-              </div>
-              <div className="thankful-intro-step">
-                <span className="thankful-step-number">3</span>
-                <div className="thankful-step-content">
-                  <h4 className="thankful-step-heading">Weekly Assessment</h4>
-                  <p className="thankful-step-description">Each week, note your growth in compassion, patience, and understanding.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
-          <div className="thankful-motivational-messages">
+          {/* Motivational Messages */}
+          <div className="thankful-section-card">
             <h2 className="thankful-section-title">💫 Words of Wisdom 💫</h2>
             <div className="thankful-wisdom-quotes">
-              <blockquote className="thankful-quote">"The wound is the place where the Light enters you." - Rumi</blockquote>
-              <blockquote className="thankful-quote">"You yourself, as much as anybody in the entire universe, deserve your love and affection." - Buddha</blockquote>
-              <blockquote className="thankful-quote">"Peace comes from within. Do not seek it without." - Buddha</blockquote>
-              <blockquote className="thankful-quote">"What we think, we become." - Buddha</blockquote>
+              {quotes.map((quote, index) => (
+                <blockquote key={index} className="thankful-quote">{quote}</blockquote>
+              ))}
             </div>
           </div>
         </div>
 
-
-        <button className="thankful-return-btn" onClick={onClose ? onClose : () => navigate("/confess")}>
-
-       
-
+        <button className="thankful-return-btn" onClick={handleClose}>
           Return to Confession
         </button>
       </div>
