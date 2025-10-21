@@ -8,7 +8,9 @@ import Title from '../Title/Title'
 import VideoSection from '../doodles/VideoSection'
 import VideoSectionSad from '../video2/VideoSectionSad'
 import VideoSectionLeft from '../videosection3/VideoSectionLeft'
-import HeroSection from '../Hero/HeroSection'
+
+import HeroSectionTest from '../Hero/HeroSectionTest'
+
 
 
 
@@ -17,7 +19,7 @@ const Home = () => {
   return (
   <div>
      {/* <Header />  */}
-     <HeroSection />
+     <HeroSectionTest />
    
     
     

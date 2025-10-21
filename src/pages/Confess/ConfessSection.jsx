@@ -4,7 +4,7 @@ import "./confess.css";
 import RazorpayButton from "../Razorpay/RazorpayButton";
 
 const ConfessSection = () => {
-  const [sinText, setSinText] = useState("");
+  
   const [userCountry, setUserCountry] = useState(null);
   const [isWriting, setIsWriting] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
