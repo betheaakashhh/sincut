@@ -264,3 +264,16 @@
   align-items: center;
   z-index: 1000;
 }
+.payment-notice {
+  font-size: 0.85rem;
+  color: #d8d7d7;
+  margin-top: 0.5rem;
+}
+
+.payment-warning {
+  color: #e0dede; /* red tint for attention */
+  font-size: 0.6rem;
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+

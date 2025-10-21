@@ -303,6 +303,7 @@ function PaymentButton({ baseAmount = 1, userCountry = "US", onBeforePay, onPaym
                 <span className="flag">🇮🇳</span>
                 <span className="country-name">India</span>
                 <span className="payment-info">Razorpay (₹3 fixed)</span>
+                
               </button>
               
               <button 
@@ -364,12 +365,12 @@ function PaymentButton({ baseAmount = 1, userCountry = "US", onBeforePay, onPaym
           </div>
 
           {/* Amount Display */}
-          <div className="converted-amount-display">
+          {/* <div className="converted-amount-display">
             <span className="base-amount">Base: ${baseAmount}</span>
             <span className="converted-amount">
               Your amount: {formatCurrency(convertedAmount, currency)}
             </span>
-          </div>
+          </div> */}
 
           {/* Main Payment Button */}
           <button
@@ -388,11 +389,18 @@ function PaymentButton({ baseAmount = 1, userCountry = "US", onBeforePay, onPaym
 
           {/* Payment Method Notice */}
           <div className="payment-notice">
-            {paymentMethod === "razorpay" 
-              ? "Supports UPI, Cards, NetBanking & Wallet"
-              : `Supports PayPal, Cards & Local Payment Methods (${currency})`
-            }
-          </div>
+  {paymentMethod === "razorpay" ? (
+    <>
+      Supports UPI, Cards, NetBanking & Wallet
+      <br />
+      <span className="payment-warning">
+        Note: The amount shown as ₹0.03 actually means ₹3.00 due to a technical rounding issue
+      </span>
+    </>
+  ) : (
+    <>Supports PayPal, Cards & Local Payment Methods ({currency})</>
+  )}
+</div>
         </>
       )}
     </div>
