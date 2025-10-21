@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./hero.css";
 
-import RazorpayButton from "../Razorpay/RazorpayButton";
+import PaymentButton from "../Razorpay/PaymentButton"; // ✅ Fixed import
 import ThankfulPage from "../PaymentSuccess/ThankfulPage";
 
 const HeroSection = () => {
@@ -10,11 +10,10 @@ const HeroSection = () => {
   const [characterCount, setCharacterCount] = useState(0);
   const [userCountry, setUserCountry] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [showThankful, setShowThankful] = useState(false); //new state for thankful
-  const [paidAmount, setPaidAmount] = useState(0); //new state for amount
-  
+  const [showThankful, setShowThankful] = useState(false);
+  const [paidAmount, setPaidAmount] = useState(0);
 
-  // This runs when Razorpay button asks permission to continue payment
+  // This runs when payment button asks permission to continue payment
   const handleBeforePay = () => {
     if (!heroText.trim()) {
       alert("Please write your confession before proceeding.");
@@ -30,14 +29,13 @@ const HeroSection = () => {
       setIsProcessing(false);
     }, 1300);
 
-    return true; // allow RazorpayButton to proceed
+    return true; // allow PaymentButton to proceed
   };
   
   const handlePaymentSuccess = (amount, response) => {
     console.log("Payment successful:", response);
-    // Navigate to thankful page with amount in state
     setPaidAmount(amount);
-    setShowThankful(true); //open popup instead of navigate
+    setShowThankful(true);
   };
 
   const handleTextChange = (e) => {
@@ -151,7 +149,7 @@ const HeroSection = () => {
           </div>
         )}
 
-        {/* Action Section with Razorpay Only */}
+        {/* ✅ Fixed Payment Section */}
         <div className="hero-action-section">
           {isProcessing ? (
             <div className="processing-overlay">
@@ -163,38 +161,26 @@ const HeroSection = () => {
               <div className="loading-spinner"></div>
               <p>Connecting to divine redemption...</p>
             </div>
-          ) : userCountry === "IN" ? (
-            <div className="razorpay-integration">
-              <RazorpayButton
-                amount={100}
+          ) : (
+            <div className="payment-integration">
+              <PaymentButton
+                amount={userCountry === "IN" ? 100 : 1}
                 onBeforePay={handleBeforePay}
                 onPaymentSuccess={handlePaymentSuccess}
               />
             </div>
-          ) : (
-            <div className="international-options">
-              <div className="confession-message">
-                <span className="global-icon">🌍</span>
-                Divine redemption available worldwide
-              </div>
-              <div className="stripe-placeholder">
-                <button className="modern-submit-btn">
-                  <span className="btn-glow"></span>
-                  <span className="btn-text">Complete Redemption ($1)</span>
-                  <span className="btn-arrow">→</span>
-                </button>
-              </div>
-            </div>
           )}
         </div>
+        {/* ✅ Fixed: Properly closed the hero-container div */}
       </div>
+
       {/* ✅ Popup (ThankfulPage modal) */}
       {showThankful && (
         <div className="thankful-modal-overlay">
           <div className="thankful-modal-content">
             <ThankfulPage
               amount={paidAmount}
-              onClose={() => setShowThankful(false)} // to close modal
+              onClose={() => setShowThankful(false)}
             />
           </div>
         </div>
