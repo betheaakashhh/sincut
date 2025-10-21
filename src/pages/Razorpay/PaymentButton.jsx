@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./razor.css";
+import "./payment.css";
 
 function PaymentButton({ onBeforePay, onPaymentSuccess }) {
   const [loading, setLoading] = useState(false);
