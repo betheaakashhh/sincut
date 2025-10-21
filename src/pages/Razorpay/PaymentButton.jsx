@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./payment.css";
 
 function PaymentButton({ onBeforePay, onPaymentSuccess }) {
-  const [loading, setLoading] = useState(false);
-  const [country, setCountry] = useState(null); // Start as null until detected
+  const [loading, setLoading] = useState(true); // Start with loading true
+  const [country, setCountry] = useState(null);
   const [currency, setCurrency] = useState("INR");
   const [amount, setAmount] = useState(11);
   const [paymentMethod, setPaymentMethod] = useState("razorpay");
   const [showManualSelection, setShowManualSelection] = useState(false);
+  const [detectionCompleted, setDetectionCompleted] = useState(false); // New state to track detection completion
 
   // 🔹 Simple country detection with fallback
   useEffect(() => {
@@ -24,20 +25,23 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
           if (countryCode === "IN") {
             setPaymentMethod("razorpay");
             setCurrency("INR");
-            setAmount(11); // Fixed ₹11 for India
+            setAmount(11);
           } else {
             setPaymentMethod("paypal");
             setCurrency("USD");
-            setAmount(1); // $1 for international
+            setAmount(1);
           }
+          setDetectionCompleted(true);
         } else {
           // If API works but no country code, show manual selection
           setShowManualSelection(true);
+          setDetectionCompleted(true);
         }
       } catch (err) {
         console.error("Country detection failed:", err);
-        // On error, show manual selection
+        // On error, show manual selection AFTER detection is complete
         setShowManualSelection(true);
+        setDetectionCompleted(true);
       } finally {
         setLoading(false);
       }
@@ -63,7 +67,7 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
     setShowManualSelection(false);
   };
 
-  // 🔹 Handle Razorpay Payment (FIXED: Proper amount conversion)
+  // 🔹 Handle Razorpay Payment
   const handleRazorpayPayment = async () => {
     if (onBeforePay && onBeforePay() === false) return;
 
@@ -78,7 +82,7 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          amount: amountInPaise, // Send in paise
+          amount: amountInPaise,
           currency: currency 
         }),
       });
@@ -100,7 +104,7 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
 
       const options = {
         key: "rzp_test_RUEOHvHC3GJJUO",
-        amount: orderData.amount, // This should be 1100 for ₹11
+        amount: orderData.amount,
         currency: orderData.currency || "INR",
         name: "Cut Your Sin",
         description: "Donation to redeem your guilt",
@@ -203,7 +207,7 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
   };
 
   // Show loading while detecting country
-  if (loading) {
+  if (loading && !detectionCompleted) {
     return (
       <div className="payment-loading">
         <div className="loading-spinner"></div>
@@ -212,13 +216,13 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
     );
   }
 
-  // Show manual country selection if needed
-  if (showManualSelection || country === null) {
+  // Show manual country selection ONLY if detection failed
+  if (showManualSelection) {
     return (
       <div className="country-selection-modal">
         <div className="country-modal-content">
           <h3>🌍 Select Your Country</h3>
-          <p>Please select your country to proceed with payment</p>
+          <p>We couldn't detect your location automatically. Please select your country to proceed with payment.</p>
           
           <div className="country-options">
             <button 
@@ -263,7 +267,7 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
     );
   }
 
-  // Show payment button when country is selected
+  // Show payment button when country is detected or manually selected
   return (
     <div className="payment-button-container">
       {/* Payment Method Indicator */}
