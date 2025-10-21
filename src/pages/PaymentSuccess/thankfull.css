@@ -1,13 +1,17 @@
 /* ─────────────── Variables & Reset ─────────────── */
 :root {
   --primary-gradient: linear-gradient(135deg, #667eea, #764ba2);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
   --success-color: #28a745;
   --error-color: #dc3545;
   --text-dark: #2c3e50;
   --text-medium: #5a6c7d;
   --text-light: #7f8c8d;
-  --shadow-light: 0 8px 25px rgba(0, 0, 0, 0.08);
-  --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.12);
+  --text-white: rgba(255, 255, 255, 0.9);
+  --shadow-light: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.15);
   --border-radius: 20px;
   --transition: all 0.3s ease;
 }
@@ -29,47 +33,62 @@
   overflow-x: hidden;
   background: var(--primary-gradient);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 60px;
 }
 
+/* Background elements for blur effect */
 .thankful-page-container::before {
   content: '';
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.4), transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.25), transparent 50%);
-  animation: aura-pulse 8s ease-in-out infinite;
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.6), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.4), transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.3), transparent 50%);
+  
+  filter: blur(20px);
 }
 
 @keyframes aura-pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
-/* ─────────────── Main Content ─────────────── */
+/* ─────────────── Main Content - Glass Effect ─────────────── */
 .thankful-page-content {
   position: relative;
   max-width: 900px;
   width: 100%;
   padding: 40px 24px;
   border-radius: var(--border-radius);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.15),
-    0 0 100px rgba(255, 255, 255, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.7);
+    0 20px 40px var(--glass-shadow),
+    0 0 80px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   animation: popup-appear 0.7s ease-out;
   margin: 8px;
+  color: var(--text-white);
 }
 
 @keyframes popup-appear {
-  0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+  0% { 
+    opacity: 0; 
+    transform: scale(0.9) translateY(20px); 
+    backdrop-filter: blur(0px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+    backdrop-filter: blur(20px);
+  }
 }
 
-/* ─────────────── Close Button ─────────────── */
+/* ─────────────── Close Button - Glass Style ─────────────── */
 .thankful-close-btn {
   position: absolute;
   top: 16px;
@@ -78,25 +97,30 @@
   height: 36px;
   border: none;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--text-medium);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-white);
   font-size: 18px;
   cursor: pointer;
   transition: var(--transition);
-  box-shadow: var(--shadow-light);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+  backdrop-filter: blur(10px);
 }
 
 .thankful-close-btn:hover {
-  color: var(--text-dark);
-  background: #fff;
+  background: rgba(255, 255, 255, 0.25);
   transform: rotate(90deg);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-/* ─────────────── Header ─────────────── */
+/* ─────────────── Header - Glass Style ─────────────── */
 .thankful-page-header {
   text-align: center;
   margin-bottom: 32px;
@@ -111,9 +135,10 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  filter: blur(8px);
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.35), transparent 70%);
+  filter: blur(15px);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
   animation: halo-rotate 12s linear infinite;
+  opacity: 0.6;
 }
 
 @keyframes halo-rotate {
@@ -122,28 +147,30 @@
 }
 
 .thankful-main-title {
-  color: var(--text-dark);
+  color: var(--text-white);
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 300;
   margin-bottom: 12px;
   line-height: 1.3;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .thankful-page-subtitle {
-  color: var(--text-light);
+  color: rgba(255, 255, 255, 0.8);
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   font-style: italic;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* ─────────────── Payment Success ─────────────── */
+/* ─────────────── Payment Success - Glass Style ─────────────── */
 .thankful-payment-success {
   text-align: center;
   margin-bottom: 40px;
   padding: 24px 16px;
   border-radius: 16px;
-  border-left: 4px solid var(--success-color);
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
   position: relative;
   overflow: hidden;
 }
@@ -168,6 +195,7 @@
   font-size: clamp(2.5rem, 8vw, 3rem);
   margin-bottom: 16px;
   animation: float 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
 @keyframes float {
@@ -178,20 +206,22 @@
 
 .thankful-success-text {
   font-size: clamp(1.1rem, 3vw, 1.3rem);
-  color: var(--success-color);
+  color: rgba(12, 129, 41, 0.95);
   font-weight: 600;
   margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .thankful-divine-message {
-  color: var(--text-medium);
+  color: rgba(255, 255, 255, 0.85);
   font-size: clamp(0.95rem, 2.5vw, 1.05rem);
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* ─────────────── Healing Sections ─────────────── */
+/* ─────────────── Healing Sections - Glass Style ─────────────── */
 .thankful-healing-sections {
   display: flex;
   flex-direction: column;
@@ -200,29 +230,35 @@
 }
 
 .thankful-section-card {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.08);
   padding: 24px 20px;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-light);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: var(--transition);
 }
 
 .thankful-section-card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-medium);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* ─────────────── Section Titles ─────────────── */
+/* ─────────────── Section Titles - Glass Style ─────────────── */
 .thankful-section-title {
-  color: var(--text-dark);
+  color: var(--text-white);
   margin-bottom: 20px;
   text-align: center;
   font-weight: 400;
   font-size: clamp(1.2rem, 3.5vw, 1.5rem);
   padding-bottom: 12px;
   position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .thankful-section-title::after {
@@ -234,30 +270,31 @@
   width: 60px; 
   height: 2px;
   border-radius: 2px;
-  background: var(--primary-gradient);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
 }
 
-/* ─────────────── Lists & Grids ─────────────── */
+/* ─────────────── Lists & Grids - Glass Style ─────────────── */
 .thankful-steps-list {
   padding-left: 20px;
 }
 
 .thankful-step-item {
   margin-bottom: 12px;
-  color: var(--text-medium);
+  color: rgba(255, 255, 255, 0.85);
   font-size: clamp(0.95rem, 2.5vw, 1rem);
   line-height: 1.6;
   transition: var(--transition);
   padding-left: 4px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .thankful-step-item:hover {
-  color: var(--text-dark);
+  color: var(--text-white);
   transform: translateX(4px);
 }
 
 .thankful-step-item::marker {
-  color: #667eea;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: bold;
 }
 
@@ -272,6 +309,8 @@
   padding: 20px;
   border-radius: 12px;
   transition: var(--transition);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .thankful-dos-section:hover, 
@@ -280,13 +319,13 @@
 }
 
 .thankful-dos-section {
-  background: linear-gradient(135deg, #d4edda, #c3e6cb);
-  border-left: 4px solid var(--success-color);
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.15), rgba(40, 167, 69, 0.05));
+  border-left: 4px solid rgba(40, 167, 69, 0.6);
 }
 
 .thankful-donts-section {
-  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
-  border-left: 4px solid var(--error-color);
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.15), rgba(220, 53, 69, 0.05));
+  border-left: 4px solid rgba(220, 53, 69, 0.6);
 }
 
 .thankful-dos-title, 
@@ -295,6 +334,8 @@
   font-weight: 600;
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   text-align: center;
+  color: var(--text-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .thankful-dos-list, 
@@ -310,6 +351,7 @@
   position: relative;
   font-size: clamp(0.9rem, 2.5vw, 0.95rem);
   line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .thankful-dos-item::before, 
@@ -323,15 +365,15 @@
 
 .thankful-dos-item::before {
   content: "✓";
-  color: var(--success-color);
+  color: rgba(40, 167, 69, 0.9);
 }
 
 .thankful-donts-item::before {
   content: "✗";
-  color: var(--error-color);
+  color: rgba(220, 53, 69, 0.9);
 }
 
-/* ─────────────── Introspection Guide ─────────────── */
+/* ─────────────── Introspection Guide - Glass Style ─────────────── */
 .thankful-introspection-steps {
   display: flex;
   flex-direction: column;
@@ -344,14 +386,16 @@
   gap: 16px;
   padding: 16px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: var(--transition);
 }
 
 .thankful-intro-step:hover {
   transform: translateX(8px);
-  border-left: 3px solid #667eea;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid rgba(255, 255, 255, 0.4);
 }
 
 .thankful-step-number {
@@ -364,8 +408,10 @@
   font-weight: bold;
   color: #fff;
   font-size: 0.95rem;
-  background: var(--primary-gradient);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .thankful-step-content {
@@ -374,18 +420,20 @@
 
 .thankful-step-heading {
   margin-bottom: 6px;
-  color: var(--text-dark);
+  color: var(--text-white);
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .thankful-step-description {
-  color: var(--text-medium);
+  color: rgba(255, 255, 255, 0.8);
   font-size: clamp(0.9rem, 2.5vw, 0.95rem);
   line-height: 1.5;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* ─────────────── Motivational Quotes ─────────────── */
+/* ─────────────── Motivational Quotes - Glass Style ─────────────── */
 .thankful-wisdom-quotes {
   display: flex;
   flex-direction: column;
@@ -393,16 +441,18 @@
 }
 
 .thankful-quote {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background: rgba(255, 255, 255, 0.05);
   padding: 20px;
   border-radius: 12px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid rgba(255, 255, 255, 0.3);
   font-style: italic;
-  color: var(--text-medium);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   transition: var(--transition);
   position: relative;
   font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .thankful-quote::before {
@@ -411,16 +461,17 @@
   top: 8px;
   left: 12px;
   font-size: 3em;
-  color: rgba(102, 126, 234, 0.1);
+  color: rgba(255, 255, 255, 0.1);
   font-family: Georgia, serif;
 }
 
 .thankful-quote:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-light);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* ─────────────── Return Button ─────────────── */
+/* ─────────────── Return Button - Glass Style ─────────────── */
 .thankful-return-btn {
   width: 100%;
   padding: 16px;
@@ -429,11 +480,14 @@
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   font-weight: 600;
   color: white;
-  background: var(--primary-gradient);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
   cursor: pointer;
   transition: var(--transition);
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .thankful-return-btn::before {
@@ -449,7 +503,10 @@
 
 .thankful-return-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 12px 25px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .thankful-return-btn:hover::before {
@@ -461,6 +518,7 @@
   .thankful-page-content {
     padding: 32px 20px;
     margin: 4px;
+    backdrop-filter: blur(15px);
   }
 
   .thankful-healing-sections {
@@ -470,6 +528,7 @@
 
   .thankful-section-card {
     padding: 20px 16px;
+    backdrop-filter: blur(12px);
   }
 
   .thankful-dos-donts-grid {
@@ -496,6 +555,7 @@
   .thankful-page-content {
     padding: 24px 16px;
     border-radius: 16px;
+    backdrop-filter: blur(12px);
   }
 
   .thankful-close-btn {
@@ -509,10 +569,12 @@
   .thankful-payment-success {
     padding: 20px 12px;
     margin-bottom: 32px;
+    backdrop-filter: blur(10px);
   }
 
   .thankful-section-card {
     padding: 16px 12px;
+    backdrop-filter: blur(10px);
   }
 
   .thankful-dos-section,
@@ -550,5 +612,7 @@
   .thankful-page-content {
     box-shadow: none !important;
     border: 1px solid #ccc !important;
+    background: white !important;
+    color: black !important;
   }
 }
