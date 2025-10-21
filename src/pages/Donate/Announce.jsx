@@ -149,7 +149,7 @@ const Announce = () => {
 
   return (
     <div className="app">
-/* Cosmic Background */}
+
       <div className="cosmic-background">
         <div className="grid-lines"></div>
         <div className="aurora aurora-1"></div>
