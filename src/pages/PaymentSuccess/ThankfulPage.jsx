@@ -110,7 +110,7 @@ const ThankfulPage = () => {
           </div>
         </div>
 
-        <button className="thankful-return-btn" onClick={() => navigate("/confess")}>
+        <button className="thankful-return-btn" onClick={() => navigate("/")}>
           Return to Confession
         </button>
       </div>
