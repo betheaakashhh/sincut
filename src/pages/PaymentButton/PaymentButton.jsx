@@ -88,7 +88,7 @@ function PaymentButton({ baseAmount = 1, userCountry = "US", onBeforePay, onPaym
     if (selectedCountry === "IN") {
       setPaymentMethod("razorpay");
       setCurrency("INR");
-      setConvertedAmount(3); // Fixed amount for India
+      setConvertedAmount(0.03); // Fixed amount for India
     } else {
       setPaymentMethod("paypal");
       
