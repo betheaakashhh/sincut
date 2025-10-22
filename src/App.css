@@ -1,0 +1,23 @@
+/* Global scrollbar style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #222;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #000;
+}
+
+/* Optional: Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #222 transparent;
+}

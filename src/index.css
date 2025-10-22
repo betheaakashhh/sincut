@@ -38,3 +38,13 @@ a{
   color: #f5f5f5;
 }
 
+body {
+  scrollbar-gutter: stable both-edges;
+  overflow-y: overlay;
+}
+::-webkit-scrollbar {
+  display: none; /* hides by default */
+}
+body:hover::-webkit-scrollbar {
+  display: block; /* shows on hover */
+}
