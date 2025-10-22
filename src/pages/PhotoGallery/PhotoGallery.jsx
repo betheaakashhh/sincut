@@ -185,20 +185,27 @@ const PhotoGallery = () => {
           className="toggle-debug-btn"
           onClick={() => setShowDebug((prev) => !prev)}
         >
-          {showDebug ? '🔽 Hide Connection Info' : '⚙️ Show Connection Info'}
+          {showDebug ? ' Hide' : 'Get to Know About Images'}
         </button>
 
         {showDebug && (
           <div className="setup-info">
-            <h3>🔧 Connection Status</h3>
+            <h3>Gallery Information</h3>
             <div className="setup-steps">
-              <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
-              <p><strong>Backend URL:</strong> {getApiBase()}</p>
+              {/* <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
+              <p><strong>Backend URL:</strong> {getApiBase()}</p> */}
+              <p>Our gallery showcases real and authentic photographs captured from genuine moments.
+These images are for display and inspiration purposes only and are copyright protected.</p>
+              
               
               {dataSource === 'cloudinary' ? (
                 <div className="status-success">
                   <p>✅ <strong>Cloudinary is connected and working!</strong></p>
-                  <p>Your gallery is showing {photos.length} images from your Cloudinary account.</p>
+                  <p>All photos displayed in this gallery are authentic and original. These images are protected by copyright, and unauthorized use or reproduction is strictly prohibited.</p>
+                  <p>Thank you for respecting the creative rights of photographers and artists.</p>
+                  <p>If you have any questions, clarifications, or suggestions regarding the images, please reach out to us through the Contact section available in the navbar.</p>
+                  <p>Total Images {photo.length}</p>
+                  
                 </div>
               ) : (
                 <div className="status-warning">
