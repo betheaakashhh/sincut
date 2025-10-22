@@ -204,7 +204,7 @@ These images are for display and inspiration purposes only and are copyright pro
                   <p>All photos displayed in this gallery are authentic and original. These images are protected by copyright, and unauthorized use or reproduction is strictly prohibited.</p>
                   <p>Thank you for respecting the creative rights of photographers and artists.</p>
                   <p>If you have any questions, clarifications, or suggestions regarding the images, please reach out to us through the Contact section available in the navbar.</p>
-                  <p>Total Images {photo.length}</p>
+                  
                   
                 </div>
               ) : (
