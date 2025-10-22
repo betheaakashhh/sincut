@@ -7,6 +7,8 @@ const PhotoGallery = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [error, setError] = useState(null);
   const [dataSource, setDataSource] = useState('');
+    const [showDebug, setShowDebug] = useState(false);
+
 
   // Dynamic API base URL - works in both local and production
   const getApiBase = () => {
@@ -177,39 +179,52 @@ const PhotoGallery = () => {
         </div>
       )}
 
-      <div className="setup-info">
-        <h3>🔧 Connection Status</h3>
-        <div className="setup-steps">
-          <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
-          <p><strong>Backend URL:</strong> {getApiBase()}</p>
-          
-          {dataSource === 'cloudinary' ? (
-            <div className="status-success">
-              <p>✅ <strong>Cloudinary is connected and working!</strong></p>
-              <p>Your gallery is showing {photos.length} images from your Cloudinary account.</p>
+           {/* Collapsible Debug Footer */}
+      <div className={`setup-footer ${selectedPhoto ? 'hidden' : ''}`}>
+        <button
+          className="toggle-debug-btn"
+          onClick={() => setShowDebug((prev) => !prev)}
+        >
+          {showDebug ? '🔽 Hide Connection Info' : '⚙️ Show Connection Info'}
+        </button>
+
+        {showDebug && (
+          <div className="setup-info">
+            <h3>🔧 Connection Status</h3>
+            <div className="setup-steps">
+              <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
+              <p><strong>Backend URL:</strong> {getApiBase()}</p>
+              
+              {dataSource === 'cloudinary' ? (
+                <div className="status-success">
+                  <p>✅ <strong>Cloudinary is connected and working!</strong></p>
+                  <p>Your gallery is showing {photos.length} images from your Cloudinary account.</p>
+                </div>
+              ) : (
+                <div className="status-warning">
+                  <p>⚠️ <strong>Using sample images</strong></p>
+                  <p>This usually means:</p>
+                  <ul>
+                    <li>Backend is not deployed or not accessible</li>
+                    <li>Backend URL is incorrect in production</li>
+                    <li>Cloudinary credentials are missing in production</li>
+                  </ul>
+                </div>
+              )}
+              
+              <div className="debug-links">
+                <a href={`${getApiBase()}/api/cloudinary-debug`} target="_blank" rel="noopener noreferrer">
+                  🔧 Check Backend Connection
+                </a>
+                <a href={`${getApiBase()}/api/photos`} target="_blank" rel="noopener noreferrer">
+                  📸 Test Photos Endpoint
+                </a>
+              </div>
             </div>
-          ) : (
-            <div className="status-warning">
-              <p>⚠️ <strong>Using sample images</strong></p>
-              <p>This usually means:</p>
-              <ul>
-                <li>Backend is not deployed or not accessible</li>
-                <li>Backend URL is incorrect in production</li>
-                <li>Cloudinary credentials are missing in production</li>
-              </ul>
-            </div>
-          )}
-          
-          <div className="debug-links">
-            <a href={`${getApiBase()}/api/cloudinary-debug`} target="_blank" rel="noopener noreferrer">
-              🔧 Check Backend Connection
-            </a>
-            <a href={`${getApiBase()}/api/photos`} target="_blank" rel="noopener noreferrer">
-              📸 Test Photos Endpoint
-            </a>
           </div>
-        </div>
+        )}
       </div>
+
     </div>
   );
 };

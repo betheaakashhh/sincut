@@ -137,7 +137,7 @@
   height: 40px;
   padding: 10px;
   border-radius: 8px;
-  
+
 }
 .footer-note a {
   color: #474645;
@@ -665,3 +665,72 @@
     width: 100%;
   }
 }
+/* Collapsible Footer */
+.setup-footer {
+  position: relative;
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1rem 0;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-top: 1px solid #d1d5db;
+}
+
+.toggle-debug-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-debug-btn:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.setup-info {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  text-align: left;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.setup-info h3 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #111827;
+}
+.setup-steps p, .setup-steps li {
+  color: #374151;
+}
+.setup-steps a {
+  color: #3b82f6;
+}
+.setup-steps a:hover {
+  color: #1e40af;
+}
+.footer-note {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+.footer-note a {
+  color: #1d4ed8;
+}
+.footer-note a:hover {
+  color: #1e40af;
+}
+
