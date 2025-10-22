@@ -8,8 +8,16 @@ const PhotoGallery = () => {
   const [error, setError] = useState(null);
   const [dataSource, setDataSource] = useState('');
 
-  // API base URL - adjust if your backend is on different port
-  const API_BASE = 'http://localhost:5000';
+  // Dynamic API base URL - works in both local and production
+  const getApiBase = () => {
+    // If we're in production (deployed on Vercel), use the production backend URL
+    if (process.env.NODE_ENV === 'production') {
+      // Replace with your actual deployed backend URL
+      return process.env.REACT_APP_BACKEND_URL || 'https://sincut-razorpay.vercel.app';
+    }
+    // In development, use localhost
+    return 'http://localhost:5000';
+  };
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -17,7 +25,9 @@ const PhotoGallery = () => {
         setLoading(true);
         setError(null);
         
-        console.log('Fetching photos from backend...');
+        const API_BASE = getApiBase();
+        console.log('Fetching photos from:', `${API_BASE}/api/photos`);
+        
         const response = await fetch(`${API_BASE}/api/photos`);
         
         if (!response.ok) {
@@ -112,10 +122,19 @@ const PhotoGallery = () => {
             </span>
           )}
         </div>
-        
+        {error && (
+          <div className="error-message">
+            ⚠️ {error}
+          </div>
+        )}
         {dataSource === 'cloudinary' && (
           <div className="success-message">
-           Photos from the corners of the world where peace remains untouched.
+            ✅ Successfully loaded {photos.length} images from your Cloudinary account!
+          </div>
+        )}
+        {dataSource === 'sample' && (
+          <div className="warning-message">
+            ℹ️ Using sample images. Check if backend is properly connected.
           </div>
         )}
       </div>
@@ -159,29 +178,36 @@ const PhotoGallery = () => {
       )}
 
       <div className="setup-info">
-  <h3>📁 Cloudinary Status</h3>
-  <div className="setup-steps">
-    {dataSource === 'cloudinary' ? (
-      <div className="status-success">
-        <p>✨ These images capture real moments and emotions from around the world.</p>
-        <p>If you have any doubts or want clarification, please reach out via the <strong>Contact</strong> section in the navbar.</p>
-      </div>
-    ) : (
-      <div className="status-warning">
-        <p>⚠️ Currently showing sample images.</p>
-        <p>You can add your own images via Cloudinary to replace these samples.</p>
-      </div>
-    )}
-    <div className="debug-link">
-      📸 Embrace the serenity captured in each frame. Let these moments guide you to inner peace and mindfulness.
-    </div>
-  </div>
-</div>
-      <div className="footer-note">
-        <div className="note-content">
-          <a href={`${API_BASE}/api/cloudinary-debug`} target="_blank" rel="noopener noreferrer">
-        🔧 Cloudinary Debug Info (for developers)
-      </a>
+        <h3>🔧 Connection Status</h3>
+        <div className="setup-steps">
+          <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
+          <p><strong>Backend URL:</strong> {getApiBase()}</p>
+          
+          {dataSource === 'cloudinary' ? (
+            <div className="status-success">
+              <p>✅ <strong>Cloudinary is connected and working!</strong></p>
+              <p>Your gallery is showing {photos.length} images from your Cloudinary account.</p>
+            </div>
+          ) : (
+            <div className="status-warning">
+              <p>⚠️ <strong>Using sample images</strong></p>
+              <p>This usually means:</p>
+              <ul>
+                <li>Backend is not deployed or not accessible</li>
+                <li>Backend URL is incorrect in production</li>
+                <li>Cloudinary credentials are missing in production</li>
+              </ul>
+            </div>
+          )}
+          
+          <div className="debug-links">
+            <a href={`${getApiBase()}/api/cloudinary-debug`} target="_blank" rel="noopener noreferrer">
+              🔧 Check Backend Connection
+            </a>
+            <a href={`${getApiBase()}/api/photos`} target="_blank" rel="noopener noreferrer">
+              📸 Test Photos Endpoint
+            </a>
+          </div>
         </div>
       </div>
     </div>
