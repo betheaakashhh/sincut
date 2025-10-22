@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./hero.css";
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import RazorpayButton from "../Razorpay/RazorpayButton";
-=======
-
-import PaymentButton from "../Razorpay/PaymentButton";
-import ThankfulPage from "../PaymentSuccess/ThankfulPage";
->>>>>>> a1ede32 (addding somefile and updating photogallery css/jsx)
 
 const HeroSection = () => {
   const [heroText, setHeroText] = useState("");
@@ -143,7 +137,6 @@ const HeroSection = () => {
         )}
 
         {/* Action Section with Razorpay Only */}
-<<<<<<< HEAD
         <div className="hero-action-section">
           {isProcessing ? (
             <div className="processing-overlay">
@@ -183,30 +176,6 @@ const HeroSection = () => {
           )}
           
           
-=======
-        {/* Payment Section */}
-<div className="hero-action-section">
-  {isProcessing ? (
-    <div className="processing-overlay">
-      <div className="processing-spinner"></div>
-      <p>Processing your confession...</p>
-    </div>
-  ) : userCountry === null ? (
-    <div className="payment-loading">
-      <div className="loading-spinner"></div>
-      <p>Connecting to divine redemption...</p>
-    </div>
-  ) : (
-    <div className="payment-integration">
-      <PaymentButton
-        amount={userCountry === "IN" ? 100 : 1}
-        onBeforePay={handleBeforePay}
-        onPaymentSuccess={handlePaymentSuccess}
-      />
-    </div>
-  )}
-
->>>>>>> a1ede32 (addding somefile and updating photogallery css/jsx)
         </div>
 
         {/* Inspiration Quote */}
