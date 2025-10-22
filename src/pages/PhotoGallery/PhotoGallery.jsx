@@ -5,9 +5,50 @@ const PhotoGallery = () => {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [error, setError] = useState(null);
+  const [dataSource, setDataSource] = useState('');
 
-  // Dummy data - Replace with your Cloudinary API data
-  const dummyPhotos = [
+  // API base URL - adjust if your backend is on different port
+  const API_BASE = 'http://localhost:5000';
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        console.log('Fetching photos from backend...');
+        const response = await fetch(`${API_BASE}/api/photos`);
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Photos data received:', data);
+        
+        setPhotos(data.photos || []);
+        setDataSource(data.source || '');
+        
+        if (data.message) {
+          setError(data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+        setError(`Connection failed: ${error.message}`);
+        // Use fallback dummy data
+        setPhotos(getDummyPhotos());
+        setDataSource('sample');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPhotos();
+  }, []);
+
+  // Dummy data fallback
+  const getDummyPhotos = () => [
     {
       id: 1,
       src: "https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=400&h=500&fit=crop",
@@ -31,104 +72,8 @@ const PhotoGallery = () => {
       height: 500,
       title: "Serene Waters",
       category: "Water"
-    },
-    {
-      id: 4,
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=300&fit=crop",
-      width: 500,
-      height: 300,
-      title: "Forest Path",
-      category: "Nature"
-    },
-    {
-      id: 5,
-      src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=600&fit=crop",
-      width: 400,
-      height: 600,
-      title: "Mist Mountains",
-      category: "Landscape"
-    },
-    {
-      id: 6,
-      src: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=500&h=400&fit=crop",
-      width: 500,
-      height: 400,
-      title: "Autumn Colors",
-      category: "Nature"
-    },
-    {
-      id: 7,
-      src: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=300&h=400&fit=crop",
-      width: 300,
-      height: 400,
-      title: "Waterfall",
-      category: "Water"
-    },
-    {
-      id: 8,
-      src: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&h=500&fit=crop",
-      width: 600,
-      height: 500,
-      title: "Valley View",
-      category: "Landscape"
-    },
-    {
-      id: 9,
-      src: "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?w=400&h=300&fit=crop",
-      width: 400,
-      height: 300,
-      title: "Ocean Waves",
-      category: "Water"
-    },
-    {
-      id: 10,
-      src: "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=500&h=600&fit=crop",
-      width: 500,
-      height: 600,
-      title: "Forest Light",
-      category: "Nature"
     }
   ];
-
-  useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setPhotos(dummyPhotos);
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  // Cloudinary Integration Example (Uncomment when ready)
-  /*
-  useEffect(() => {
-    const fetchCloudinaryPhotos = async () => {
-      try {
-        // Replace with your Cloudinary cloud name and folder
-        const response = await fetch(
-          `https://res.cloudinary.com/YOUR_CLOUD_NAME/image/list/YOUR_FOLDER.json`
-        );
-        const data = await response.json();
-        
-        const photos = data.resources.map((resource, index) => ({
-          id: resource.public_id,
-          src: `https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/w_800/${resource.public_id}.${resource.format}`,
-          width: resource.width,
-          height: resource.height,
-          title: resource.context?.custom?.caption || `Photo ${index + 1}`,
-          category: resource.context?.custom?.category || 'General'
-        }));
-        
-        setPhotos(photos);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching photos:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchCloudinaryPhotos();
-  }, []);
-  */
 
   const openModal = (photo) => {
     setSelectedPhoto(photo);
@@ -143,12 +88,11 @@ const PhotoGallery = () => {
       <div className="photo-gallery-container">
         <div className="gallery-header">
           <h1>Moments of Peace</h1>
-          <p>Visual journey towards inner peace</p>
+          <p>Loading your visual journey...</p>
         </div>
         <div className="loading-spinner">
-          
           <div className="spinner"></div>
-          
+          <p>Connecting to gallery...</p>
         </div>
       </div>
     );
@@ -156,17 +100,26 @@ const PhotoGallery = () => {
 
   return (
     <div className="photo-gallery-container">
-      {/* Header */}
       <div className="gallery-header">
         <h1>Moments of Peace</h1>
         <p>Visual journey towards inner peace and mindfulness</p>
         <div className="header-stats">
           <span>📸 {photos.length} moments captured</span>
           <span>🌿 Find your peace</span>
+          {dataSource && (
+            <span className="data-source">
+              {dataSource === 'cloudinary' ? '☁️ Cloudinary' : '📷 Sample'}
+            </span>
+          )}
         </div>
+        
+        {dataSource === 'cloudinary' && (
+          <div className="success-message">
+           Photos from the corners of the world where peace remains untouched.
+          </div>
+        )}
       </div>
 
-      {/* Photo Grid */}
       <div className="photo-grid">
         {photos.map((photo) => (
           <div
@@ -189,7 +142,6 @@ const PhotoGallery = () => {
         ))}
       </div>
 
-      {/* Modal for enlarged view */}
       {selectedPhoto && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -198,19 +150,38 @@ const PhotoGallery = () => {
             <div className="modal-info">
               <h3>{selectedPhoto.title}</h3>
               <span className="category-badge">{selectedPhoto.category}</span>
+              {dataSource === 'cloudinary' && (
+                <div className="cloudinary-badge">☁️ Cloudinary</div>
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {/* Cloudinary Setup Instructions */}
       <div className="setup-info">
-        <h3>💡 How to Connect Cloudinary</h3>
-        <div className="setup-steps">
-          <p>1. Create a free account at <a href="https://cloudinary.com" target="_blank" rel="noopener noreferrer">cloudinary.com</a></p>
-          <p>2. Upload your photos to Cloudinary dashboard</p>
-          <p>3. Replace the dummy data with the Cloudinary API code above</p>
-          <p>4. Your photos will appear here automatically!</p>
+  <h3>📁 Cloudinary Status</h3>
+  <div className="setup-steps">
+    {dataSource === 'cloudinary' ? (
+      <div className="status-success">
+        <p>✨ These images capture real moments and emotions from around the world.</p>
+        <p>If you have any doubts or want clarification, please reach out via the <strong>Contact</strong> section in the navbar.</p>
+      </div>
+    ) : (
+      <div className="status-warning">
+        <p>⚠️ Currently showing sample images.</p>
+        <p>You can add your own images via Cloudinary to replace these samples.</p>
+      </div>
+    )}
+    <div className="debug-link">
+      📸 Embrace the serenity captured in each frame. Let these moments guide you to inner peace and mindfulness.
+    </div>
+  </div>
+</div>
+      <div className="footer-note">
+        <div className="note-content">
+          <a href={`${API_BASE}/api/cloudinary-debug`} target="_blank" rel="noopener noreferrer">
+        🔧 Cloudinary Debug Info (for developers)
+      </a>
         </div>
       </div>
     </div>

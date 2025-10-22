@@ -150,4 +150,9 @@ const ThankfulPage = ({ amount: propAmount = 100, onClose }) => {
   );
 };
 
+<<<<<<< HEAD
 export default ThankfulPage;
+=======
+export default ThankfulPage;
+
+>>>>>>> a1ede32 (addding somefile and updating photogallery css/jsx)

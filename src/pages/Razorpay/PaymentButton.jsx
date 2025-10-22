@@ -1,34 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./payment.css";
 
-function PaymentButton({ onBeforePay, onPaymentSuccess }) {
+function PaymentButton({ amount = 1, onBeforePay, onPaymentSuccess }) {
   const [loading, setLoading] = useState(false);
   const [country, setCountry] = useState("IN"); // Default India
   const [currency, setCurrency] = useState("INR");
   const [locationAvailable, setLocationAvailable] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState("razorpay");
   const [showManualSelection, setShowManualSelection] = useState(false);
-  const [amount, setAmount] = useState(11); // Default amount for India
-
-  // 🔹 Currency conversion rates (you can update these dynamically)
-  const currencyRates = {
-    INR: 11,  // $1 = ₹11
-    USD: 1,   // Base currency
-    EUR: 0.85,
-    GBP: 0.75,
-    CAD: 1.25,
-    AUD: 1.35
-  };
-
-  // 🔹 Currency symbols
-  const currencySymbols = {
-    INR: '₹',
-    USD: '$',
-    EUR: '€',
-    GBP: '£',
-    CAD: 'C$',
-    AUD: 'A$'
-  };
 
   // 🔹 Try to auto-detect country from IP
   useEffect(() => {
@@ -41,15 +20,13 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
           const countryCode = data.country_code;
           setCountry(countryCode);
           
-          // Auto-set payment method and currency based on country
+          // Auto-set payment method based on country
           if (countryCode === "IN") {
             setPaymentMethod("razorpay");
             setCurrency("INR");
-            setAmount(11); // ₹11 for India
           } else {
             setPaymentMethod("paypal");
             setCurrency("USD");
-            setAmount(1); // $1 for international
           }
           setLocationAvailable(true);
           setShowManualSelection(false);
@@ -74,20 +51,11 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
     if (selectedCountry === "IN") {
       setPaymentMethod("razorpay");
       setCurrency("INR");
-      setAmount(11); // ₹11 for India
     } else {
       setPaymentMethod("paypal");
       setCurrency("USD");
-      setAmount(1); // $1 for international
     }
     setShowManualSelection(false);
-  };
-
-  // 🔹 Handle currency change for international users
-  const handleCurrencyChange = (newCurrency) => {
-    setCurrency(newCurrency);
-    // Convert $1 to the selected currency
-    setAmount(currencyRates[newCurrency] || 1);
   };
 
   // 🔹 Handle Razorpay Payment
@@ -101,10 +69,7 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
       const res = await fetch(`https://sincut-razorpay.vercel.app/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          amount: amount * 100, // Convert to paise
-          currency: currency
-        }),
+        body: JSON.stringify({ amount }),
       });
 
       const orderData = await res.json();
@@ -210,20 +175,12 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
   const getButtonText = () => {
     if (loading) return "";
     
-    const symbol = currencySymbols[currency] || '$';
-    return `Donate ${symbol}${amount}`;
-  };
-
-  // 🔹 Get equivalent amount in other currencies
-  const getEquivalentAmount = () => {
-    if (currency === "INR") {
-      return `(Equivalent to $1 USD)`;
+    if (paymentMethod === "razorpay") {
+      return `Donate ${currency === "INR" ? `₹${amount}` : `$${amount}`}`;
     } else {
-      const inrAmount = (amount / currencyRates[currency] * 11).toFixed(2);
-      return `(Equivalent to ₹${inrAmount} INR)`;
+      return `Donate $${amount}`;
     }
   };
-  
 
   return (
     <div className="payment-button-container">
@@ -241,18 +198,16 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
               >
                 <span className="flag">🇮🇳</span>
                 <span className="country-name">India</span>
-                <span className="payment-info">Razorpay (₹11)</span>
-                <span className="equivalent-amount">Equivalent to $1</span>
+                <span className="payment-info">Razorpay (₹{amount})</span>
               </button>
               
               <button 
                 className={`country-option ${country !== "IN" ? "selected" : ""}`}
                 onClick={() => handleCountryChange("US")}
               >
-                <span className="flag">🇺🇸</span>
+                <span className="flag">🌍</span>
                 <span className="country-name">International</span>
-                <span className="payment-info">PayPal ($1)</span>
-                <span className="equivalent-amount">Equivalent to ₹11</span>
+                <span className="payment-info">PayPal (${amount})</span>
               </button>
             </div>
 
@@ -301,29 +256,11 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
               <span className="payment-text">
                 {paymentMethod === "razorpay" 
                   ? "Paying from India" 
-                  : `Paying from ${country}`}
+                  : "International Payment"}
               </span>
               <span className="change-text">Change</span>
             </button>
           </div>
-
-          {/* Currency Selection for International Users */}
-          {paymentMethod === "paypal" && (
-            <div className="currency-selection">
-              <label>Select Currency:</label>
-              <select
-                value={currency}
-                onChange={(e) => handleCurrencyChange(e.target.value)}
-                className="currency-dropdown"
-              >
-                <option value="USD">USD ($1)</option>
-                <option value="EUR">EUR (€0.85)</option>
-                <option value="GBP">GBP (£0.75)</option>
-                <option value="CAD">CAD (C$1.25)</option>
-                <option value="AUD">AUD (A$1.35)</option>
-              </select>
-            </div>
-          )}
 
           {/* Main Payment Button */}
           <button
@@ -339,11 +276,6 @@ function PaymentButton({ onBeforePay, onPaymentSuccess }) {
               </>
             )}
           </button>
-
-          {/* Equivalent Amount Display */}
-          <div className="equivalent-display">
-            {getEquivalentAmount()}
-          </div>
 
           {/* Payment Method Notice */}
           <div className="payment-notice">

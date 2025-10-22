@@ -12,7 +12,153 @@
   max-width: 800px;
   margin: 0 auto;
 }
+.error-message {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  color: #856404;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 10px 0;
+  text-align: center;
+}
 
+.setup-info {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  margin: 40px 0;
+  border-left: 4px solid #4CAF50;
+}
+
+.setup-steps {
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.setup-steps p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.setup-steps ul {
+  margin: 10px 0 10px 20px;
+  color: #555;
+}
+.success-message {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.data-source {
+  background: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.status-success {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.status-warning {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.cloudinary-badge {
+  background: #3448c5;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.debug-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.debug-link a {
+  background: #6c757d;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.debug-link a:hover {
+  background: #545b62;
+}
+
+.setup-steps ul {
+  margin: 10px 0 10px 20px;
+}
+
+.setup-steps li {
+  margin: 5px 0;
+}
+.debug-link {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  border-top: 1px solid #ddd;
+  padding-top: 0.5rem;
+}
+
+.debug-link a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 400;
+}
+
+.debug-link a:hover {
+  text-decoration: underline;
+  color: #111;
+}
+.footer-note {
+  text-align:  center;
+  margin-top: 2rem;
+  font-size: 0.99rem;
+  color: #f1f1f1;
+  background-color: whitesmoke;
+  height: 40px;
+  padding: 10px;
+  border-radius: 8px;
+  
+}
+.footer-note a {
+  color: #474645;
+  text-decoration: none;
+}
+.footer-note a:hover {
+  text-decoration: underline;
+}
+
+
+.setup-steps code {
+  background: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.loading-spinner p {
+  margin-top: 15px;
+  color: #666;
+}
 .gallery-header h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -112,8 +258,27 @@
   grid-row: span 2;
 }
 
-.photo-item.square {
-  /* Default size */
+.test-button, .retry-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.test-button:hover, .retry-button:hover {
+  background: #0056b3;
+}
+
+.error-message {
+  background: #ffeaa7;
+  border: 1px solid #fdcb6e;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
 }
 
 /* Photo Overlay */
@@ -385,5 +550,118 @@
 
   .photo-overlay {
     opacity: 1;
+  }
+}
+.upload-section {
+  margin: 20px 0;
+}
+
+.upload-button {
+  background: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.upload-button:hover:not(:disabled) {
+  background: #45a049;
+}
+
+.upload-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.delete-button {
+  background: rgba(244, 67, 54, 0.9);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-button:hover {
+  background: rgba(244, 67, 54, 1);
+}
+
+.delete-button-modal {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.delete-button-modal:hover {
+  background: #d32f2f;
+}
+
+.photo-overlay {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+/* Upload Section Styling */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 2rem 0;
+}
+
+.upload-section input[type="file"] {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  width: 250px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.upload-section input[type="file"]::file-selector-button {
+  background: #667eea;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.upload-section input[type="file"]::file-selector-button:hover {
+  background: #5a67d8;
+}
+
+/* Upload button already defined */
+.upload-button {
+  width: 150px;
+  text-align: center;
+}
+
+/* Make upload section responsive */
+@media (max-width: 768px) {
+  .upload-section {
+    width: 90%;
+  }
+
+  .upload-section input[type="file"] {
+    width: 100%;
+  }
+
+  .upload-button {
+    width: 100%;
   }
 }
