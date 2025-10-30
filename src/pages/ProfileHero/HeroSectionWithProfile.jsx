@@ -26,10 +26,16 @@ const HeroSectionWithProfile = () => {
   // Fetch logged-in user data
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) return navigate("/main");
+    if (!token) return navigate("/login");
 
     fetch(`${REACT_BACKEND_URL}/api/auth/me`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type' : "application/json",
+        'Accept': "application/json"
+
+     },
+    credentials: 'include',
     })
       .then((res) => res.json())
       .then((data) => setUser(data))
