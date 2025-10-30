@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MultiStepRegistration.css';
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
+
 const MultiStepRegistration = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    // Step 1
     email: '',
     password: '',
     confirmPassword: '',
     agreedToPrivacyPolicy: false,
-    
-    // Step 2
     name: '',
     gender: '',
     occupationType: '',
     occupation: '',
-    
-    // Step 3 - Completion
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // ------------------------------------------------------------------
+  // Options
+  // ------------------------------------------------------------------
   const occupationOptions = [
     { value: 'employed', label: 'Employed' },
     { value: 'unemployed', label: 'Unemployed' },
@@ -38,136 +38,121 @@ const MultiStepRegistration = () => {
     { value: 'prefer-not-to-say', label: 'Prefer not to say' },
   ];
 
+  // ------------------------------------------------------------------
+  // Handlers
+  // ------------------------------------------------------------------
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
-    
-    // Clear error when user starts typing
+
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const validateStep1 = () => {
     const newErrors = {};
-    
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
+
+    if (!formData.email) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
+
+    if (!formData.password) newErrors.password = 'Password is required';
+    else if (formData.password.length < 6)
       newErrors.password = 'Password must be at least 6 characters';
-    }
-    
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password';
-    } else if (formData.password !== formData.confirmPassword) {
+
+    if (!formData.confirmPassword) newErrors.confirmPassword = 'Please confirm your password';
+    else if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = 'Passwords do not match';
-    }
-    
-    if (!formData.agreedToPrivacyPolicy) {
+
+    if (!formData.agreedToPrivacyPolicy)
       newErrors.agreedToPrivacyPolicy = 'You must agree to the privacy policy';
-    }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const validateStep2 = () => {
     const newErrors = {};
-    
-    if (!formData.name) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (!formData.gender) {
-      newErrors.gender = 'Please select your gender';
-    }
-    
-    if (!formData.occupationType) {
-      newErrors.occupationType = 'Please select your occupation type';
-    }
-    
-    if (formData.occupationType === 'other' && !formData.occupation) {
+
+    if (!formData.name) newErrors.name = 'Name is required';
+    if (!formData.gender) newErrors.gender = 'Please select your gender';
+    if (!formData.occupationType) newErrors.occupationType = 'Please select your occupation type';
+    if (formData.occupationType === 'other' && !formData.occupation)
       newErrors.occupation = 'Please specify your occupation';
-    }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {
-    if (currentStep === 1 && validateStep1()) {
-      setCurrentStep(2);
-    } else if (currentStep === 2 && validateStep2()) {
-      setCurrentStep(3);
-    }
+    if (currentStep === 1 && validateStep1()) setCurrentStep(2);
+    else if (currentStep === 2 && validateStep2()) setCurrentStep(3);
   };
 
-  const handleBack = () => {
-    setCurrentStep(prev => prev - 1);
-  };
-//  const REGISTER_URL = process.env.REACT_APP_BACKEND_URL  || 'http://localhost:5000';
+  const handleBack = () => setCurrentStep((prev) => prev - 1);
 
+  // ------------------------------------------------------------------
+  // Submit Handler (Fixed)
+  // ------------------------------------------------------------------
   const handleSubmit = async () => {
     setLoading(true);
+    setErrors({});
+
     try {
-      // Prepare data for API
-      const submitData = {
+      const payload = {
         email: formData.email,
         password: formData.password,
         name: formData.name,
         gender: formData.gender,
         occupationType: formData.occupationType,
-        occupation: formData.occupationType === 'other' ? formData.occupation : formData.occupationType,
-        agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy
+        occupation:
+          formData.occupationType === 'other'
+            ? formData.occupation
+            : formData.occupationType,
+        agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy,
       };
-      
-      const response = await fetch( `${API_BASE_URL}/api/auth/register`, {
+
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submitData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        credentials: 'include',
       });
 
       const data = await response.json();
+      console.log('🔹 Registration response:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Registration failed');
       }
 
-      // Auto login after successful registration
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      
-      // Navigate to main page
-      navigate('/main');
+      // ✅ Save token and user to localStorage for auto-login
+      if (data.accessToken) {
+        localStorage.setItem('token', data.accessToken);
+        localStorage.setItem('user', JSON.stringify(data.user));
+      }
 
-    } catch (error) {
-      setErrors({ submit: error.message });
+      // ✅ Redirect to main (protected) page
+      navigate('/main');
+    } catch (err) {
+      console.error('❌ Registration error:', err);
+      setErrors({ submit: err.message });
     } finally {
       setLoading(false);
     }
   };
 
+  // ------------------------------------------------------------------
+  // Step Indicator UI
+  // ------------------------------------------------------------------
   const StepIndicator = () => (
     <div className="step-indicator">
-      {[1, 2, 3].map(step => (
+      {[1, 2, 3].map((step) => (
         <div key={step} className="step-item">
-          <div className={`step-circle ${currentStep >= step ? 'active' : ''}`}>
-            {step}
-          </div>
+          <div className={`step-circle ${currentStep >= step ? 'active' : ''}`}>{step}</div>
           <div className="step-label">
             {step === 1 && 'Account Setup'}
             {step === 2 && 'Personal Info'}
@@ -179,6 +164,9 @@ const MultiStepRegistration = () => {
     </div>
   );
 
+  // ------------------------------------------------------------------
+  // JSX
+  // ------------------------------------------------------------------
   return (
     <div className="registration-container">
       <div className="registration-card">
@@ -190,11 +178,10 @@ const MultiStepRegistration = () => {
         <StepIndicator />
 
         <div className="form-container">
-          {/* Step 1: Account Setup */}
+          {/* STEP 1 */}
           {currentStep === 1 && (
             <div className="step-content slide-in">
               <h3>Account Setup</h3>
-              
               <div className="form-group">
                 <label>Email Address</label>
                 <input
@@ -231,7 +218,9 @@ const MultiStepRegistration = () => {
                   placeholder="Confirm your password"
                   className={errors.confirmPassword ? 'error' : ''}
                 />
-                {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
+                {errors.confirmPassword && (
+                  <span className="error-text">{errors.confirmPassword}</span>
+                )}
               </div>
 
               <div className="checkbox-group">
@@ -243,7 +232,14 @@ const MultiStepRegistration = () => {
                     onChange={handleChange}
                   />
                   <span className="checkmark"></span>
-                  I agree to the <a href="#privacy" className="link">Privacy Policy</a> and <a href="#terms" className="link">Terms of Service</a>
+                  I agree to the{' '}
+                  <a href="#privacy" className="link">
+                    Privacy Policy
+                  </a>{' '}
+                  and{' '}
+                  <a href="#terms" className="link">
+                    Terms of Service
+                  </a>
                 </label>
                 {errors.agreedToPrivacyPolicy && (
                   <span className="error-text">{errors.agreedToPrivacyPolicy}</span>
@@ -252,11 +248,10 @@ const MultiStepRegistration = () => {
             </div>
           )}
 
-          {/* Step 2: Personal Information */}
+          {/* STEP 2 */}
           {currentStep === 2 && (
             <div className="step-content slide-in">
               <h3>Personal Information</h3>
-              
               <div className="form-group">
                 <label>Full Name</label>
                 <input
@@ -273,7 +268,7 @@ const MultiStepRegistration = () => {
               <div className="form-group">
                 <label>Gender</label>
                 <div className="radio-group">
-                  {genderOptions.map(option => (
+                  {genderOptions.map((option) => (
                     <label key={option.value} className="radio-label">
                       <input
                         type="radio"
@@ -293,7 +288,7 @@ const MultiStepRegistration = () => {
               <div className="form-group">
                 <label>Occupation Type</label>
                 <div className="occupation-grid">
-                  {occupationOptions.map(option => (
+                  {occupationOptions.map((option) => (
                     <label key={option.value} className="occupation-option">
                       <input
                         type="radio"
@@ -315,7 +310,9 @@ const MultiStepRegistration = () => {
                     </label>
                   ))}
                 </div>
-                {errors.occupationType && <span className="error-text">{errors.occupationType}</span>}
+                {errors.occupationType && (
+                  <span className="error-text">{errors.occupationType}</span>
+                )}
               </div>
 
               {formData.occupationType === 'other' && (
@@ -329,22 +326,23 @@ const MultiStepRegistration = () => {
                     placeholder="Please specify your occupation"
                     className={errors.occupation ? 'error' : ''}
                   />
-                  {errors.occupation && <span className="error-text">{errors.occupation}</span>}
+                  {errors.occupation && (
+                    <span className="error-text">{errors.occupation}</span>
+                  )}
                 </div>
               )}
             </div>
           )}
 
-          {/* Step 3: Completion */}
+          {/* STEP 3 */}
           {currentStep === 3 && (
             <div className="step-content slide-in completion-step">
               <div className="completion-icon">🎉</div>
               <h3>Almost There!</h3>
               <p className="completion-text">
-                Welcome to our community! We're excited to have you on board. 
-                Your account is ready to be created with the following details:
+                Welcome to our community! We're excited to have you on board.
               </p>
-              
+
               <div className="summary-card">
                 <div className="summary-item">
                   <strong>Email:</strong> {formData.email}
@@ -353,28 +351,26 @@ const MultiStepRegistration = () => {
                   <strong>Name:</strong> {formData.name}
                 </div>
                 <div className="summary-item">
-                  <strong>Gender:</strong> {genderOptions.find(g => g.value === formData.gender)?.label}
+                  <strong>Gender:</strong>{' '}
+                  {genderOptions.find((g) => g.value === formData.gender)?.label}
                 </div>
                 <div className="summary-item">
-                  <strong>Occupation:</strong> {formData.occupationType === 'other' ? formData.occupation : formData.occupationType}
+                  <strong>Occupation:</strong>{' '}
+                  {formData.occupationType === 'other'
+                    ? formData.occupation
+                    : formData.occupationType}
                 </div>
               </div>
-
-              <p className="completion-note">
-                By completing your registration, you'll gain access to all our features 
-                and become part of our growing community. We're committed to providing 
-                you with the best experience possible.
-              </p>
 
               {errors.submit && <div className="error-message">{errors.submit}</div>}
             </div>
           )}
 
-          {/* Navigation Buttons */}
+          {/* BUTTONS */}
           <div className="navigation-buttons">
             {currentStep > 1 && (
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={handleBack}
                 className="btn-secondary"
                 disabled={loading}
@@ -382,18 +378,18 @@ const MultiStepRegistration = () => {
                 Back
               </button>
             )}
-            
+
             {currentStep < 3 ? (
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={handleNext}
                 className="btn-primary"
               >
                 Next Step
               </button>
             ) : (
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={handleSubmit}
                 className="btn-success"
                 disabled={loading}
@@ -405,7 +401,10 @@ const MultiStepRegistration = () => {
         </div>
 
         <div className="login-link">
-          Already have an account? <span onClick={() => navigate('/login')} className="link">Sign in</span>
+          Already have an account?{' '}
+          <span onClick={() => navigate('/login')} className="link">
+            Sign in
+          </span>
         </div>
       </div>
     </div>
