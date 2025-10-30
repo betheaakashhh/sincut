@@ -22,13 +22,13 @@ const HeroSectionWithProfile = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-
+  const REACT_BACKEND_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
   // Fetch logged-in user data
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return navigate("/");
 
-    fetch("http://localhost:5000/api/auth/me", {
+    fetch(`${REACT_BACKEND_URL}/api/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -39,7 +39,7 @@ const HeroSectionWithProfile = () => {
   // Logout handler
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:5000/api/auth/logout", {
+      await fetch(`${REACT_BACKEND_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
