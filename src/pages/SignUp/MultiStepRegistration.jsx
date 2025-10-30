@@ -117,7 +117,7 @@ const MultiStepRegistration = () => {
 
       const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         body: JSON.stringify(payload),
         credentials: 'include',
       });
