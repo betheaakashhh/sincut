@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React from 'react'
 
 
@@ -62,4 +60,3 @@ const Home = () => {
 }
 
 export default Home
->>>>>>> 7e17ae6 (adding some file)
