@@ -192,8 +192,8 @@ const PhotoGallery = () => {
           <div className="setup-info">
             <h3>Gallery Information</h3>
             <div className="setup-steps">
-              {/* <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
-              <p><strong>Backend URL:</strong> {getApiBase()}</p> */}
+              <p><strong>Environment:</strong> {process.env.NODE_ENV || 'development'}</p>
+              <p><strong>Backend URL:</strong> {getApiBase()}</p> 
               <p>Our gallery showcases real and authentic photographs captured from genuine moments.
 These images are for display and inspiration purposes only and are copyright protected.</p>
               

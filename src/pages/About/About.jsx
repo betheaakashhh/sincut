@@ -2,6 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import image1 from "../../assets/aboutus.jpeg"
 import "./about.css"
+import Navbar from '../../components/Navbar/Navbar'
+import Footer from '../../data/Footer/Footer'
 
 const About = () => {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ const About = () => {
   }
   return (
     <section className="about-section" id="about">
+      <Navbar />
       <div className="about-container">
         <div className="about-content">
           <div className="about-image-container">
@@ -62,7 +65,7 @@ const About = () => {
               
               <div className="cta-section">
                 <p className="cta-text">Ready to make a difference?</p>
-                <a href="/thanks" className="cta-button">Start Your Journey</a>
+                <a href="/thanks" className="cta-button">AuthLogin</a>
               </div>
             </div>
             
@@ -77,6 +80,7 @@ const About = () => {
           </div>
         </div>
       </div>
+  
     </section>
   )
 }

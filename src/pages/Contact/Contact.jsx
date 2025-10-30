@@ -4,6 +4,8 @@ import "./contact.css";
 
 import imesege from "../../assets/messege.png";
 import emailjs from "@emailjs/browser";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../data/Footer/Footer";
 
 const Contact = () => {
   const form = useRef();
@@ -48,7 +50,7 @@ const Contact = () => {
 
   return (
     <section className="contact-section">
-     
+     <Navbar />
       
       <div className="contact-container">
         <div className="contact-info">
@@ -127,6 +129,7 @@ const Contact = () => {
           </form>
         </div>
       </div>
+    
     </section>
   );
 };

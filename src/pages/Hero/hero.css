@@ -1,6 +1,6 @@
 .modern-hero-section {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  background-image: linear-gradient(to bottom, #000000, #070707, #0d0d0d, #121213, #161617, #161617, #161617, #161617, #121213, #0d0d0d, #070707, #000000);
   position: relative;
   overflow: hidden;
   display: flex;

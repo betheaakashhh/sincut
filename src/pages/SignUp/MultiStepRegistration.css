@@ -1,0 +1,456 @@
+.registration-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.registration-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.registration-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.registration-header h2 {
+  color: #fff;
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.registration-header p {
+  color: #b0b0b0;
+  font-size: 16px;
+}
+
+/* Step Indicator */
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b0b0b0;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.step-circle.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.step-label {
+  margin-top: 10px;
+  color: #b0b0b0;
+  font-size: 12px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.step-circle.active + .step-label {
+  color: #fff;
+}
+
+.step-connector {
+  position: absolute;
+  top: 20px;
+  left: 60%;
+  right: -40%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+/* Form Styles */
+.form-container {
+  margin-bottom: 30px;
+}
+
+.step-content {
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.step-content h3 {
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #b0b0b0;
+}
+
+.form-group input.error {
+  border-color: #ff4757;
+}
+
+.error-text {
+  color: #ff4757;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Checkbox and Radio Styles */
+.checkbox-group {
+  margin: 25px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  color: #b0b0b0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.checkbox-label input {
+  display: none;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  margin-right: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.checkbox-label input:checked + .checkmark {
+  background: #667eea;
+  border-color: #667eea;
+}
+
+.checkbox-label input:checked + .checkmark::after {
+  content: '✓';
+  position: absolute;
+  color: #fff;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radio-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  color: #b0b0b0;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.radio-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.radio-label input {
+  display: none;
+}
+
+.radio-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.radio-label input:checked + .radio-custom {
+  border-color: #667eea;
+}
+
+.radio-label input:checked + .radio-custom::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #667eea;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Occupation Grid */
+.occupation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.occupation-option {
+  cursor: pointer;
+}
+
+.occupation-option input {
+  display: none;
+}
+
+.occupation-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.occupation-option input:checked + .occupation-card {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+}
+
+.occupation-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.occupation-label {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Completion Step */
+.completion-step {
+  text-align: center;
+}
+
+.completion-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.completion-text {
+  color: #b0b0b0;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.summary-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+.summary-item {
+  color: #fff;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.completion-note {
+  color: #b0b0b0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* Buttons */
+.navigation-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-primary, .btn-secondary, .btn-success {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #2ed573 0%, #1e90ff 100%);
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 213, 115, 0.4);
+}
+
+.btn-success:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Links */
+.login-link {
+  text-align: center;
+  color: #b0b0b0;
+  font-size: 14px;
+}
+
+.link {
+  color: #667eea;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  background: rgba(255, 71, 87, 0.1);
+  color: #ff4757;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .registration-card {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+
+  .radio-group {
+    grid-template-columns: 1fr;
+  }
+
+  .occupation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+  }
+}

@@ -60,10 +60,10 @@ const HeroSection = () => {
   return (
     <div className="modern-hero-section">
       <div className="hero-background">
-        <div className="floating-orb orb-1"></div>
+        {/* <div className="floating-orb orb-1"></div>
         <div className="floating-orb orb-2"></div>
-        <div className="floating-orb orb-3"></div>
-        <div className="grid-lines"></div>
+        <div className="floating-orb orb-3"></div> */}
+        {/* <div className="grid-lines"></div> */}
       </div>
 
       <div className="hero-container">

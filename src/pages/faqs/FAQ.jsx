@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./FAQ.css";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../data/Footer/Footer";
 
 const faqData = [
   {
@@ -42,7 +44,9 @@ const FAQ = () => {
   };
 
   return (
+  
     <section className="divine-faq-section">
+      <Navbar />
       {/* Divine Background Elements */}
       <div className="faq-heavenly-background">
         <div className="faq-light-ray"></div>
@@ -116,6 +120,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
+     
     </section>
   );
 };

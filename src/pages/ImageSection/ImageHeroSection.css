@@ -1,0 +1,397 @@
+/* HoveringImagesSection.css */
+
+.modern-dark-section {
+  min-height: 100vh;
+background: hsla(0, 0%, 8%, 1);
+
+background: linear-gradient(270deg, hsla(0, 0%, 8%, 1) 0%, hsla(234, 18%, 34%, 1) 0%, hsla(0, 14%, 4%, 1) 40%, hsla(0, 0%, 0%, 1) 58%, hsla(0, 0%, 0%, 1) 100%);
+
+background: -moz-linear-gradient(270deg, hsla(0, 0%, 8%, 1) 0%, hsla(234, 18%, 34%, 1) 0%, hsla(0, 14%, 4%, 1) 40%, hsla(0, 0%, 0%, 1) 58%, hsla(0, 0%, 0%, 1) 100%);
+
+background: -webkit-linear-gradient(270deg, hsla(0, 0%, 8%, 1) 0%, hsla(234, 18%, 34%, 1) 0%, hsla(0, 14%, 4%, 1) 40%, hsla(0, 0%, 0%, 1) 58%, hsla(0, 0%, 0%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#141414", endColorstr="#464965", GradientType=1 );
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+.scrolling-showcase-container{
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  margin-top: 15rem;
+  overflow: hidden;
+
+}
+
+/* Animated Background */
+.modern-dark-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+ background: hsla(0, 0%, 8%, 1);
+
+background-image: linear-gradient(to bottom, #000000, #070707, #0d0d0d, #121213, #161617, #161617, #161617, #161617, #121213, #0d0d0d, #070707, #000000);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#141414", endColorstr="#464965", GradientType=1 );
+}
+
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.2;
+  animation: float 8s ease-in-out infinite;
+}
+
+
+  .orb-1 {
+    width: 1200px;
+    height: 1200px;
+    background: linear-gradient(112deg, #000000, #020b18), linear-gradient(45deg, #000000, #020b18), linear-gradient(273deg, #000000, #020b18), linear-gradient(168deg, #000000, #020b18);
+    top: -40%;
+    left: 38%;
+    animation-delay: 0s;
+}
+
+
+.orb-2 {
+    width: 1200px;
+    height: 1500px;
+    background: linear-gradient(45deg, #000000, #000);
+    top: -97%;
+    right: -9%;
+    animation-delay: 2s;
+}
+
+.orb-3 {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  bottom: 20%;
+  left: 15%;
+  animation-delay: 6s;
+}
+
+
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg) scale(1); 
+  }
+  33% { 
+    transform: translateY(-20px) rotate(120deg) scale(1.05); 
+  }
+  66% { 
+    transform: translateY(10px) rotate(240deg) scale(0.95); 
+  }
+}
+
+/* Content Container */
+.content-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Text Animation */
+.text-animation-container {
+  margin-bottom: 4rem;
+  animation: fadeInUp 1s ease-out;
+}
+
+.animated-heading {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.title-gradient {
+  background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #9d50bb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+.animated-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Images Container */
+.images-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+  position: relative;
+  z-index: 3;
+}
+
+/* Image Wrapper */
+.image-wrapper {
+  position: relative;
+  animation: floatImage 6s ease-in-out infinite;
+}
+
+.image-1 {
+  animation-delay: 0s;
+}
+
+.image-2 {
+  animation-delay: 2s;
+}
+
+.image-3 {
+  animation-delay: 4s;
+}
+
+@keyframes floatImage {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-15px) rotate(1deg); 
+  }
+  66% { 
+    transform: translateY(10px) rotate(-1deg); 
+  }
+}
+
+/* Glassy Image Effect */
+.glassy-image {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glassy-image:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.image-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(78, 205, 196, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(157, 80, 187, 0.05) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.image-text h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #fff 0%, #a8b9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.image-text p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Floating Dots Pattern */
+.floating-dots {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 100px;
+  height: 100px;
+  background-image: 
+    radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
+  background-size: 20px 20px;
+  animation: dotsFloat 4s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+@keyframes dotsFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(5px, -5px) rotate(180deg); }
+}
+
+/* Floating Text Elements */
+.floating-text-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-text {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.1);
+  font-size: 5rem;
+  font-weight: 900;
+  animation: floatingText 15s linear infinite;
+  user-select: none;
+}
+
+.text-1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.text-2 {
+  top: 70%;
+  right: 10%;
+  animation-delay: 5s;
+}
+
+.text-3 {
+  top: 40%;
+  left: 15%;
+  animation-delay: 10s;
+}
+
+.text-4 {
+  top: 80%;
+  right: 20%;
+  animation-delay: 7s;
+}
+
+@keyframes floatingText {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+    opacity: 0.05;
+  }
+  50% {
+    transform: translateY(0px) rotate(180deg);
+    opacity: 0.1;
+  }
+  75% {
+    transform: translateY(20px) rotate(270deg);
+    opacity: 0.05;
+  }
+  100% {
+    transform: translateY(0px) rotate(360deg);
+    opacity: 0.1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-dark-section {
+    padding: 2rem 1rem;
+  }
+  
+  .animated-heading {
+    font-size: 2.5rem;
+  }
+  
+  .animated-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .images-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .glassy-image {
+    height: 200px;
+    padding: 1.5rem;
+  }
+  
+  .floating-text {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .animated-heading {
+    font-size: 2rem;
+  }
+  
+  .animated-subtitle {
+    font-size: 1rem;
+  }
+  
+  .glassy-image {
+    height: 180px;
+    padding: 1rem;
+  }
+  
+  .image-text h3 {
+    font-size: 1.3rem;
+  }
+  
+  .floating-text {
+    font-size: 2rem;
+  }
+}
