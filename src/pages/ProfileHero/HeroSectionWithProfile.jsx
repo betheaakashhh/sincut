@@ -26,7 +26,7 @@ const HeroSectionWithProfile = () => {
   // Fetch logged-in user data
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) return navigate("/");
+    if (!token) return navigate("/main");
 
     fetch(`${REACT_BACKEND_URL}/api/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -76,7 +76,7 @@ const HeroSectionWithProfile = () => {
             </>
           ) : (
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/login")}
               className="snct-login-btn"
             >
               Login
