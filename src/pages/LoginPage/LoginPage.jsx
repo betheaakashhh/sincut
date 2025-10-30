@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
 const LoginPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -34,14 +34,14 @@ const LoginPage = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
     if (error) setError("");
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
   
     try {
-      const response = await fetch(`https://sincut-razorpay.vercel.app/api/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

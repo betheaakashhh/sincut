@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MultiStepRegistration.css';
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
 const MultiStepRegistration = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -133,7 +133,7 @@ const MultiStepRegistration = () => {
         agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy
       };
       
-      const response = await fetch( `https://sincut-razorpay.vercel.app/api/auth/register`, {
+      const response = await fetch( `${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
