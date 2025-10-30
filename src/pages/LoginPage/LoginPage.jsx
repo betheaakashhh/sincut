@@ -39,9 +39,9 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-  const LOGIN_URL = process.env.REACT_APP_BACKEND_URL;
+  
     try {
-      const response = await fetch(`${LOGIN_URL}/api/auth/login`, {
+      const response = await fetch(`https://sincut-razorpay.vercel.app/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

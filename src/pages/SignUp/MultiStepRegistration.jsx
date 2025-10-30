@@ -132,8 +132,8 @@ const MultiStepRegistration = () => {
         occupation: formData.occupationType === 'other' ? formData.occupation : formData.occupationType,
         agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy
       };
-      const REGISTER_URL = process.env.REACT_APP_BACKEND_URL;
-      const response = await fetch( `${REGISTER_URL}/api/auth/register`, {
+      
+      const response = await fetch( `https://sincut-razorpay.vercel.app/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
