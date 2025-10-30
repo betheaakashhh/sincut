@@ -39,7 +39,7 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-  const LOGIN_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+  const LOGIN_URL = process.env.REACT_APP_BACKEND_URL;
     try {
       const response = await fetch(`${LOGIN_URL}/api/auth/login`, {
         method: "POST",

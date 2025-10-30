@@ -132,7 +132,7 @@ const MultiStepRegistration = () => {
         occupation: formData.occupationType === 'other' ? formData.occupation : formData.occupationType,
         agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy
       };
-      const REGISTER_URL = process.env.REACT_APP_BACKEND_URL  || 'http://localhost:5000';
+      const REGISTER_URL = process.env.REACT_APP_BACKEND_URL;
       const response = await fetch( `${REGISTER_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
