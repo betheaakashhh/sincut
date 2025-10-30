@@ -26,7 +26,7 @@ const HeroSectionWithProfile = () => {
   // Fetch logged-in user data
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) return navigate("/login");
+    if (!token) return navigate("/main");
 
     fetch(`${REACT_BACKEND_URL}/api/auth/me`, {
       headers: { 
@@ -39,7 +39,13 @@ const HeroSectionWithProfile = () => {
     })
       .then((res) => res.json())
       .then((data) => setUser(data))
-      .catch((err) => console.error("Error fetching user:", err));
+      .catch((err) =>{
+      
+       console.error("Error fetching user:", err);
+       localStorage.removeItem("token");
+       localStorage.removeItem("user");
+         navigate("/main");
+      });
   }, [navigate]);
 
   // Logout handler
