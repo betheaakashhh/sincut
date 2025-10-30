@@ -63,11 +63,11 @@ const App = () => {
 < Route path='/Program' element={<Program/>} />
  < Route path='/gallery' element={<PhotoGallery />} />
 < Route path='/announce' element={<Announce />} />
-< Route path='/main' element={<Home1 />} />
+< Route path='/main' element={<ProtectedRoute><Home1 /></ProtectedRoute>} />
 < Route path='/confess' element={<ConfessSection/>} />
 < Route path='/thanks' element={<ThankfulPage/>} />
-<Route path = '/login' element= {<LoginPage />} />
-<Route path = '/signup' element= {<MultiStepRegistration />} />
+<Route path = '/login' element= {<PublicRoute><LoginPage /></PublicRoute>} />
+<Route path = '/signup' element= {<PublicRoute ><MultiStepRegistration /></PublicRoute>} />
 
           
           
