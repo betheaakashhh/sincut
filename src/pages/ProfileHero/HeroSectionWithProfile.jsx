@@ -3,26 +3,24 @@ import { useNavigate } from "react-router-dom";
 import "./HeroSectionWithProfile.css";
 
 const HeroSectionWithProfile = () => {
-  const [textIndex, setTextIndex] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
   const [user, setUser] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
-  const texts = [
-    "Empower your creativity.",
-    "Build your dreams with us.",
-    "Innovate. Create. Inspire.",
-    "Transform ideas into impact.",
-  ];
-
-  // Animated text switch
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTextIndex((prev) => (prev + 1) % texts.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
   const REACT_BACKEND_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
+
+  // Check screen size for responsive behavior
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   // Fetch logged-in user data
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,18 +31,16 @@ const HeroSectionWithProfile = () => {
         'Authorization': `Bearer ${token}`,
         'Content-Type' : "application/json",
         'Accept': "application/json"
-
-     },
-    credentials: 'include',
+      },
+      credentials: 'include',
     })
       .then((res) => res.json())
       .then((data) => setUser(data))
-      .catch((err) =>{
-      
-       console.error("Error fetching user:", err);
-       localStorage.removeItem("token");
-       localStorage.removeItem("user");
-         navigate("/main");
+      .catch((err) => {
+        console.error("Error fetching user:", err);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/main");
       });
   }, [navigate]);
 
@@ -63,41 +59,87 @@ const HeroSectionWithProfile = () => {
     }
   };
 
-  return (
-    <div className="snct-hero-container">
-      {/* Top Navbar */}
-      <div className="snct-hero-navbar">
-        <h2 className="snct-logo">Sincut</h2>
-        <div className="snct-profile-section">
-          {user ? (
-            <>
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                alt="profile"
-                className="snct-profile-photo"
-                onClick={() => setShowMenu(!showMenu)}
-              />
-              {showMenu && (
-                <div className="snct-dropdown-menu">
-                  <p onClick={() => navigate("/account-settings")}>
-                    Account Settings
-                  </p>
-                  <p onClick={handleLogout}>Logout</p>
-                </div>
-              )}
-            </>
-          ) : (
-            <button
-              onClick={() => navigate("/login")}
-              className="snct-login-btn"
-            >
-              Login
-            </button>
-          )}
-        </div>
-      </div>
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (showMenu) setShowMenu(false);
+    };
 
-      
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [showMenu]);
+
+  return (
+    <div className="snct-navbar-container">
+      {/* Modern Glass Navbar */}
+      <nav className="snct-navbar">
+        <div className="snct-navbar-content">
+          {/* Logo */}
+          <div className="snct-logo-section">
+            <h2 className="snct-logo">Sincut</h2>
+          </div>
+
+          {/* Profile Section */}
+          <div className="snct-profile-section">
+            {user ? (
+              <div className="snct-user-menu">
+                <div 
+                  className="snct-user-trigger"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMenu(!showMenu);
+                  }}
+                >
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                    alt="profile"
+                    className="snct-profile-photo"
+                  />
+                  {!isMobile && (
+                    <span className="snct-username">
+                      {user.name || user.email?.split('@')[0]}
+                    </span>
+                  )}
+                  <svg 
+                    className={`snct-dropdown-arrow ${showMenu ? 'snct-rotated' : ''}`}
+                    width="12" 
+                    height="12" 
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                  >
+                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                  </svg>
+                </div>
+                
+                {showMenu && (
+                  <div className="snct-dropdown-menu">
+                    <div className="snct-menu-item" onClick={() => navigate("/account-settings")}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                      Account Settings
+                    </div>
+                    <div className="snct-menu-divider"></div>
+                    <div className="snct-menu-item snct-logout-item" onClick={handleLogout}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M6 2H2v12h4v1H1V1h5v1zm7.707 5.707l-3 3a1 1 0 01-1.414-1.414L10.586 8H5V7h5.586L9.293 5.707a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414z"/>
+                      </svg>
+                      Logout
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="snct-login-btn"
+              >
+                {isMobile ? 'Login' : 'Sign In'}
+              </button>
+            )}
+          </div>
+        </div>
+      </nav>
     </div>
   );
 };
