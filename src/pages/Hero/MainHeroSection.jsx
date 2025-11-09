@@ -42,7 +42,7 @@ const MainHeroSection = () => {
 
   const handleGetStarted = () => {
     // Add your get started logic here
-     navigate("/login");
+     navigate("/signup");
     console.log("Get Started clicked");
   };
 
