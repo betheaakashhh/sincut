@@ -190,7 +190,7 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#141414", en
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 2rem;
-  width: 420px
+  
 }
 
 .main-modern-btn:hover {
@@ -552,3 +552,4 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#141414", en
     font-size: 1.4rem;
   }
 }
+
