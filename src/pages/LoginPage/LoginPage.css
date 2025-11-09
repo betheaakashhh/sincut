@@ -80,7 +80,7 @@
 }
 
 /* ========== Buttons ========== */
-button {
+button  {
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -93,7 +93,7 @@ button {
   transition: all 0.3s ease;
 }
 
-button:hover:not(:disabled) {
+button :hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
 }

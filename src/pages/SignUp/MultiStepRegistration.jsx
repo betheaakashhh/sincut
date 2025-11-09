@@ -184,7 +184,7 @@ const MultiStepRegistration = () => {
           {currentStep === 1 && (
             <div className="step-content slide-in">
               <h3>Account Setup</h3>
-              <div className="form-group">
+              <div className="form-grp">
                 <label>Email Address</label>
                 <input
                   type="email"
@@ -197,7 +197,7 @@ const MultiStepRegistration = () => {
                 {errors.email && <span className="error-text">{errors.email}</span>}
               </div>
 
-              <div className="form-group">
+              <div className="form-grp">
                 <label>Password</label>
                 <input
                   type="password"
@@ -210,7 +210,7 @@ const MultiStepRegistration = () => {
                 {errors.password && <span className="error-text">{errors.password}</span>}
               </div>
 
-              <div className="form-group">
+              <div className="form-grp">
                 <label>Confirm Password</label>
                 <input
                   type="password"
@@ -254,7 +254,7 @@ const MultiStepRegistration = () => {
           {currentStep === 2 && (
             <div className="step-content slide-in">
               <h3>Personal Information</h3>
-              <div className="form-group">
+              <div className="form-grp">
                 <label>Full Name</label>
                 <input
                   type="text"
@@ -267,7 +267,7 @@ const MultiStepRegistration = () => {
                 {errors.name && <span className="error-text">{errors.name}</span>}
               </div>
 
-              <div className="form-group">
+              <div className="form-grp">
                 <label>Gender</label>
                 <div className="radio-group">
                   {genderOptions.map((option) => (
@@ -287,7 +287,7 @@ const MultiStepRegistration = () => {
                 {errors.gender && <span className="error-text">{errors.gender}</span>}
               </div>
 
-              <div className="form-group">
+              <div className="form-grp">
                 <label>Occupation Type</label>
                 <div className="occupation-grid">
                   {occupationOptions.map((option) => (
@@ -318,7 +318,7 @@ const MultiStepRegistration = () => {
               </div>
 
               {formData.occupationType === 'other' && (
-                <div className="form-group">
+                <div className="form-grp">
                   <label>Specify Your Occupation</label>
                   <input
                     type="text"

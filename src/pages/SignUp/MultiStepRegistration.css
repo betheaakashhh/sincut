@@ -125,11 +125,11 @@
   text-align: center;
 }
 
-.form-group {
+.form-grp{
   margin-bottom: 20px;
 }
 
-.form-group label {
+.form-grp label {
   display: block;
   margin-bottom: 8px;
   color: #fff;
@@ -137,7 +137,7 @@
   font-size: 14px;
 }
 
-.form-group input {
+.form-grp input {
   width: 100%;
   padding: 15px;
   background: rgba(255, 255, 255, 0.1);
@@ -148,18 +148,18 @@
   transition: all 0.3s ease;
 }
 
-.form-group input:focus {
+.form-grp input:focus {
   outline: none;
   border-color: #667eea;
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.form-group input::placeholder {
+.form-grp input::placeholder {
   color: #b0b0b0;
 }
 
-.form-group input.error {
+.form-grp input.error {
   border-color: #ff4757;
 }
 

@@ -42,11 +42,12 @@ const MainHeroSection = () => {
 
   const handleGetStarted = () => {
     // Add your get started logic here
+     navigate("/login");
     console.log("Get Started clicked");
   };
 
   const handleLogin = () => {
-    navigate("/login");
+   
   };
 
   const handleSignup = () => {
@@ -77,7 +78,7 @@ const MainHeroSection = () => {
               </div>
               
               {/* Modern Button */}
-              <button className="main-modern-btn" onClick={handleGetStarted}>
+              <button className="main-main-modern-btn" onClick={handleGetStarted}>
                 <span className="main-btn-glow"></span>
                 <span className="main-btn-text">Get Started Free</span>
                 <span className="main-btn-arrow">→</span>
