@@ -97,21 +97,7 @@ const HeroSectionWithProfile = () => {
         </div>
       </div>
 
-      {/* Hero Content */}
-      <div className="snct-hero-content">
-        <h1 key={textIndex} className="snct-hero-title">
-          {texts[textIndex]}
-        </h1>
-        <p className="snct-hero-subtitle">
-          Explore, create, and manage your digital experience.
-        </p>
-        <button
-          className="snct-hero-btn"
-          onClick={() => navigate("/program")}
-        >
-          Explore Programs
-        </button>
-      </div>
+      
     </div>
   );
 };
