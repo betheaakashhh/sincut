@@ -47,7 +47,7 @@ const MainHeroSection = () => {
   };
 
   const handleLogin = () => {
-   
+   navigate("/login");
   };
 
   const handleSignup = () => {
