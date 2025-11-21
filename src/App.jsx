@@ -14,7 +14,7 @@ import { populateQuotes } from './indexedDBInit'
 
 import TermCondition from './pages/TermCondition/TermCondition'
 import PhotoGallery from './pages/PhotoGallery/PhotoGallery'
-import Program from './pages/Program/Program'
+
 import Announce from './pages/Donate/Announce'
 
 import ConfessSection from './pages/Confess/ConfessSection'
@@ -60,13 +60,13 @@ const App = () => {
         < Route path='/contact' element={<Contact/>} />
          < Route path='/FAQs' element={<FAQ/>} /> 
           < Route path='/terms' element={<TermCondition/>} />
-< Route path='/Program' element={<Program/>} />
- < Route path='/gallery' element={<PhotoGallery />} />
+
+ < Route path='/gallery' element={<ProtectedRoute><PhotoGallery /></ProtectedRoute>} />
 < Route path='/announce' element={<Announce />} />
 < Route path='/main' element={<ProtectedRoute><Home1 /></ProtectedRoute>} />
 < Route path='/confess' element={<ConfessSection/>} />
 < Route path='/thanks' element={<ThankfulPage/>} />
-<Route path = '/login' element= {<PublicRoute><LoginPage /></PublicRoute>} />
+<Route path = '/login' element= {<PublicRoute> <LoginPage /> </PublicRoute>} />
 <Route path = '/signup' element= {<PublicRoute ><MultiStepRegistration /></PublicRoute>} />
 
           
