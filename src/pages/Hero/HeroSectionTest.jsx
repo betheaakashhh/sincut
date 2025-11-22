@@ -3,7 +3,7 @@ import "./hero.css";
 
 import PaymentButton from "../PaymentButton/PaymentButton";
 import ThankfulPage from "../PaymentSuccess/ThankfulPage";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const [heroText, setHeroText] = useState("");
@@ -13,6 +13,7 @@ const HeroSection = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showThankful, setShowThankful] = useState(false);
   const [paidAmount, setPaidAmount] = useState(0);
+  const navigate = useNavigate();
 
   const handleBeforePay = () => {
     if (!heroText.trim()) {
@@ -35,7 +36,9 @@ const HeroSection = () => {
     console.log("Payment successful:", response);
     setPaidAmount(amount);
     setShowThankful(true);
-    Navigate("/main/thankful", {state: {paid: true}});
+    navigate("/main/thankful", {
+      state: {paid: true}
+    });
   };
 
   const handleTextChange = (e) => {

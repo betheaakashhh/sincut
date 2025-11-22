@@ -4,11 +4,12 @@ import "./thankfull.css";
 
 const ThankfulPage = ({ amount: propAmount = 100, onClose }) => {
  const {state} = useLocation();
- if (!state?.paid) {
-    return <Navigate to="/main" replace />;
-  } 
+
   const location = useLocation();
   const navigate = useNavigate();
+   if (!state?.paid) {
+    return <Navigate to="/main" replace />;
+  } 
   const amount = location.state?.amount || propAmount;
 
   const handleClose = () => onClose ? onClose() : navigate("/confess");
