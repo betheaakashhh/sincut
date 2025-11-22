@@ -162,7 +162,7 @@ const MultiStepRegistration = () => {
 
     // ✅ Redirect to dashboard instead of main
     console.log('✅ Registration successful, redirecting to dashboard...');
-    navigate('/dashboard');
+    navigate('/accountsetting');
     
   } catch (err) {
     console.error('❌ Registration error:', err);
