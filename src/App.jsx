@@ -24,6 +24,7 @@ import LoginPage from './pages/LoginPage/LoginPage'
 import MultiStepRegistration from './pages/SignUp/MultiStepRegistration'
 import Home1 from './pages/Home1/Home.1'
 import AccountSetting from './pages/AccountSetting/AccountSetting'
+import DebugAuth from './data/DebugAuth'
 
 /*=========================================================================================================================
 Protecting the routes based on authentication status
@@ -84,7 +85,7 @@ const App = () => {
 
 <Route path = '/login' element= {<PublicRoute> <LoginPage /> </PublicRoute>} />
 <Route path = '/signup' element= {<PublicRoute ><MultiStepRegistration /></PublicRoute>} />
-
+<Route path='/debug-auth' element={<DebugAuth />} />
           
           
         

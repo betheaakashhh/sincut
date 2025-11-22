@@ -40,31 +40,38 @@ const LoginPage = () => {
     setLoading(true);
     setError("");
   
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-        }),
-        credentials: "include",
+   try {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+    console.log('🔹 Login response:', data);
+
+    if (response.ok && data.accessToken) {
+      // Save tokens
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      
+      console.log('✅ Login successful - tokens saved');
+      console.log('🔍 Token verification:', {
+        tokenInStorage: localStorage.getItem('accessToken') ? 'EXISTS' : 'MISSING',
+        userInStorage: localStorage.getItem('user') ? 'EXISTS' : 'MISSING'
       });
-
-      const data = await response.json();
-      console.log("🔹 Login response:", data);
-
-      if (!response.ok) throw new Error(data.message || "Login failed");
-
-      localStorage.setItem("token", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      navigate("/main");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      
+      navigate('/dashboard');
+    } else {
+      throw new Error(data.message || 'Login failed');
     }
+  } catch (error) {
+    console.error('❌ Login error:', error);
+    setError(error.message);
+  }
   };
 
   return (

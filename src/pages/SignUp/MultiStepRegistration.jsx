@@ -102,59 +102,75 @@ const MultiStepRegistration = () => {
   // Submit Handler (Updated with referral code)
   // ------------------------------------------------------------------
   const handleSubmit = async () => {
-    setLoading(true);
-    setErrors({});
+  setLoading(true);
+  setErrors({});
 
-    try {
-      const payload = {
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-        gender: formData.gender,
-        occupationType: formData.occupationType,
-        occupation:
-          formData.occupationType === 'other'
-            ? formData.occupation
-            : formData.occupationType,
-        agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy,
-        referralCode: formData.referralCode.trim() || undefined // Send referral code if provided
-      };
+  try {
+    const payload = {
+      email: formData.email,
+      password: formData.password,
+      name: formData.name,
+      gender: formData.gender,
+      occupationType: formData.occupationType,
+      occupation:
+        formData.occupationType === 'other'
+          ? formData.occupation
+          : formData.occupationType,
+      agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy,
+      referralCode: formData.referralCode.trim() || undefined
+    };
 
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': "application/json"
-        },
-        body: JSON.stringify(payload),
-        credentials: 'include',
-      });
+    console.log('🔍 Sending registration payload:', payload);
 
-      const data = await response.json();
-      console.log('🔹 Registration response:', data);
+    const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify(payload),
+      credentials: 'include', // Important for cookies
+    });
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
+    const data = await response.json();
+    console.log('🔹 Registration response:', data);
 
-      // ✅ Save token and user to localStorage for auto-login
-      if (data.accessToken) {
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        console.log('✅ Tokens saved after registration:', {
-         token: data.accessToken,
-         user: data.user
-  });
-      }
-
-      // ✅ Redirect to main (protected) page
-      navigate('/main');
-    } catch (err) {
-      console.error('❌ Registration error:', err);
-      setErrors({ submit: err.message });
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      throw new Error(data.message || 'Registration failed');
     }
-  };
+
+    // ✅ FIXED: Save tokens properly
+    if (data.accessToken) {
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      
+      console.log('✅ Tokens saved successfully:', {
+        accessToken: data.accessToken ? 'Saved' : 'Missing',
+        user: data.user ? 'Saved' : 'Missing'
+      });
+      
+      // Test if tokens are actually saved
+      const testToken = localStorage.getItem('accessToken');
+      const testUser = localStorage.getItem('user');
+      console.log('✅ Verification - tokens in localStorage:', {
+        token: testToken ? 'EXISTS' : 'MISSING',
+        user: testUser ? 'EXISTS' : 'MISSING'
+      });
+    } else {
+      console.error('❌ No accessToken in response:', data);
+      throw new Error('No access token received from server');
+    }
+
+    // ✅ Redirect to dashboard instead of main
+    console.log('✅ Registration successful, redirecting to dashboard...');
+    navigate('/dashboard');
+    
+  } catch (err) {
+    console.error('❌ Registration error:', err);
+    setErrors({ submit: err.message });
+  } finally {
+    setLoading(false);
+  }
+};
 
   // ------------------------------------------------------------------
   // Step Indicator UI
