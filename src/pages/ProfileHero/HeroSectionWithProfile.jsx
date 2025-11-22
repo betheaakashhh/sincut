@@ -88,7 +88,7 @@ const gotoDashboard = () => {
     }
     
     console.log('✅ User authenticated, navigating to dashboard');
-    navigate('/dashboard');
+    navigate('/accountsetting');
   };
 
 
