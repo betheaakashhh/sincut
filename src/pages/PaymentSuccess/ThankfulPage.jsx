@@ -3,10 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./thankfull.css";
 
 const ThankfulPage = ({ amount: propAmount = 100, onClose }) => {
- const {state} = useLocation();
- if (!state?.paid) {
-    return <Navigate to="/main" replace />;
-  } 
+
   const location = useLocation();
   const navigate = useNavigate();
   const amount = location.state?.amount || propAmount;

@@ -35,7 +35,6 @@ const HeroSection = () => {
     console.log("Payment successful:", response);
     setPaidAmount(amount);
     setShowThankful(true);
-    Navigate("/main/thankful", {state: {paid: true}});
   };
 
   const handleTextChange = (e) => {
