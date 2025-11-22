@@ -138,8 +138,12 @@ const MultiStepRegistration = () => {
 
       // ✅ Save token and user to localStorage for auto-login
       if (data.accessToken) {
-        localStorage.setItem('token', data.accessToken);
+        localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('user', JSON.stringify(data.user));
+        console.log('✅ Tokens saved after registration:', {
+         token: data.accessToken,
+         user: data.user
+  });
       }
 
       // ✅ Redirect to main (protected) page

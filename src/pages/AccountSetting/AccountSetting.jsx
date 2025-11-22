@@ -3,6 +3,7 @@ import "./account.css"
 import { AuthProvider } from '../../context/AuthContext'
 import Dashboard from '../Dashboard/Dashboard'
 import { Toaster } from 'react-hot-toast'
+import ErrorBoundary from '../../data/ErrorBoundary'
 const AccountSetting = () => {
   return (
     <>
@@ -19,7 +20,8 @@ const AccountSetting = () => {
             },
           }}
         />
-        <Dashboard />
+        <ErrorBoundary><Dashboard /></ErrorBoundary>
+        
       </div>
     </AuthProvider>
     </>

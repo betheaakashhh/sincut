@@ -10,36 +10,68 @@ const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [walletData, setWalletData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Add this
+
+  console.log('🔍 Dashboard component mounted');
 
   useEffect(() => {
+    console.log('🔍 Dashboard useEffect triggered');
     fetchDashboardData();
   }, []);
 
   const fetchDashboardData = async () => {
+    console.log('🔍 fetchDashboardData called');
     try {
       setLoading(true);
+      setError(null);
+      
+      console.log('🔍 Checking authentication...');
+      const token = localStorage.getItem('accessToken');
+      const user = localStorage.getItem('user');
+      console.log('🔍 Token exists:', !!token);
+      console.log('🔍 User data exists:', !!user);
+      
+      if (!token) {
+        console.log('❌ No token found, redirecting to login');
+        navigate('/login');
+        return;
+      }
+
+      console.log('🔍 Making API calls...');
       const [referralRes, walletRes] = await Promise.all([
         getReferralDashboard(),
         getWallet()
       ]);
+      
+      console.log('✅ API calls successful:', {
+        referralData: referralRes.data,
+        walletData: walletRes.data
+      });
+      
       setDashboardData(referralRes.data);
       setWalletData(walletRes.data);
+      
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
+      console.error('❌ Error fetching dashboard data:', error);
+      console.log('🔍 Error details:', {
+        status: error.response?.status,
+        message: error.message,
+        data: error.response?.data
+      });
+      
+      if (error.response?.status === 401) {
+        console.log('🔍 401 Error - Clearing tokens and redirecting');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+        navigate('/login');
+      } else {
+        setError('Failed to load dashboard data. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="dashboard-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading your dashboard...</p>
-      </div>
-    );
-  }
-    // Safe data access
   const safeDashboardData = dashboardData || {};
   const safeWalletData = walletData || {};
   return (
