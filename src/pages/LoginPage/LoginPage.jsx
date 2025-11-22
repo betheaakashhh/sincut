@@ -2,62 +2,58 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
+
 const LoginPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [changingText, setChangingText] = useState(0);
   const navigate = useNavigate();
 
-  const textOptions = [
-    "Empower Your Vision",
-    "Build the Future",
-    "Secure Your Access",
-    "Join Our Community",
-  ];
-
+  // If user already logged in via cookie → redirect
   useEffect(() => {
-    const interval = setInterval(() => {
-      setChangingText((prev) => (prev + 1) % textOptions.length);
-    }, 2500);
-    return () => clearInterval(interval);
+    checkLoggedIn();
   }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/main");
+  async function checkLoggedIn() {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        method: "GET",
+        credentials: "include",   // send cookies
+      });
+
+      if (res.ok) {
+        navigate("/main");
+      }
+    } catch (err) {
+      console.log("User not logged in yet");
     }
-  }, [navigate]);
+  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    if (error) setError("");
+    setError("");
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-  
+
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-        }),
-        credentials: "include",
+        body: JSON.stringify(form),
+        credentials: "include", // <-- CRUCIAL
       });
 
       const data = await response.json();
-      console.log("🔹 Login response:", data);
+      console.log("Login Response:", data);
 
       if (!response.ok) throw new Error(data.message || "Login failed");
 
-      localStorage.setItem("token", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      // No localStorage at all!
+      // Cookies handle the session.
 
       navigate("/main");
     } catch (err) {
@@ -69,7 +65,6 @@ const LoginPage = () => {
 
   return (
     <div className="lgnpg-container">
-      {/* Left Side - Form */}
       <div className="lgnpg-left">
         <div className="lgnpg-form-box">
           <h2>Welcome Back 👋</h2>
@@ -85,7 +80,6 @@ const LoginPage = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder="Enter your email"
                 required
                 disabled={loading}
               />
@@ -98,21 +92,19 @@ const LoginPage = () => {
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                placeholder="Enter your password"
                 required
                 disabled={loading}
               />
             </div>
 
-            <button type="submit" disabled={loading} className="lgn-btn
-            ">
+            <button type="submit" disabled={loading} className="lgn-btn">
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
 
           <div className="lgnpg-links">
             <p>
-              Don't have an account?{" "}
+              Don’t have an account?{" "}
               <span className="lgnpg-link" onClick={() => navigate("/signup")}>
                 Sign up
               </span>
@@ -121,21 +113,11 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Right Side - Glassy Visual */}
       <div className="lgnpg-right">
         <div className="lgnpg-overlay"></div>
         <div className="lgnpg-content">
           <h2>Welcome to Your Space</h2>
-          <h4 className="lgnpg-changing-text">{textOptions[changingText]}</h4>
-          <p>
-            Join thousands of users who trust our platform for secure and seamless authentication.
-          </p>
-          <div className="lgnpg-features">
-            <div>🔒 Secure JWT Authentication</div>
-            <div>🚀 Fast & Reliable</div>
-            <div>💼 Personalized Dashboard</div>
-            <div>🌐 Cross-Platform Access</div>
-          </div>
+          <p>Secure authentication powered by cookies & JWT.</p>
         </div>
       </div>
     </div>
