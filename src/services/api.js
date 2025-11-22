@@ -46,23 +46,23 @@ api.interceptors.response.use(
 );
 
 export const getReferralDashboard = () => {
-  return api.get('/referral/referral/dashboard');
+  return api.get('/referral/dashboard');
 };
 
 export const getWallet = () => {
-  return api.get('/referral/wallet');
+  return api.get('/wallet');
 };
 
 export const convertCoinsToDivine = () => {
-  return api.post('/referral/referral/convert');
+  return api.post('/referral/conver');
 };
 
 export const useDivineCoin = () => {
-  return api.post('/referral/referral/use-divine');
+  return api.post('/referral/use-divine');
 };
 
 export const rewardReferralPayment = (userId) => {
-  return api.post('/referral/reward-payment', { userId });
+  return api.post('/reward-payment', { userId });
 };
 export const getMe = () => {
   return api.get('/auth/me');
