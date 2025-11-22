@@ -3,6 +3,7 @@ import "./hero.css";
 
 import PaymentButton from "../PaymentButton/PaymentButton";
 import ThankfulPage from "../PaymentSuccess/ThankfulPage";
+import { Navigate } from "react-router-dom";
 
 const HeroSection = () => {
   const [heroText, setHeroText] = useState("");
@@ -34,6 +35,7 @@ const HeroSection = () => {
     console.log("Payment successful:", response);
     setPaidAmount(amount);
     setShowThankful(true);
+    Navigate("/main/thankful", {state: {paid: true}});
   };
 
   const handleTextChange = (e) => {

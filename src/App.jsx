@@ -63,9 +63,23 @@ const App = () => {
 
  < Route path='/gallery' element={<ProtectedRoute><PhotoGallery /></ProtectedRoute>} />
 < Route path='/announce' element={<Announce />} />
-< Route path='/main' element={<ProtectedRoute><Home1 /></ProtectedRoute>} />
+  <Route path="/main" element={
+    <ProtectedRoute>
+        <Home1/>
+      </ProtectedRoute>
+    }
+  >
+    <Route 
+        path="thankful" 
+        element={
+          <ProtectedRoute>
+            <ThankfulPage/>
+          </ProtectedRoute>
+        } 
+      />
+  </Route>
 < Route path='/confess' element={<ConfessSection/>} />
-< Route path='/thanks' element={<ThankfulPage/>} />
+
 <Route path = '/login' element= {<PublicRoute> <LoginPage /> </PublicRoute>} />
 <Route path = '/signup' element= {<PublicRoute ><MultiStepRegistration /></PublicRoute>} />
 
