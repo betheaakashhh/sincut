@@ -1,0 +1,356 @@
+/* ReferralSection.css */
+.referral-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Referral Card */
+.referral-card {
+  background: rgba(30, 31, 54, 0.8);
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.referral-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.referral-icon {
+  font-size: 1.5rem;
+  margin-right: 12px;
+}
+
+.referral-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.referral-description {
+  color: #94a3b8;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.referral-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.referral-code {
+  background: #1e1f36;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #6366f1;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.copy-button {
+  background: #6366f1;
+  color: white;
+}
+
+.copy-button:hover {
+  background: #5b5cdc;
+  transform: translateY(-2px);
+}
+
+.share-button {
+  background: #8b5cf6;
+  color: white;
+}
+
+.share-button:hover {
+  background: #7c4dff;
+  transform: translateY(-2px);
+}
+
+.button-icon {
+  font-size: 1.1rem;
+}
+
+.referral-bonus {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+.bonus-icon {
+  font-size: 2rem;
+}
+
+.bonus-content {
+  flex: 1;
+}
+
+.bonus-title {
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.bonus-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.bonus-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Referral Stats */
+.referral-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.stat-item {
+  background: rgba(30, 31, 54, 0.8);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  border-color: #6366f1;
+}
+
+.stat-item-icon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 12px;
+}
+
+.stat-item-content {
+  flex: 1;
+}
+
+.stat-item-label {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0 0 4px 0;
+}
+
+.stat-item-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* History Section */
+.history-section {
+  background: rgba(30, 31, 54, 0.8);
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.history-icon {
+  font-size: 1.5rem;
+  margin-right: 12px;
+}
+
+.history-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.history-item {
+  background: #1e1f36;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideIn 0.5s ease forwards;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.history-item:hover {
+  border-color: #6366f1;
+  transform: translateY(-2px);
+}
+
+.history-item-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.history-icon-container {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.history-icon-container.signup {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.history-icon-container.confession {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.history-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-type {
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.history-date {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.history-amount {
+  text-align: right;
+}
+
+.amount-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #eab308;
+  margin: 0 0 4px 0;
+}
+
+.referred-user {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Empty States */
+.empty-history,
+.empty-transactions {
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.empty-description {
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .referral-actions {
+    flex-direction: column;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .referral-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .history-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .history-amount {
+    text-align: left;
+    width: 100%;
+  }
+}

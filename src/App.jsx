@@ -23,6 +23,7 @@ import HeroSectionTest from './pages/Hero/HeroSectionTest'
 import LoginPage from './pages/LoginPage/LoginPage'
 import MultiStepRegistration from './pages/SignUp/MultiStepRegistration'
 import Home1 from './pages/Home1/Home.1'
+import AccountSetting from './pages/AccountSetting/AccountSetting'
 
 /*=========================================================================================================================
 Protecting the routes based on authentication status
@@ -59,7 +60,7 @@ const App = () => {
         < Route path='/about' element={<About/>} />
         < Route path='/contact' element={<Contact/>} />
          < Route path='/FAQs' element={<FAQ/>} /> 
-          < Route path='/terms' element={<TermCondition/>} />
+          < Route path='/terms' element={<AccountSetting />} />
 
  < Route path='/gallery' element={<ProtectedRoute><PhotoGallery /></ProtectedRoute>} />
 < Route path='/announce' element={<Announce />} />
