@@ -454,3 +454,118 @@
     flex-direction: column;
   }
 }
+/* Referral Code Styles */
+.optional {
+  color: #b0b0b0;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.referral-note {
+  color: #2ed573;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Referral Bonus Info Styles */
+.referral-bonus-info {
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.bonus-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.bonus-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.bonus-header h4 {
+  color: #fff;
+  margin: 0;
+  font-size: 18px;
+}
+
+.bonus-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bonus-item {
+  display: flex;
+  align-items: flex-start;
+  color: #b0b0b0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.bonus-check {
+  color: #2ed573;
+  font-weight: bold;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.bonus-item strong {
+  color: #fff;
+}
+
+.active-referral {
+  background: rgba(46, 213, 115, 0.1);
+  border: 1px solid rgba(46, 213, 115, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  color: #2ed573;
+  font-size: 14px;
+}
+
+.referral-active {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Bonus Highlight in Summary */
+.bonus-highlight {
+  background: rgba(46, 213, 115, 0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 5px -8px;
+  border-left: 3px solid #2ed573;
+}
+
+.bonus-badge {
+  background: linear-gradient(135deg, #2ed573 0%, #1e90ff 100%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .referral-bonus-info {
+    padding: 15px;
+  }
+  
+  .bonus-details {
+    gap: 8px;
+  }
+  
+  .bonus-item {
+    font-size: 13px;
+  }
+}

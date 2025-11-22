@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './MultiStepRegistration.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
 
 const MultiStepRegistration = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [searchParams] = useSearchParams();
+  const referralCodeFromUrl = searchParams.get('ref');
+  
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -15,6 +18,7 @@ const MultiStepRegistration = () => {
     gender: '',
     occupationType: '',
     occupation: '',
+    referralCode: referralCodeFromUrl || '' // Added referral code field
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -95,7 +99,7 @@ const MultiStepRegistration = () => {
   const handleBack = () => setCurrentStep((prev) => prev - 1);
 
   // ------------------------------------------------------------------
-  // Submit Handler (Fixed)
+  // Submit Handler (Updated with referral code)
   // ------------------------------------------------------------------
   const handleSubmit = async () => {
     setLoading(true);
@@ -113,13 +117,14 @@ const MultiStepRegistration = () => {
             ? formData.occupation
             : formData.occupationType,
         agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy,
+        referralCode: formData.referralCode.trim() || undefined // Send referral code if provided
       };
 
       const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
-         headers: {
+        headers: {
           'Content-Type': "application/json"
-         },
+        },
         body: JSON.stringify(payload),
         credentials: 'include',
       });
@@ -167,6 +172,38 @@ const MultiStepRegistration = () => {
   );
 
   // ------------------------------------------------------------------
+  // Referral Bonus Info Component
+  // ------------------------------------------------------------------
+  const ReferralBonusInfo = () => (
+    <div className="referral-bonus-info">
+      <div className="bonus-header">
+        <span className="bonus-icon">🎁</span>
+        <h4>Referral Bonus</h4>
+      </div>
+      <div className="bonus-details">
+        <div className="bonus-item">
+          <span className="bonus-check">✓</span>
+          <span>Get <strong>40 coins</strong> instantly when using a referral code</span>
+        </div>
+        <div className="bonus-item">
+          <span className="bonus-check">✓</span>
+          <span>Referrer gets <strong>40 coins</strong> bonus too</span>
+        </div>
+        <div className="bonus-item">
+          <span className="bonus-check">✓</span>
+          <span>Collect 333 coins = 1 Divine Coin (Free confession!)</span>
+        </div>
+      </div>
+      {formData.referralCode && (
+        <div className="active-referral">
+          <span className="referral-active">✅</span>
+          Referral code applied! You'll receive 40 coins after registration.
+        </div>
+      )}
+    </div>
+  );
+
+  // ------------------------------------------------------------------
   // JSX
   // ------------------------------------------------------------------
   return (
@@ -184,6 +221,29 @@ const MultiStepRegistration = () => {
           {currentStep === 1 && (
             <div className="step-content slide-in">
               <h3>Account Setup</h3>
+              
+              {/* Referral Code Field */}
+              <div className="form-grp">
+                <label>
+                  Referral Code <span className="optional">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  name="referralCode"
+                  value={formData.referralCode}
+                  onChange={handleChange}
+                  placeholder="Enter friend's referral code for bonus coins"
+                  className={errors.referralCode ? 'error' : ''}
+                  disabled={!!referralCodeFromUrl}
+                />
+                {referralCodeFromUrl && (
+                  <small className="referral-note">
+                    Referral code from link applied automatically
+                  </small>
+                )}
+                {errors.referralCode && <span className="error-text">{errors.referralCode}</span>}
+              </div>
+
               <div className="form-grp">
                 <label>Email Address</label>
                 <input
@@ -362,7 +422,16 @@ const MultiStepRegistration = () => {
                     ? formData.occupation
                     : formData.occupationType}
                 </div>
+                {formData.referralCode && (
+                  <div className="summary-item bonus-highlight">
+                    <strong>Referral Code:</strong> {formData.referralCode}
+                    <span className="bonus-badge">+40 coins</span>
+                  </div>
+                )}
               </div>
+
+              {/* Show referral bonus info */}
+              <ReferralBonusInfo />
 
               {errors.submit && <div className="error-message">{errors.submit}</div>}
             </div>
