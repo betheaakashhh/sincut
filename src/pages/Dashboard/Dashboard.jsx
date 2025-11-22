@@ -39,7 +39,9 @@ const Dashboard = () => {
       </div>
     );
   }
-
+    // Safe data access
+  const safeDashboardData = dashboardData || {};
+  const safeWalletData = walletData || {};
   return (
     <div className="dashboard">
       {/* Header */}
@@ -49,7 +51,7 @@ const Dashboard = () => {
             <h1 className="dashboard-title">Your Dashboard</h1>
             <div className="user-info">
               <p className="welcome-text">Welcome back!</p>
-              <p className="user-name">{dashboardData?.user?.name || 'User'}</p>
+              <p className="user-name">{safeDashboardData.user?.name || 'User'}</p>
             </div>
           </div>
         </div>
@@ -63,25 +65,25 @@ const Dashboard = () => {
             <StatCard
               icon="👥"
               title="Total Referrals"
-              value={dashboardData?.totalReferredUsers || 0}
+              value={safeDashboardData.totalReferredUsers || 0}
               color="blue"
             />
             <StatCard
               icon="🪙"
               title="Referral Coins"
-              value={dashboardData?.referralCoins || 0}
+              value={safeDashboardData.referralCoins || 0}
               color="yellow"
             />
             <StatCard
               icon="💎"
               title="Divine Coins"
-              value={walletData?.divineCoins || 0}
+              value={safeWalletData.divineCoins || 0}
               color="purple"
             />
             <StatCard
               icon="📈"
               title="Total Bonus"
-              value={(dashboardData?.totalSignupBonus || 0) + (dashboardData?.totalConfessionBonus || 0)}
+              value={(safeDashboardData.totalSignupBonus || 0) + (safeDashboardData.totalConfessionBonus || 0)}
               color="green"
             />
           </div>

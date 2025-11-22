@@ -1,4 +1,4 @@
-// services/api.js
+// services/api.js - FIXED VERSION
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app/api';
@@ -45,16 +45,17 @@ api.interceptors.response.use(
   }
 );
 
+// CORRECTED API ENDPOINTS - Match backend routes
 export const getReferralDashboard = () => {
-  return api.get('/referral/dashboard');
+  return api.get('/referral/dashboard'); // This matches backend /dashboard route
 };
 
 export const getWallet = () => {
-  return api.get('/wallet');
+  return api.get('/referral/wallet'); // Add /referral prefix to match backend
 };
 
 export const convertCoinsToDivine = () => {
-  return api.post('/referral/conver');
+  return api.post('/referral/convert'); // Fixed typo: 'conver' → 'convert'
 };
 
 export const useDivineCoin = () => {
@@ -62,8 +63,9 @@ export const useDivineCoin = () => {
 };
 
 export const rewardReferralPayment = (userId) => {
-  return api.post('/reward-payment', { userId });
+  return api.post('/referral/reward-payment', { userId }); // Add /referral prefix
 };
+
 export const getMe = () => {
   return api.get('/auth/me');
 };
