@@ -31,13 +31,16 @@ Protecting the routes based on authentication status
 // Protected Route Component
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();  // data fetched using cookie
+  const { user, loading } = useAuth();
+
+  if (loading) return <div>Loading...</div>;
+
   return user ? children : <Navigate to="/login" />;
 };
 
 // Public Route Component (redirect to main if already logged in)
 const PublicRoute = ({ children }) => {
-  const token = useAuthToken();  // data fetched using cookie
+  const token = useAuthToken();
   return !token ? children : <Navigate to="/main" />;
 };
 
