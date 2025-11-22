@@ -1,7 +1,7 @@
 // components/ReferralSection.jsx
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import './css/referral.css';
+import './referral.css';
 
 const ReferralSection = ({ data, onUpdate }) => {
   const [copied, setCopied] = useState(false);

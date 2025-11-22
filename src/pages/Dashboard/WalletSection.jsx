@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { convertCoinsToDivine, useDivineCoin } from '../../services/api';
 import { toast } from 'react-hot-toast';
-import './css/wallet.css';
+import './wallet.css';
 
 const WalletSection = ({ data, onUpdate }) => {
   const [converting, setConverting] = useState(false);

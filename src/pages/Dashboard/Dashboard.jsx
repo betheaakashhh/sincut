@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ReferralSection from './ReferralSection';
 import WalletSection from './WalletSection';
 import { getReferralDashboard, getWallet } from '../../services/api.js';
-import './css/Dashboard.css';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('referral');
