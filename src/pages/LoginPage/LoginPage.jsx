@@ -2,26 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://sincut-razorpay.vercel.app";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
 
 const LoginPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [changingText, setChangingText] = useState(0);
-
   const navigate = useNavigate();
 
   const textOptions = [
     "Empower Your Vision",
-    "Build the Future",
+    "Build the Future", 
     "Secure Your Access",
     "Join Our Community",
-    "Earn Referral Rewards",
-    "Manage Your Coins",
+    "Earn Referral Rewards", // ADDED: Referral related
+    "Manage Your Coins",     // ADDED: Wallet related
   ];
 
-  // ✨ Text animation
   useEffect(() => {
     const interval = setInterval(() => {
       setChangingText((prev) => (prev + 1) % textOptions.length);
@@ -29,88 +27,95 @@ const LoginPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // 🚨 FIXED: No flicker / shake / totter
-  // Redirect runs once only & does NOT re-render Login UI
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-
-    if (!token) return; // No token → show login page
-
-    console.log("🔍 Token found → redirecting to main");
-
-    const id = setTimeout(() => {
-      navigate("/main", { replace: true });
-    }, 150);
-
-    return () => clearTimeout(id);
-  }, []); // ← VERY IMPORTANT (runs only once)
-
-  // 🚨 FIX: Prevent UI flicker when token exists
-  if (localStorage.getItem("accessToken")) {
-    return (
-      <div className="lgnpg-loading-screen">
-        <div className="lgnpg-spinner"></div>
-      </div>
-    );
-  }
+    if (token) {
+      navigate("/main"); // CHANGED: Redirect to dashboard instead of main
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     if (error) setError("");
   };
+  
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
+  try {
+    console.log("🔐 Attempting login...");
+    
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: form.email,
+        password: form.password,
+      }),
+      credentials: "include",
+    });
 
-    try {
-      console.log("🔐 Attempting login...");
+    const data = await response.json();
+    console.log("🔹 Login response received");
 
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-        }),
-        credentials: "include",
-      });
-
-      const data = await response.json();
-      console.log("🔹 Login response received");
-
-      if (!response.ok) {
-        throw new Error(data.message || `Login failed: ${response.status}`);
-      }
-
-      if (!data.accessToken) {
-        throw new Error("No access token received from server");
-      }
-
-      // Store token + user
-      console.log("💾 Storing tokens...");
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      // Remove any bad keys
-      const wrongKeys = ["token", "authToken", "jwtToken", "Token"];
-      wrongKeys.forEach((key) => localStorage.removeItem(key));
-
-      console.log("🎉 Login successful → redirecting");
-
-      setTimeout(() => {
-        navigate("/accountsetting", { replace: true });
-      }, 200);
-    } catch (err) {
-      console.error("❌ Login error:", err);
-      setError(err.message || "Login failed. Please try again.");
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      throw new Error(data.message || `Login failed: ${response.status}`);
     }
-  };
+
+    if (!data.accessToken) {
+      throw new Error("No access token received from server");
+    }
+
+    // 🛠️ COMPREHENSIVE STORAGE FIX
+    console.log("💾 Storing tokens comprehensively...");
+    
+    // Store with CORRECT key
+    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    
+    // 🧹 CLEAN UP ANY WRONG KEYS
+    // Remove any token stored with wrong key names
+    const wrongKeys = ['token', 'authToken', 'jwtToken', 'Token'];
+    wrongKeys.forEach(key => {
+      if (localStorage.getItem(key)) {
+        localStorage.removeItem(key);
+        console.log(`🧹 Removed wrong key: ${key}`);
+      }
+    });
+
+    // 🛠️ VERIFY STORAGE
+    console.log("✅ Final storage verification:");
+    console.log("   accessToken:", localStorage.getItem("accessToken") ? '✅ PRESENT' : '❌ MISSING');
+    console.log("   user:", localStorage.getItem("user") ? '✅ PRESENT' : '❌ MISSING');
+    
+    // Show all keys to confirm
+    console.log("   All keys:", Object.keys(localStorage));
+
+    const storedToken = localStorage.getItem("accessToken");
+    if (!storedToken) {
+      throw new Error("CRITICAL: Token was not stored properly");
+    }
+
+    console.log("🎉 Login successful! Redirecting...");
+    
+    // Short delay to ensure storage commits
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 50);
+
+  } catch (err) {
+    console.error("❌ Login error:", err);
+    setError(err.message || "Login failed. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+}
+    
+  
 
   return (
     <div className="lgnpg-container">
@@ -120,7 +125,11 @@ const LoginPage = () => {
           <h2>Welcome Back 👋</h2>
           <p className="lgnpg-subtext">Login to your account</p>
 
-          {error && <div className="lgnpg-error">⚠️ {error}</div>}
+          {error && (
+            <div className="lgnpg-error">
+              ⚠️ {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="lgnpg-form-group">
@@ -151,14 +160,15 @@ const LoginPage = () => {
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className={`lgn-btn ${loading ? "loading" : ""}`}
+            <button 
+              type="submit" 
+              disabled={loading} 
+              className={`lgn-btn ${loading ? 'loading' : ''}`}
             >
               {loading ? (
                 <>
-                  <div className="lgnpg-spinner"></div> Logging in...
+                  <div className="lgnpg-spinner"></div>
+                  Logging in...
                 </>
               ) : (
                 "Login"
@@ -169,30 +179,30 @@ const LoginPage = () => {
           <div className="lgnpg-links">
             <p>
               Don't have an account?{" "}
-              <span
-                className="lgnpg-link"
+              <span 
+                className="lgnpg-link" 
                 onClick={() => navigate("/signup")}
-                style={{ cursor: "pointer" }}
+                style={{cursor: "pointer"}}
               >
                 Sign up
               </span>
             </p>
             <p className="lgnpg-feature-hint">
-              🎁 Earn <strong>150 coins</strong> when you sign up with a referral
-              code!
+              🎁 Earn <strong>150 coins</strong> when you sign up with a referral code!
             </p>
           </div>
         </div>
       </div>
 
-      {/* Right Side */}
+      {/* Right Side - Glassy Visual */}
       <div className="lgnpg-right">
         <div className="lgnpg-overlay"></div>
         <div className="lgnpg-content">
           <h2>Welcome to Sincut</h2>
           <h4 className="lgnpg-changing-text">{textOptions[changingText]}</h4>
-          <p>Join our community to access exclusive features, earn rewards, and grow together.</p>
-
+          <p>
+            Join our community to access exclusive features, earn rewards, and grow together.
+          </p>
           <div className="lgnpg-features">
             <div>🔒 Secure JWT Authentication</div>
             <div>🚀 Fast & Reliable</div>
@@ -201,7 +211,8 @@ const LoginPage = () => {
             <div>📊 Personal Dashboard</div>
             <div>🌐 Cross-Platform Access</div>
           </div>
-
+          
+          {/* ADDED: Coin system info */}
           <div className="lgnpg-coin-info">
             <h5>Coin System</h5>
             <div className="coin-details">
