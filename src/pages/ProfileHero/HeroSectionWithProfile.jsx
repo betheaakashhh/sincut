@@ -38,7 +38,8 @@ const HeroSectionWithProfile = () => {
       .then((data) => setUser(data))
       .catch((err) => {
         console.error("Error fetching user:", err);
-        localStorage.removeItem("token");
+        // ✅ FIXED: Using correct key
+        localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
         navigate("/main");
       });
@@ -51,7 +52,8 @@ const HeroSectionWithProfile = () => {
         method: "POST",
         credentials: "include",
       });
-      localStorage.removeItem("token");
+      // ✅ FIXED: Using correct key
+      localStorage.removeItem("accessToken");
       localStorage.removeItem("user");
       navigate("/");
     } catch (err) {
@@ -68,9 +70,9 @@ const HeroSectionWithProfile = () => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showMenu]);
-//debuddgin
 
-const gotoDashboard = () => {
+  // Debugging
+  const gotoDashboard = () => {
     console.log('🔍 Dashboard button clicked');
     console.log('🔍 Current tokens:', {
       accessToken: localStorage.getItem('accessToken'),
@@ -90,8 +92,6 @@ const gotoDashboard = () => {
     console.log('✅ User authenticated, navigating to dashboard');
     navigate('/accountsetting');
   };
-
-
 
   return (
     <div className="snct-navbar-container">
