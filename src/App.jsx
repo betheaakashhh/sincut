@@ -87,6 +87,7 @@ const App = () => {
 <Route path = '/login' element= {<PublicRoute> <LoginPage /> </PublicRoute>} />
 <Route path = '/signup' element= {<PublicRoute ><MultiStepRegistration /></PublicRoute>} />
 <Route path='/debug-auth' element={<DebugAuth />} />
+< Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
 
           
