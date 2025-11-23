@@ -104,8 +104,10 @@ const MultiStepRegistration = () => {
   const handleSubmit = async () => {
   setLoading(true);
   setErrors({});
-
+  
   try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralCodeFromUrl = urlParams.get('ref');
     const payload = {
       email: formData.email,
       password: formData.password,
@@ -117,7 +119,8 @@ const MultiStepRegistration = () => {
           ? formData.occupation
           : formData.occupationType,
       agreedToPrivacyPolicy: formData.agreedToPrivacyPolicy,
-      referralCode: formData.referralCode.trim() || undefined
+      referralCode: formData.referralCode.trim() || undefined,
+      ref: referralCodeFromUrl || undefined,
     };
 
     console.log('🔍 Sending registration payload:', payload);
