@@ -1,8 +1,9 @@
 // components/Dashboard.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // ADD THIS IMPORT
 import ReferralSection from './ReferralSection';
 import WalletSection from './WalletSection';
-import { getReferralDashboard, getWallet } from '../../services/api.js';
+import { getReferralDashboard, getWallet, getCurrentUser } from '../../services/api.js';
 import './dashboard.css';
 
 const Dashboard = () => {
@@ -11,7 +12,7 @@ const Dashboard = () => {
   const [walletData, setWalletData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Add this
+  const navigate = useNavigate();
 
   console.log('🔍 Dashboard component mounted');
 
@@ -39,6 +40,16 @@ const Dashboard = () => {
       }
 
       console.log('🔍 Making API calls...');
+      
+      // First verify the user is still valid
+      try {
+        const userResponse = await getCurrentUser();
+        console.log('✅ User verification successful');
+      } catch (userError) {
+        console.error('❌ User verification failed:', userError);
+        throw userError;
+      }
+      
       const [referralRes, walletRes] = await Promise.all([
         getReferralDashboard(),
         getWallet()
@@ -60,8 +71,8 @@ const Dashboard = () => {
         data: error.response?.data
       });
       
-      if (error.response?.status === 401) {
-        console.log('🔍 401 Error - Clearing tokens and redirecting');
+      if (error.response?.status === 401 || error.message.includes('token')) {
+        console.log('🔍 Authentication error - Clearing tokens and redirecting');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
         navigate('/login');
@@ -72,8 +83,36 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+
   const safeDashboardData = dashboardData || {};
   const safeWalletData = walletData || {};
+
+  if (loading) {
+    return (
+      <div className="dashboard">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="dashboard">
+        <div className="error-container">
+          <div className="error-icon">⚠️</div>
+          <h3>Error Loading Dashboard</h3>
+          <p>{error}</p>
+          <button onClick={fetchDashboardData} className="retry-button">
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard">
       {/* Header */}

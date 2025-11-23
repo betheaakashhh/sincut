@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app';
+
 const LoginPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -11,9 +13,11 @@ const LoginPage = () => {
 
   const textOptions = [
     "Empower Your Vision",
-    "Build the Future",
+    "Build the Future", 
     "Secure Your Access",
     "Join Our Community",
+    "Earn Referral Rewards", // ADDED: Referral related
+    "Manage Your Coins",     // ADDED: Wallet related
   ];
 
   useEffect(() => {
@@ -24,9 +28,9 @@ const LoginPage = () => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
     if (token) {
-      navigate("/main");
+      navigate("/main"); // CHANGED: Redirect to dashboard instead of main
     }
   }, [navigate]);
 
@@ -41,27 +45,50 @@ const LoginPage = () => {
     setError("");
   
     try {
+      console.log("🔐 Attempting login...");
+      
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           email: form.email,
           password: form.password,
         }),
-        credentials: "include",
+        credentials: "include", // Important for refresh token cookie
       });
 
       const data = await response.json();
       console.log("🔹 Login response:", data);
 
-      if (!response.ok) throw new Error(data.message || "Login failed");
+      if (!response.ok) {
+        throw new Error(data.message || `Login failed: ${response.status}`);
+      }
 
-      localStorage.setItem("token", data.accessToken);
+      if (!data.accessToken) {
+        throw new Error("No access token received from server");
+      }
+
+      // UPDATED: Store tokens and user data properly
+      localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("user", JSON.stringify(data.user));
+      
+      console.log("✅ Login successful, user data:", data.user);
+      console.log("💰 User coins:", data.user.coins);
+      console.log("💎 User divine coins:", data.user.divineCoins);
+      console.log("📤 User referral code:", data.user.referralCode);
 
-      navigate("/main");
+      // Redirect to dashboard
+      navigate("/dashboard");
+
     } catch (err) {
-      setError(err.message);
+      console.error("❌ Login error:", err);
+      setError(err.message || "Login failed. Please try again.");
+      
+      // Clear any invalid tokens
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
     } finally {
       setLoading(false);
     }
@@ -75,7 +102,11 @@ const LoginPage = () => {
           <h2>Welcome Back 👋</h2>
           <p className="lgnpg-subtext">Login to your account</p>
 
-          {error && <div className="lgnpg-error">{error}</div>}
+          {error && (
+            <div className="lgnpg-error">
+              ⚠️ {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="lgnpg-form-group">
@@ -88,6 +119,7 @@ const LoginPage = () => {
                 placeholder="Enter your email"
                 required
                 disabled={loading}
+                autoComplete="email"
               />
             </div>
 
@@ -101,21 +133,39 @@ const LoginPage = () => {
                 placeholder="Enter your password"
                 required
                 disabled={loading}
+                autoComplete="current-password"
               />
             </div>
 
-            <button type="submit" disabled={loading} className="lgn-btn
-            ">
-              {loading ? "Logging in..." : "Login"}
+            <button 
+              type="submit" 
+              disabled={loading} 
+              className={`lgn-btn ${loading ? 'loading' : ''}`}
+            >
+              {loading ? (
+                <>
+                  <div className="lgnpg-spinner"></div>
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
 
           <div className="lgnpg-links">
             <p>
               Don't have an account?{" "}
-              <span className="lgnpg-link" onClick={() => navigate("/signup")}>
+              <span 
+                className="lgnpg-link" 
+                onClick={() => navigate("/signup")}
+                style={{cursor: "pointer"}}
+              >
                 Sign up
               </span>
+            </p>
+            <p className="lgnpg-feature-hint">
+              🎁 Earn <strong>150 coins</strong> when you sign up with a referral code!
             </p>
           </div>
         </div>
@@ -125,16 +175,33 @@ const LoginPage = () => {
       <div className="lgnpg-right">
         <div className="lgnpg-overlay"></div>
         <div className="lgnpg-content">
-          <h2>Welcome to Your Space</h2>
+          <h2>Welcome to Sincut</h2>
           <h4 className="lgnpg-changing-text">{textOptions[changingText]}</h4>
           <p>
-            Join thousands of users who trust our platform for secure and seamless authentication.
+            Join our community to access exclusive features, earn rewards, and grow together.
           </p>
           <div className="lgnpg-features">
             <div>🔒 Secure JWT Authentication</div>
             <div>🚀 Fast & Reliable</div>
-            <div>💼 Personalized Dashboard</div>
+            <div>💰 Earn Referral Coins</div>
+            <div>💎 Convert to Divine Coins</div>
+            <div>📊 Personal Dashboard</div>
             <div>🌐 Cross-Platform Access</div>
+          </div>
+          
+          {/* ADDED: Coin system info */}
+          <div className="lgnpg-coin-info">
+            <h5>Coin System</h5>
+            <div className="coin-details">
+              <div className="coin-type">
+                <span className="coin-icon">🪙</span>
+                <span>Regular Coins: Earn from referrals</span>
+              </div>
+              <div className="coin-type">
+                <span className="coin-icon">💎</span>
+                <span>Divine Coins: Convert 333 coins = 1 divine</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

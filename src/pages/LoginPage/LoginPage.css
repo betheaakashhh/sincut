@@ -193,3 +193,133 @@ button:disabled {
     padding: 30px 15px;
   }
 }
+/* LoginPage.css - Add these new styles */
+
+.lgnpg-error {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lgn-btn.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.lgnpg-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.lgnpg-feature-hint {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.lgnpg-feature-hint strong {
+  font-weight: 700;
+}
+
+.lgnpg-coin-info {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.lgnpg-coin-info h5 {
+  color: white;
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.coin-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.coin-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.coin-icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+/* Update existing styles for better layout */
+.lgnpg-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.lgnpg-features div {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lgnpg-features div:last-child {
+  border-bottom: none;
+}
+
+.lgnpg-links {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.lgnpg-link {
+  color: #667eea;
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.lgnpg-link:hover {
+  color: #5a6fd8;
+  text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .lgnpg-coin-info {
+    margin: 20px 0;
+    padding: 15px;
+  }
+  
+  .coin-type {
+    font-size: 0.85rem;
+  }
+}
