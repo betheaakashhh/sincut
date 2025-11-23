@@ -16,8 +16,8 @@ const LoginPage = () => {
     "Build the Future", 
     "Secure Your Access",
     "Join Our Community",
-    "Earn Referral Rewards", // ADDED: Referral related
-    "Manage Your Coins",     // ADDED: Wallet related
+    "Earn Referral Rewards",
+    "Manage Your Coins",
   ];
 
   useEffect(() => {
@@ -30,7 +30,11 @@ const LoginPage = () => {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (token) {
-      navigate("/main"); // CHANGED: Redirect to dashboard instead of main
+      console.log("🔍 Token found, redirecting to main...");
+      // FIX: Add delay to prevent navigation throttling
+      setTimeout(() => {
+        navigate("/main");
+      }, 100);
     }
   }, [navigate]);
 
@@ -39,83 +43,76 @@ const LoginPage = () => {
     if (error) setError("");
   };
   
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-  try {
-    console.log("🔐 Attempting login...");
-    
-    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-      method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: form.email,
-        password: form.password,
-      }),
-      credentials: "include",
-    });
+    try {
+      console.log("🔐 Attempting login...");
+      
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
+        credentials: "include",
+      });
 
-    const data = await response.json();
-    console.log("🔹 Login response received");
+      const data = await response.json();
+      console.log("🔹 Login response received");
 
-    if (!response.ok) {
-      throw new Error(data.message || `Login failed: ${response.status}`);
-    }
-
-    if (!data.accessToken) {
-      throw new Error("No access token received from server");
-    }
-
-    // 🛠️ COMPREHENSIVE STORAGE FIX
-    console.log("💾 Storing tokens comprehensively...");
-    
-    // Store with CORRECT key
-    localStorage.setItem("accessToken", data.accessToken);
-    localStorage.setItem("user", JSON.stringify(data.user));
-    
-    // 🧹 CLEAN UP ANY WRONG KEYS
-    // Remove any token stored with wrong key names
-    const wrongKeys = ['token', 'authToken', 'jwtToken', 'Token'];
-    wrongKeys.forEach(key => {
-      if (localStorage.getItem(key)) {
-        localStorage.removeItem(key);
-        console.log(`🧹 Removed wrong key: ${key}`);
+      if (!response.ok) {
+        throw new Error(data.message || `Login failed: ${response.status}`);
       }
-    });
 
-    // 🛠️ VERIFY STORAGE
-    console.log("✅ Final storage verification:");
-    console.log("   accessToken:", localStorage.getItem("accessToken") ? '✅ PRESENT' : '❌ MISSING');
-    console.log("   user:", localStorage.getItem("user") ? '✅ PRESENT' : '❌ MISSING');
-    
-    // Show all keys to confirm
-    console.log("   All keys:", Object.keys(localStorage));
+      if (!data.accessToken) {
+        throw new Error("No access token received from server");
+      }
 
-    const storedToken = localStorage.getItem("accessToken");
-    if (!storedToken) {
-      throw new Error("CRITICAL: Token was not stored properly");
+      // Store tokens
+      console.log("💾 Storing tokens comprehensively...");
+      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      
+      // Clean up any wrong keys
+      const wrongKeys = ['token', 'authToken', 'jwtToken', 'Token'];
+      wrongKeys.forEach(key => {
+        if (localStorage.getItem(key)) {
+          localStorage.removeItem(key);
+          console.log(`🧹 Removed wrong key: ${key}`);
+        }
+      });
+
+      // Verify storage
+      console.log("✅ Final storage verification:");
+      console.log("   accessToken:", localStorage.getItem("accessToken") ? '✅ PRESENT' : '❌ MISSING');
+      console.log("   user:", localStorage.getItem("user") ? '✅ PRESENT' : '❌ MISSING');
+      console.log("   All keys:", Object.keys(localStorage));
+
+      const storedToken = localStorage.getItem("accessToken");
+      if (!storedToken) {
+        throw new Error("CRITICAL: Token was not stored properly");
+      }
+
+      console.log("🎉 Login successful! Redirecting...");
+      
+      // FIX: Increased delay to prevent navigation throttling
+      setTimeout(() => {
+        navigate("/main");
+      }, 200);
+
+    } catch (err) {
+      console.error("❌ Login error:", err);
+      setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    console.log("🎉 Login successful! Redirecting...");
-    
-    // Short delay to ensure storage commits
-    setTimeout(() => {
-      navigate("/main");
-    }, 50);
-
-  } catch (err) {
-    console.error("❌ Login error:", err);
-    setError(err.message || "Login failed. Please try again.");
-  } finally {
-    setLoading(false);
   }
-}
-    
-  
 
   return (
     <div className="lgnpg-container">
@@ -212,7 +209,6 @@ const handleSubmit = async (e) => {
             <div>🌐 Cross-Platform Access</div>
           </div>
           
-          {/* ADDED: Coin system info */}
           <div className="lgnpg-coin-info">
             <h5>Coin System</h5>
             <div className="coin-details">
