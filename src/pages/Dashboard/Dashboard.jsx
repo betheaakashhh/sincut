@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [walletData, setWalletData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // ADD THIS LINE
 
   console.log('🔍 Dashboard component mounted');
 
