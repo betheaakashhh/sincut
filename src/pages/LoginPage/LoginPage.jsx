@@ -104,7 +104,7 @@ const handleSubmit = async (e) => {
     
     // Short delay to ensure storage commits
     setTimeout(() => {
-      navigate("/dashboard");
+      navigate("/main");
     }, 50);
 
   } catch (err) {
