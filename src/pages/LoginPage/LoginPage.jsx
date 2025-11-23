@@ -60,7 +60,7 @@ const LoginPage = () => {
     });
 
     const data = await response.json();
-    console.log("🔹 Login response:", data);
+    console.log("🔹 Full login response:", data);
 
     if (!response.ok) {
       throw new Error(data.message || `Login failed: ${response.status}`);
@@ -70,33 +70,53 @@ const LoginPage = () => {
       throw new Error("No access token received from server");
     }
 
-    // ✅ FIXED: Store tokens with correct key names
-    localStorage.setItem("accessToken", data.accessToken); // Fixed typo
+    // 🛠️ DEBUG: Check localStorage before storing
+    console.log("🔍 BEFORE storage - localStorage contents:");
+    Object.keys(localStorage).forEach(key => {
+      console.log(`   ${key}: ${localStorage.getItem(key) ? 'has value' : 'empty'}`);
+    });
+
+    // 🛠️ Store tokens with verification
+    console.log("💾 Storing tokens...");
+    
+    // Method 1: Try localStorage
+    localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("user", JSON.stringify(data.user));
     
-    console.log("✅ Login successful, tokens stored:", {
-      accessToken: data.accessToken ? '✓ Present' : '✗ Missing',
-      user: data.user ? '✓ Present' : '✗ Missing'
-    });
+    // Method 2: Also try sessionStorage as backup
+    sessionStorage.setItem("accessToken", data.accessToken);
+    sessionStorage.setItem("user", JSON.stringify(data.user));
 
-    // Verify storage
-    const storedToken = localStorage.getItem("accessToken");
-    const storedUser = localStorage.getItem("user");
-    console.log("🔍 Storage verification:", {
-      storedToken: storedToken ? '✓ Stored' : '✗ Not stored',
-      storedUser: storedUser ? '✓ Stored' : '✗ Not stored'
-    });
+    // 🛠️ DEBUG: Verify storage immediately
+    console.log("🔍 AFTER storage verification:");
+    console.log("   localStorage accessToken:", localStorage.getItem("accessToken") ? '✅ Stored' : '❌ Missing');
+    console.log("   localStorage user:", localStorage.getItem("user") ? '✅ Stored' : '❌ Missing');
+    console.log("   sessionStorage accessToken:", sessionStorage.getItem("accessToken") ? '✅ Stored' : '❌ Missing');
+    console.log("   sessionStorage user:", sessionStorage.getItem("user") ? '✅ Stored' : '❌ Missing');
 
-    // Redirect to dashboard
-    navigate("/dashboard");
+    // Additional verification
+    const storedToken = localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
+    if (!storedToken) {
+      throw new Error("Tokens were not stored in any storage method");
+    }
+
+    console.log("🎉 Login successful! Tokens stored.");
+    console.log("   Token:", storedToken.substring(0, 30) + "...");
+    
+    // Wait a moment to ensure storage is committed
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 100);
 
   } catch (err) {
     console.error("❌ Login error:", err);
     setError(err.message || "Login failed. Please try again.");
     
-    // Clear any invalid tokens
+    // Clear any partial storage
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("user");
   } finally {
     setLoading(false);
   }

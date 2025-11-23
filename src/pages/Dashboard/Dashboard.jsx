@@ -16,29 +16,36 @@ const Dashboard = () => {
 
   console.log('🔍 Dashboard component mounted');
 
-  useEffect(() => {
-    const checkAuthAndFetch = async () => {
-      // Check authentication first
-      const accessToken = localStorage.getItem('accessToken');
-      const userData = localStorage.getItem('user');
-      
-      console.log('🔍 Auth check:', {
-        accessToken: accessToken ? `Present (${accessToken.substring(0, 20)}...)` : 'Missing',
-        userData: userData ? 'Present' : 'Missing'
-      });
+ useEffect(() => {
+  const checkAuth = () => {
+    // Check both localStorage and sessionStorage
+    const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+    const user = localStorage.getItem('user') || sessionStorage.getItem('user');
+    
+    console.log('🔍 Comprehensive auth check:');
+    console.log('   localStorage accessToken:', localStorage.getItem('accessToken') ? '✅ Present' : '❌ Missing');
+    console.log('   sessionStorage accessToken:', sessionStorage.getItem('accessToken') ? '✅ Present' : '❌ Missing');
+    console.log('   localStorage user:', localStorage.getItem('user') ? '✅ Present' : '❌ Missing');
+    console.log('   sessionStorage user:', sessionStorage.getItem('user') ? '✅ Present' : '❌ Missing');
+    
+    // Log all storage keys for debugging
+    console.log('   All localStorage keys:', Object.keys(localStorage));
+    console.log('   All sessionStorage keys:', Object.keys(sessionStorage));
 
-      if (!accessToken) {
-        console.log('❌ No access token found, redirecting to login');
-        navigate('/login');
-        return;
-      }
+    if (!accessToken) {
+      console.log('❌ No authentication token found in any storage');
+      navigate('/login');
+      return false;
+    }
+    
+    console.log('✅ Authentication found!');
+    return true;
+  };
 
-      // If we have token, fetch data
-      await fetchDashboardData();
-    };
-
-    checkAuthAndFetch();
-  }, [navigate]);
+  if (checkAuth()) {
+    fetchDashboardData();
+  }
+}, [navigate]);
 
   const fetchDashboardData = async () => {
     console.log('🔍 Starting to fetch dashboard data...');
