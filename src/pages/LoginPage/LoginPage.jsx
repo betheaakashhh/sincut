@@ -39,7 +39,7 @@ const LoginPage = () => {
     if (error) setError("");
   };
   
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   setLoading(true);
   setError("");
@@ -60,7 +60,7 @@ const LoginPage = () => {
     });
 
     const data = await response.json();
-    console.log("🔹 Full login response:", data);
+    console.log("🔹 Login response received");
 
     if (!response.ok) {
       throw new Error(data.message || `Login failed: ${response.status}`);
@@ -70,57 +70,52 @@ const LoginPage = () => {
       throw new Error("No access token received from server");
     }
 
-    // 🛠️ DEBUG: Check localStorage before storing
-    console.log("🔍 BEFORE storage - localStorage contents:");
-    Object.keys(localStorage).forEach(key => {
-      console.log(`   ${key}: ${localStorage.getItem(key) ? 'has value' : 'empty'}`);
-    });
-
-    // 🛠️ Store tokens with verification
-    console.log("💾 Storing tokens...");
+    // 🛠️ COMPREHENSIVE STORAGE FIX
+    console.log("💾 Storing tokens comprehensively...");
     
-    // Method 1: Try localStorage
+    // Store with CORRECT key
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("user", JSON.stringify(data.user));
     
-    // Method 2: Also try sessionStorage as backup
-    sessionStorage.setItem("accessToken", data.accessToken);
-    sessionStorage.setItem("user", JSON.stringify(data.user));
+    // 🧹 CLEAN UP ANY WRONG KEYS
+    // Remove any token stored with wrong key names
+    const wrongKeys = ['token', 'authToken', 'jwtToken', 'Token'];
+    wrongKeys.forEach(key => {
+      if (localStorage.getItem(key)) {
+        localStorage.removeItem(key);
+        console.log(`🧹 Removed wrong key: ${key}`);
+      }
+    });
 
-    // 🛠️ DEBUG: Verify storage immediately
-    console.log("🔍 AFTER storage verification:");
-    console.log("   localStorage accessToken:", localStorage.getItem("accessToken") ? '✅ Stored' : '❌ Missing');
-    console.log("   localStorage user:", localStorage.getItem("user") ? '✅ Stored' : '❌ Missing');
-    console.log("   sessionStorage accessToken:", sessionStorage.getItem("accessToken") ? '✅ Stored' : '❌ Missing');
-    console.log("   sessionStorage user:", sessionStorage.getItem("user") ? '✅ Stored' : '❌ Missing');
+    // 🛠️ VERIFY STORAGE
+    console.log("✅ Final storage verification:");
+    console.log("   accessToken:", localStorage.getItem("accessToken") ? '✅ PRESENT' : '❌ MISSING');
+    console.log("   user:", localStorage.getItem("user") ? '✅ PRESENT' : '❌ MISSING');
+    
+    // Show all keys to confirm
+    console.log("   All keys:", Object.keys(localStorage));
 
-    // Additional verification
-    const storedToken = localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
+    const storedToken = localStorage.getItem("accessToken");
     if (!storedToken) {
-      throw new Error("Tokens were not stored in any storage method");
+      throw new Error("CRITICAL: Token was not stored properly");
     }
 
-    console.log("🎉 Login successful! Tokens stored.");
-    console.log("   Token:", storedToken.substring(0, 30) + "...");
+    console.log("🎉 Login successful! Redirecting...");
     
-    // Wait a moment to ensure storage is committed
+    // Short delay to ensure storage commits
     setTimeout(() => {
       navigate("/dashboard");
-    }, 100);
+    }, 50);
 
   } catch (err) {
     console.error("❌ Login error:", err);
     setError(err.message || "Login failed. Please try again.");
-    
-    // Clear any partial storage
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("user");
   } finally {
     setLoading(false);
   }
-};
+}
+    
+  
 
   return (
     <div className="lgnpg-container">
