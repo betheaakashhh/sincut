@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('referral');
   const [dashboardData, setDashboardData] = useState(null);
   const [walletData, setWalletData] = useState(null);
-  const [userData, setUserData] = useState(null); // ADD THIS
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -81,10 +81,7 @@ const Dashboard = () => {
       
       if (error.response?.status === 401 || error.message.includes('Authentication failed')) {
         console.log('🔍 Authentication error, clearing tokens and redirecting...');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('user');
-        sessionStorage.removeItem('accessToken');
-        navigate('/login');
+        handleLogout();
       } else {
         setError(error.response?.data?.message || 'Failed to load dashboard data. Please try again.');
       }
@@ -92,6 +89,62 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+
+  // ADD THE MISSING handleLogout FUNCTION
+  const handleLogout = () => {
+    console.log('🚪 Logging out...');
+    // Clear all storage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    localStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('user');
+    
+    // Clear any other auth-related items
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.includes('token') || key.includes('auth') || key.includes('user')) {
+        keysToRemove.push(key);
+      }
+    }
+    
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    
+    console.log('✅ All auth data cleared, redirecting to login...');
+    navigate('/login');
+  };
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="dashboard">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state (non-auth errors)
+  if (error) {
+    return (
+      <div className="dashboard">
+        <div className="error-container">
+          <div className="error-icon">⚠️</div>
+          <h3>Error Loading Dashboard</h3>
+          <p>{error}</p>
+          <button onClick={fetchDashboardData} className="retry-button">
+            Try Again
+          </button>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // Main dashboard render
   return (
@@ -102,7 +155,7 @@ const Dashboard = () => {
             <h1 className="dashboard-title">Your Dashboard</h1>
             <div className="user-info">
               <p className="welcome-text">Welcome back!</p>
-              <p className="user-name">{userData?.name || 'User'}</p> {/* FIXED */}
+              <p className="user-name">{userData?.name || 'User'}</p>
               <button onClick={handleLogout} className="logout-btn">
                 Logout
               </button>
@@ -162,10 +215,10 @@ const Dashboard = () => {
           <div className="tab-content">
             {activeTab === 'referral' ? (
               <ReferralSection 
-              data={dashboardData} 
-              onUpdate={fetchDashboardData}
-              userData={userData} // Add this line
-             />
+                data={dashboardData} 
+                onUpdate={fetchDashboardData}
+                userData={userData}
+              />
             ) : (
               <WalletSection 
                 data={walletData}
