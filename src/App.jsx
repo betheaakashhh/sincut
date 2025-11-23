@@ -43,7 +43,7 @@ const App = () => {
         <Route path='/about' element={<About/>} />
         <Route path='/contact' element={<Contact/>} />
         <Route path='/FAQs' element={<FAQ/>} /> 
-        <Route path='/accountsetting' element={<AccountSetting />} />
+        <Route path='/dashboard' element={<AccountSetting />} />
         <Route path='/terms' element={<TermCondition />} />
         <Route path='/gallery' element={<ProtectedRoute><PhotoGallery /></ProtectedRoute>} />
         <Route path='/announce' element={<Announce />} />
@@ -63,7 +63,7 @@ const App = () => {
         <Route path='/login' element={<PublicRoute><LoginPage /></PublicRoute>} />
         <Route path='/signup' element={<PublicRoute><MultiStepRegistration /></PublicRoute>} />
         <Route path='/debug-auth' element={<DebugAuth />} />
-        {/* <Route path='/dashboard' element={<Dashboard />} /> */}
+        
       </Routes>
     </div>
   )
