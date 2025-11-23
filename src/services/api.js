@@ -3,7 +3,7 @@ import axios from "axios";
 
 // FIXED: Use correct environment variable
 const API_URL =
-  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_BASE_URL_API ||
   "https://sincut-razorpay.vercel.app/api";
 
 // Create axios instance
