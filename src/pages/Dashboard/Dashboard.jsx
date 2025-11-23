@@ -10,42 +10,43 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('referral');
   const [dashboardData, setDashboardData] = useState(null);
   const [walletData, setWalletData] = useState(null);
+  const [userData, setUserData] = useState(null); // ADD THIS
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  console.log('🔍 Dashboard component mounted');
+  useEffect(() => {
+    const checkAuth = () => {
+      const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+      const user = localStorage.getItem('user');
+      
+      console.log('🔍 Comprehensive auth check:');
+      console.log('   localStorage accessToken:', localStorage.getItem('accessToken') ? '✅ Present' : '❌ Missing');
+      console.log('   localStorage user:', localStorage.getItem('user') ? '✅ Present' : '❌ Missing');
 
- useEffect(() => {
-  const checkAuth = () => {
-    // Check both localStorage and sessionStorage
-    const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
-    const user = localStorage.getItem('user');
-    
-    console.log('🔍 Comprehensive auth check:');
-    console.log('   localStorage accessToken:', localStorage.getItem('accessToken') ? '✅ Present' : '❌ Missing');
-   
-    console.log('   localStorage user:', localStorage.getItem('user') ? '✅ Present' : '❌ Missing');
-    
-    
-    // Log all storage keys for debugging
-    console.log('   All localStorage keys:', Object.keys(localStorage));
-    console.log('   All sessionStorage keys:', Object.keys(sessionStorage));
+      if (!accessToken) {
+        console.log('❌ No authentication token found in any storage');
+        navigate('/login');
+        return false;
+      }
+      
+      // Parse and set user data if exists
+      if (user) {
+        try {
+          setUserData(JSON.parse(user));
+        } catch (e) {
+          console.error('Error parsing user data:', e);
+        }
+      }
+      
+      console.log('✅ Authentication found!');
+      return true;
+    };
 
-    if (!accessToken) {
-      console.log('❌ No authentication token found in any storage');
-      navigate('/login');
-      return false;
+    if (checkAuth()) {
+      fetchDashboardData();
     }
-    
-    console.log('✅ Authentication found!');
-    return true;
-  };
-
-  if (checkAuth()) {
-    fetchDashboardData();
-  }
-}, [navigate]);
+  }, [navigate]);
 
   const fetchDashboardData = async () => {
     console.log('🔍 Starting to fetch dashboard data...');
@@ -53,15 +54,16 @@ const Dashboard = () => {
       setLoading(true);
       setError(null);
 
-      // Verify token is still valid
-      try {
-        console.log('🔍 Verifying token with /auth/me...');
-        const userResponse = await getCurrentUser();
-        console.log('✅ Token is valid, user:', userResponse.data);
-      } catch (authError) {
-        console.error('❌ Token verification failed:', authError);
-        throw new Error('Authentication failed');
-      }
+      // Verify token is still valid and get fresh user data
+      console.log('🔍 Verifying token with /auth/me...');
+      const userResponse = await getCurrentUser();
+      console.log('✅ Token is valid, user:', userResponse.data);
+      
+      // Update user data with fresh data from backend
+      setUserData(userResponse.data);
+      
+      // Store updated user data in localStorage
+      localStorage.setItem('user', JSON.stringify(userResponse.data));
 
       // Fetch dashboard data
       console.log('🔍 Fetching referral and wallet data...');
@@ -81,6 +83,7 @@ const Dashboard = () => {
         console.log('🔍 Authentication error, clearing tokens and redirecting...');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
+        sessionStorage.removeItem('accessToken');
         navigate('/login');
       } else {
         setError(error.response?.data?.message || 'Failed to load dashboard data. Please try again.');
@@ -89,43 +92,6 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-
-  // Loading state
-  if (loading) {
-    return (
-      <div className="dashboard">
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p>Loading your dashboard...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Error state (non-auth errors)
-  if (error) {
-    return (
-      <div className="dashboard">
-        <div className="error-container">
-          <div className="error-icon">⚠️</div>
-          <h3>Error Loading Dashboard</h3>
-          <p>{error}</p>
-          <button onClick={fetchDashboardData} className="retry-button">
-            Try Again
-          </button>
-          <button onClick={handleLogout} className="logout-button">
-            Logout
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   // Main dashboard render
   return (
@@ -136,7 +102,7 @@ const Dashboard = () => {
             <h1 className="dashboard-title">Your Dashboard</h1>
             <div className="user-info">
               <p className="welcome-text">Welcome back!</p>
-              <p className="user-name">{dashboardData?.user?.name || 'User'}</p>
+              <p className="user-name">{userData?.name || 'User'}</p> {/* FIXED */}
               <button onClick={handleLogout} className="logout-btn">
                 Logout
               </button>
@@ -196,9 +162,10 @@ const Dashboard = () => {
           <div className="tab-content">
             {activeTab === 'referral' ? (
               <ReferralSection 
-                data={dashboardData} 
-                onUpdate={fetchDashboardData}
-              />
+              data={dashboardData} 
+              onUpdate={fetchDashboardData}
+              userData={userData} // Add this line
+             />
             ) : (
               <WalletSection 
                 data={walletData}
