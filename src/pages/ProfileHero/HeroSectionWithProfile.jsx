@@ -23,7 +23,7 @@ const HeroSectionWithProfile = () => {
 
   // Fetch logged-in user data
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
     if (!token) return navigate("/main");
 
     fetch(`${REACT_BACKEND_URL}/api/auth/me`, {
