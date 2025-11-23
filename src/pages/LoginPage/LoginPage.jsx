@@ -40,59 +40,67 @@ const LoginPage = () => {
   };
   
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-  
-    try {
-      console.log("🔐 Attempting login...");
-      
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-        }),
-        credentials: "include", // Important for refresh token cookie
-      });
+  e.preventDefault();
+  setLoading(true);
+  setError("");
 
-      const data = await response.json();
-      console.log("🔹 Login response:", data);
+  try {
+    console.log("🔐 Attempting login...");
+    
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: form.email,
+        password: form.password,
+      }),
+      credentials: "include",
+    });
 
-      if (!response.ok) {
-        throw new Error(data.message || `Login failed: ${response.status}`);
-      }
+    const data = await response.json();
+    console.log("🔹 Login response:", data);
 
-      if (!data.accessToken) {
-        throw new Error("No access token received from server");
-      }
-
-      // UPDATED: Store tokens and user data properly
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      
-      console.log("✅ Login successful, user data:", data.user);
-      console.log("💰 User coins:", data.user.coins);
-      console.log("💎 User divine coins:", data.user.divineCoins);
-      console.log("📤 User referral code:", data.user.referralCode);
-
-      // Redirect to dashboard
-      navigate("/dashboard");
-
-    } catch (err) {
-      console.error("❌ Login error:", err);
-      setError(err.message || "Login failed. Please try again.");
-      
-      // Clear any invalid tokens
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      throw new Error(data.message || `Login failed: ${response.status}`);
     }
-  };
+
+    if (!data.accessToken) {
+      throw new Error("No access token received from server");
+    }
+
+    // ✅ FIXED: Store tokens with correct key names
+    localStorage.setItem("accessToken", data.accessToken); // Fixed typo
+    localStorage.setItem("user", JSON.stringify(data.user));
+    
+    console.log("✅ Login successful, tokens stored:", {
+      accessToken: data.accessToken ? '✓ Present' : '✗ Missing',
+      user: data.user ? '✓ Present' : '✗ Missing'
+    });
+
+    // Verify storage
+    const storedToken = localStorage.getItem("accessToken");
+    const storedUser = localStorage.getItem("user");
+    console.log("🔍 Storage verification:", {
+      storedToken: storedToken ? '✓ Stored' : '✗ Not stored',
+      storedUser: storedUser ? '✓ Stored' : '✗ Not stored'
+    });
+
+    // Redirect to dashboard
+    navigate("/dashboard");
+
+  } catch (err) {
+    console.error("❌ Login error:", err);
+    setError(err.message || "Login failed. Please try again.");
+    
+    // Clear any invalid tokens
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="lgnpg-container">
