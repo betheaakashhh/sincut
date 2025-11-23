@@ -102,7 +102,7 @@ const LoginPage = () => {
       console.log("🎉 Login successful → redirecting");
 
       setTimeout(() => {
-        navigate("/main", { replace: true });
+        navigate("/accountsetting", { replace: true });
       }, 200);
     } catch (err) {
       console.error("❌ Login error:", err);
