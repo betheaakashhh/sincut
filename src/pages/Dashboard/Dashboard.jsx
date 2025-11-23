@@ -1,9 +1,9 @@
-// components/Dashboard.jsx - UPDATED
+// components/Dashboard.jsx - FIXED FOR BUG 5
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReferralSection from './ReferralSection';
 import WalletSection from './WalletSection';
-import { getReferralDashboard, getWallet, getCurrentUser } from '../../services/api.js';
+import { getReferralDashboard, getWallet } from '../../services/api.js';
 import './dashboard.css';
 
 const Dashboard = () => {
@@ -14,76 +14,48 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  console.log('🔍 Dashboard component mounted');
+  console.log('🔍 Dashboard mounted');
 
- useEffect(() => {
-  const checkAuth = () => {
-    // Check both localStorage and sessionStorage
-    const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
-    const user = localStorage.getItem('user') || sessionStorage.getItem('user');
-    
-    console.log('🔍 Comprehensive auth check:');
-    console.log('   localStorage accessToken:', localStorage.getItem('accessToken') ? '✅ Present' : '❌ Missing');
-    console.log('   sessionStorage accessToken:', sessionStorage.getItem('accessToken') ? '✅ Present' : '❌ Missing');
-    console.log('   localStorage user:', localStorage.getItem('user') ? '✅ Present' : '❌ Missing');
-    console.log('   sessionStorage user:', sessionStorage.getItem('user') ? '✅ Present' : '❌ Missing');
-    
-    // Log all storage keys for debugging
-    console.log('   All localStorage keys:', Object.keys(localStorage));
-    console.log('   All sessionStorage keys:', Object.keys(sessionStorage));
+  // 🔥 BUG 5 FIX: No getCurrentUser() here
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
 
-    if (!accessToken) {
-      console.log('❌ No authentication token found in any storage');
+    console.log('🔍 Checking auth: token', token ? 'FOUND' : 'NOT FOUND');
+
+    if (!token) {
+      console.log('❌ No token, redirecting...');
       navigate('/login');
-      return false;
+      return;
     }
-    
-    console.log('✅ Authentication found!');
-    return true;
-  };
 
-  if (checkAuth()) {
     fetchDashboardData();
-  }
-}, [navigate]);
+  }, []);
 
   const fetchDashboardData = async () => {
-    console.log('🔍 Starting to fetch dashboard data...');
+    console.log('🔍 Fetching referral + wallet...');
     try {
       setLoading(true);
       setError(null);
 
-      // Verify token is still valid
-      try {
-        console.log('🔍 Verifying token with /auth/me...');
-        const userResponse = await getCurrentUser();
-        console.log('✅ Token is valid, user:', userResponse.data);
-      } catch (authError) {
-        console.error('❌ Token verification failed:', authError);
-        throw new Error('Authentication failed');
-      }
-
-      // Fetch dashboard data
-      console.log('🔍 Fetching referral and wallet data...');
       const [referralRes, walletRes] = await Promise.all([
         getReferralDashboard(),
         getWallet()
       ]);
-      
-      console.log('✅ Dashboard data fetched successfully');
+
       setDashboardData(referralRes.data);
       setWalletData(walletRes.data);
-      
-    } catch (error) {
-      console.error('❌ Error fetching dashboard data:', error);
-      
-      if (error.response?.status === 401 || error.message.includes('Authentication failed')) {
-        console.log('🔍 Authentication error, clearing tokens and redirecting...');
+
+      console.log('✅ Dashboard loaded');
+    } catch (err) {
+      console.error('❌ Dashboard error:', err);
+
+      if (err.response?.status === 401) {
+        console.log('❌ 401 -> redirect login');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
         navigate('/login');
       } else {
-        setError(error.response?.data?.message || 'Failed to load dashboard data. Please try again.');
+        setError(err.response?.data?.message || 'Failed to load dashboard');
       }
     } finally {
       setLoading(false);
@@ -96,7 +68,7 @@ const Dashboard = () => {
     navigate('/login');
   };
 
-  // Loading state
+  // Loading screen
   if (loading) {
     return (
       <div className="dashboard">
@@ -108,7 +80,7 @@ const Dashboard = () => {
     );
   }
 
-  // Error state (non-auth errors)
+  // Error screen
   if (error) {
     return (
       <div className="dashboard">
@@ -127,7 +99,8 @@ const Dashboard = () => {
     );
   }
 
-  // Main dashboard render
+  const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+
   return (
     <div className="dashboard">
       <header className="dashboard-header">
@@ -136,7 +109,8 @@ const Dashboard = () => {
             <h1 className="dashboard-title">Your Dashboard</h1>
             <div className="user-info">
               <p className="welcome-text">Welcome back!</p>
-              <p className="user-name">{dashboardData?.user?.name || 'User'}</p>
+              <p className="user-name">{storedUser?.name || 'User'}</p>
+
               <button onClick={handleLogout} className="logout-btn">
                 Logout
               </button>
@@ -147,6 +121,8 @@ const Dashboard = () => {
 
       <main className="dashboard-main">
         <div className="dashboard-container">
+
+          {/* Stats */}
           <div className="stats-grid">
             <StatCard
               icon="👥"
@@ -169,11 +145,15 @@ const Dashboard = () => {
             <StatCard
               icon="📈"
               title="Total Bonus"
-              value={(dashboardData?.totalSignupBonus || 0) + (dashboardData?.totalConfessionBonus || 0)}
+              value={
+                (dashboardData?.totalSignupBonus || 0) +
+                (dashboardData?.totalConfessionBonus || 0)
+              }
               color="green"
             />
           </div>
 
+          {/* Tabs */}
           <div className="tab-navigation">
             <div className="tab-buttons">
               <button
@@ -183,6 +163,7 @@ const Dashboard = () => {
                 <span className="tab-icon">📤</span>
                 Referral Program
               </button>
+
               <button
                 className={`tab-button ${activeTab === 'wallet' ? 'active' : ''}`}
                 onClick={() => setActiveTab('wallet')}
@@ -193,17 +174,12 @@ const Dashboard = () => {
             </div>
           </div>
 
+          {/* Content */}
           <div className="tab-content">
             {activeTab === 'referral' ? (
-              <ReferralSection 
-                data={dashboardData} 
-                onUpdate={fetchDashboardData}
-              />
+              <ReferralSection data={dashboardData} onUpdate={fetchDashboardData} />
             ) : (
-              <WalletSection 
-                data={walletData}
-                onUpdate={fetchDashboardData}
-              />
+              <WalletSection data={walletData} onUpdate={fetchDashboardData} />
             )}
           </div>
         </div>
@@ -219,9 +195,7 @@ const StatCard = ({ icon, title, value, color }) => (
         <p className="stat-title">{title}</p>
         <p className="stat-value">{value}</p>
       </div>
-      <div className="stat-icon">
-        {icon}
-      </div>
+      <div className="stat-icon">{icon}</div>
     </div>
   </div>
 );

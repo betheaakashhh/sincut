@@ -4,11 +4,11 @@ import { AuthProvider } from '../../context/AuthContext'
 import Dashboard from '../Dashboard/Dashboard'
 import { Toaster } from 'react-hot-toast'
 import ErrorBoundary from '../../data/ErrorBoundary'
-import { Router } from 'react-router-dom'
+
 const AccountSetting = () => {
   return (
     <>
-    <Router>
+   
     <AuthProvider>
       <div className="App">
         <Toaster
@@ -26,7 +26,7 @@ const AccountSetting = () => {
         
       </div>
     </AuthProvider>
-    </Router>
+   
     </>
   )
 }

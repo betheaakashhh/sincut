@@ -1,7 +1,8 @@
 // context/AuthContext.jsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-import {getMe} from '../services/api.js';
+import { getCurrentUser as getMe } from '../services/api.js';
+
 
 const AuthContext = createContext();
 

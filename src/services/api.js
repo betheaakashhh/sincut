@@ -1,8 +1,10 @@
-// services/api.js - UPDATED
-import axios from 'axios';
+// services/api.js - UPDATED FULLY STABLE VERSION
+import axios from "axios";
 
 // FIXED: Use correct environment variable
-const API_URL = import.meta.env.VITE_API_BASE_URL || 'https://sincut-razorpay.vercel.app/api';
+const API_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://sincut-razorpay.vercel.app/api";
 
 // Create axios instance
 const api = axios.create({
@@ -10,92 +12,110 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Add token to requests
+// ----------------------
+// ⭐ REQUEST INTERCEPTOR
+// ----------------------
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token && token !== 'null' && token !== 'undefined') {
-      config.headers.Authorization = `Bearer ${token}`;
-      console.log('🔐 Adding token to request');
+    const token = localStorage.getItem("accessToken");
+
+    // ⭐ Bug 7 FIX: Never attach token while refreshing
+    if (config.url.includes("/auth/refresh-token")) {
+      config.headers["Authorization"] = "";
+      return config;
     }
+
+    // ⭐ Add token normally
+    if (token && token !== "null" && token !== "undefined") {
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log("🔐 Adding token to request");
+    }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Handle token refresh
+// ----------------------
+// ⭐ RESPONSE INTERCEPTOR
+// ----------------------
 let isRefreshing = false;
 let failedQueue = [];
 
-const processQueue = (error, token = null) => {
-  failedQueue.forEach(prom => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
+const processQueue = (error, newToken = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) prom.reject(error);
+    else prom.resolve(newToken);
   });
   failedQueue = [];
 };
 
 api.interceptors.response.use(
   (response) => response,
+
   async (error) => {
     const originalRequest = error.config;
 
+    // Handle 401 (Unauthorized)
     if (error.response?.status === 401 && !originalRequest._retry) {
-      
+      // If refresh is already in-progress → queue this request
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        }).then(token => {
-          originalRequest.headers.Authorization = `Bearer ${token}`;
-          return api(originalRequest);
-        }).catch(err => {
-          return Promise.reject(err);
-        });
+        })
+          .then((newToken) => {
+            if (!newToken) throw "⚠ No token received after refresh";
+            // ⭐ Bug 8: Always attach new token to queued requests
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            return api(originalRequest);
+          })
+          .catch((err) => Promise.reject(err));
       }
 
+      // Start refresh process
       originalRequest._retry = true;
       isRefreshing = true;
 
       try {
-        console.log('🔄 Attempting to refresh token...');
-        
-        // Make refresh request without auth header to avoid loop
-        const response = await axios.post(`${API_URL}/auth/refresh-token`, {}, {
-          withCredentials: true
-        });
-        
-        const { accessToken, user } = response.data;
-        
-        console.log('✅ Token refresh successful');
-        
-        // Store new token
-        localStorage.setItem('accessToken', accessToken);
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-        }
+        console.log("🔄 Attempting to refresh token...");
 
-        // Update current request
+        // ⭐ Bug 6 FIX — disable old Authorization header
+        const refreshRes = await axios.post(
+          `${API_URL}/auth/refresh-token`,
+          {},
+          {
+            withCredentials: true,
+            headers: { Authorization: "" },
+          }
+        );
+
+        const { accessToken, user } = refreshRes.data;
+        if (!accessToken) throw "No token returned from refresh";
+
+        console.log("✅ Token refresh successful");
+
+        // Save new token + user
+        localStorage.setItem("accessToken", accessToken);
+        if (user) localStorage.setItem("user", JSON.stringify(user));
+
+        // ⭐ Retry original request with new token
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        
+
+        // ⭐ Bug 8 FIX — release queued requests
         processQueue(null, accessToken);
-        
+
         return api(originalRequest);
-        
       } catch (refreshError) {
-        console.error('❌ Token refresh failed:', refreshError);
-        
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('user');
-        
+        console.error("❌ Token refresh failed:", refreshError);
+
+        // Reject all queued requests
         processQueue(refreshError, null);
-        
-        window.location.href = '/login';
-        
+
+        // Clear auth + redirect
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
@@ -106,30 +126,33 @@ api.interceptors.response.use(
   }
 );
 
-// API functions with better error handling
+// ----------------------
+// EXPORT API FUNCTIONS
+// ----------------------
+
 export const getReferralDashboard = () => {
-  console.log('📊 Fetching referral dashboard...');
-  return api.get('/referral/dashboard');
+  console.log("📊 Fetching referral dashboard...");
+  return api.get("/referral/dashboard");
 };
 
 export const getWallet = () => {
-  console.log('💰 Fetching wallet data...');
-  return api.get('/wallet');
+  console.log("💰 Fetching wallet data...");
+  return api.get("/wallet");
 };
 
 export const convertCoinsToDivine = () => {
-  console.log('🔄 Converting coins to divine...');
-  return api.post('/wallet/convert-to-divine');
+  console.log("🔄 Converting coins to divine...");
+  return api.post("/wallet/convert-to-divine");
 };
 
 export const useDivineCoin = () => {
-  console.log('💎 Using divine coin...');
-  return api.post('/wallet/use-divine-coin');
+  console.log("💎 Using divine coin...");
+  return api.post("/wallet/use-divine-coin");
 };
 
 export const getCurrentUser = () => {
-  console.log('👤 Getting current user...');
-  return api.get('/auth/me');
+  console.log("👤 Getting current user...");
+  return api.get("/auth/me");
 };
 
 export default api;
