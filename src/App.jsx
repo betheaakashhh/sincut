@@ -17,9 +17,11 @@ import HeroSectionTest from './pages/Hero/HeroSectionTest'
 import LoginPage from './pages/LoginPage/LoginPage'
 import MultiStepRegistration from './pages/SignUp/MultiStepRegistration'
 import Home1 from './pages/Home1/Home.1'
-import AccountSetting from './pages/AccountSetting/AccountSetting'
+import AccountSetting from './pages/AccountSetting/CoinDashboard'
 import DebugAuth from './data/DebugAuth'
-import Dashboard from './pages/Dashboard/Dashboard'
+
+import CoinDashboard from './pages/AccountSetting/CoinDashboard'
+import AccountSettings from './pages/AccountSetting/AccountSettings'
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('accessToken');
@@ -39,14 +41,15 @@ const App = () => {
   return (
     <div className='app'>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About/>} />
-        <Route path='/contact' element={<Contact/>} />
-        <Route path='/FAQs' element={<FAQ/>} /> 
-        <Route path='/dashboard' element={<AccountSetting />} />
-        <Route path='/terms' element={<TermCondition />} />
-        <Route path='/gallery' element={<ProtectedRoute><PhotoGallery /></ProtectedRoute>} />
-        <Route path='/announce' element={<Announce />} />
+        < Route path='/' element={<Home />} />
+        < Route path='/about' element={<About/>} />
+        < Route path='/contact' element={<Contact/>} />
+        < Route path='/FAQs' element={<FAQ/>} /> 
+        < Route path='/dashboard' element={<CoinDashboard />} />
+        < Route path='/accountsetting ' element={<AccountSettings />} />
+        < Route path='/terms' element={<TermCondition />} />
+        < Route path='/gallery' element={<ProtectedRoute><PhotoGallery /></ProtectedRoute>} />
+        < Route path='/announce' element={<Announce />} />
         
         {/* FIXED: Main route with nested routes */}
         <Route path="/main" element={

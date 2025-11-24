@@ -7,7 +7,7 @@ const ReferralSection = ({ data, onUpdate, userData }) => { // Added userData pr
   const [copied, setCopied] = useState(false);
 
   // Generate referral link with proper referral code
-  const referralLink = `${window.location.origin}/register?ref=${data?.referralCode || ''}`;
+  const referralLink = `${window.location.origin}/signup?ref=${data?.referralCode || ''}`;
 
   const copyReferralLink = () => {
     if (!data?.referralCode) {

@@ -5,7 +5,7 @@ import Dashboard from '../Dashboard/Dashboard'
 import { Toaster } from 'react-hot-toast'
 import ErrorBoundary from '../../data/ErrorBoundary'
 
-const AccountSetting = () => {
+const CoinDashboard = () => {
   return (
     <>
    
@@ -31,4 +31,4 @@ const AccountSetting = () => {
   )
 }
 
-export default AccountSetting
+export default CoinDashboard
