@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './sharebutton.css';
 
-const ShareButton = () => {
+const ShareButton = (data) => {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const shareRef = useRef(null);
+  
 
   // Current page URL
-  const currentUrl = window.location.href;
+  const currentUrl = `${window.location.origin}/signup?ref=${data?.referralCode || ''}`;
   const shareMessage = "Check out this amazing confession platform! Find your inner peace and redemption.";
 
   // Close share menu when clicking outside
