@@ -100,17 +100,8 @@ const HeroSection = () => {
             <div className="character-counter">
               {characterCount} / 1000 characters
             </div>
-            {characterCount > 0 && (
-              <div className="writing-feedback">
-                {characterCount < 100
-                  ? "Begin your healing journey..."
-                  : characterCount < 400
-                  ? "The divine is listening to your heart..."
-                  : characterCount < 700
-                  ? "Your honesty brings you closer to peace..."
-                  : "You are being cleansed with every word..."}
-              </div>
-            )}
+            
+
           </div>
 
           {isWriting && (
