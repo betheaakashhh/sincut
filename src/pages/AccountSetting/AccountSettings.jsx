@@ -1,302 +1,263 @@
-import React, { useState, useEffect } from 'react';
-import './AccountSettings.css';
+import React, { useState, useEffect } from "react";
+import "./AccountSettings.css";
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL||"https://sincut-razorpay.vercel.app";
+
+const avatarOptions = [
+  "dog.png",
+  "cat.png",
+  "man.png",
+  "woman.png",
+  "anime_boy.png",
+  "anime_girl.png",
+  "football.png",
+  "avatar_1.png",
+  "avatar_2.png",
+  "avatar_3.png",
+];
 
 const AccountSettings = () => {
   const [user, setUser] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    bio: '',
-    dateOfBirth: '',
-    profileImage: '',
-    age: null
+    name: "",
+    email: "",
+    phone: "",
+    bio: "",
+    dateOfBirth: "",
+    profileImage: "avatar_1.png",
+    age: null,
   });
-  
+
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
+  const [message, setMessage] = useState({ type: "", text: "" });
   const [isEditing, setIsEditing] = useState(false);
 
-  // Fetch user data on component mount
   useEffect(() => {
     fetchUserData();
   }, []);
 
+  // Fetch user data from backend
   const fetchUserData = async () => {
     try {
-      const response = await fetch('/api/user/profile');
-      const data = await response.json();
-      
-      if (data.success) {
-        setUser({
-          ...data.user,
-          age: calculateAge(data.user.dateOfBirth)
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      setMessage({ type: 'error', text: 'Failed to load user data' });
-    }
-  };
-
-  const calculateAge = (dateOfBirth) => {
-    if (!dateOfBirth) return null;
-    const today = new Date();
-    const birthDate = new Date(dateOfBirth);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    
-    return age;
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    
-    // Phone number validation (numbers only)
-    if (name === 'phone') {
-      const phoneRegex = /^[0-9]*$/;
-      if (!phoneRegex.test(value) && value !== '') {
-        return;
-      }
-    }
-    
-    // Bio length validation
-    if (name === 'bio' && value.length > 222) {
-      setMessage({ type: 'error', text: 'Bio must be 222 characters or less' });
-      return;
-    }
-
-    setUser(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleProfileImageChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Validate file type and size
-    if (!file.type.startsWith('image/')) {
-      setMessage({ type: 'error', text: 'Please select a valid image file' });
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) { // 5MB limit
-      setMessage({ type: 'error', text: 'Image size must be less than 5MB' });
-      return;
-    }
-
-    setLoading(true);
-    const formData = new FormData();
-    formData.append('profileImage', file);
-
-    try {
-      const response = await fetch('/api/user/upload-profile-image', {
-        method: 'POST',
-        body: formData,
+      const response = await fetch(`${BASE_URL}/api/user/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setUser(prev => ({ ...prev, profileImage: data.imageUrl }));
-        setMessage({ type: 'success', text: 'Profile image updated successfully' });
+        setUser({
+          ...data.user,
+          age: calculateAge(data.user.dateOfBirth),
+        });
       } else {
-        setMessage({ type: 'error', text: data.message || 'Failed to upload image' });
+        setMessage({ type: "error", text: "Failed to load user data" });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Error uploading image' });
-    } finally {
-      setLoading(false);
+      console.error("Error fetching user profile:", error);
+      setMessage({ type: "error", text: "Error loading profile" });
     }
   };
 
+  // Calculate age
+  const calculateAge = (dob) => {
+    if (!dob) return null;
+    const today = new Date();
+    const birth = new Date(dob);
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+    return age;
+  };
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "phone" && !/^[0-9]*$/.test(value)) return;
+
+    if (name === "bio" && value.length > 222) return;
+
+    setUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Avatar selection handler
+  const handleAvatarSelect = async (avatarFile) => {
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${BASE_URL}/api/user/update-avatar`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({ profileImage: avatarFile }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setUser((prev) => ({ ...prev, profileImage: avatarFile }));
+        setMessage({ type: "success", text: "Avatar updated successfully!" });
+      } else {
+        setMessage({ type: "error", text: data.message });
+      }
+    } catch (error) {
+      setMessage({ type: "error", text: "Error updating avatar" });
+    }
+
+    setLoading(false);
+  };
+
+  // Submit profile update
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await fetch('/api/user/update-profile', {
-        method: 'PUT',
+      const res = await fetch(`${BASE_URL}/api/user/update-profile`, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: JSON.stringify({
           name: user.name,
           email: user.email,
           phone: user.phone,
-          bio: user.bio
+          bio: user.bio,
         }),
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
       if (data.success) {
-        setMessage({ type: 'success', text: 'Profile updated successfully' });
+        setMessage({ type: "success", text: "Profile updated!" });
         setIsEditing(false);
       } else {
-        setMessage({ type: 'error', text: data.message || 'Failed to update profile' });
+        setMessage({ type: "error", text: data.message });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Error updating profile' });
-    } finally {
-      setLoading(false);
+      setMessage({ type: "error", text: "Error updating profile" });
     }
-  };
 
-  const handleCancel = () => {
-    fetchUserData(); // Reset form with original data
-    setIsEditing(false);
-    setMessage({ type: '', text: '' });
+    setLoading(false);
   };
 
   return (
     <div className="account-settings-container">
       <div className="account-settings-card">
-        {/* Profile Header */}
         <div className="profile-header">
           <div className="profile-image-section">
             <div className="profile-image-container">
-              <img 
-                src={user.profileImage || '/default-avatar.png'} 
-                alt="Profile" 
+
+              <img
+                src={`/assets/avatars/${user.profileImage}`}
+                alt="Profile"
                 className="profile-image"
               />
-              <label htmlFor="profileImageUpload" className="image-upload-label">
-                <input
-                  type="file"
-                  id="profileImageUpload"
-                  accept="image/*"
-                  onChange={handleProfileImageChange}
-                  disabled={loading}
-                />
-                <span className="upload-icon">📷</span>
-              </label>
+
+              {/* Avatar selection grid */}
+              <div className="avatar-grid">
+                {avatarOptions.map((avatar, i) => (
+                  <img
+                    key={i}
+                    src={`/assets/avatars/${avatar}`}
+                    alt={avatar}
+                    className={`avatar-option ${
+                      avatar === user.profileImage ? "selected" : ""
+                    }`}
+                    onClick={() => handleAvatarSelect(avatar)}
+                  />
+                ))}
+              </div>
+
             </div>
-            <h2 className="user-name">{user.name || 'User Name'}</h2>
+            <h2 className="user-name">{user.name}</h2>
           </div>
         </div>
 
-        {/* Message Display */}
         {message.text && (
-          <div className={`message ${message.type}`}>
-            {message.text}
-          </div>
+          <div className={`message ${message.type}`}>{message.text}</div>
         )}
 
-        {/* Account Settings Form */}
         <form className="account-settings-form" onSubmit={handleSubmit}>
           <div className="form-grid">
-            {/* Name Field */}
+            {/* Name */}
             <div className="form-group">
-              <label htmlFor="name">Full Name</label>
+              <label>Full Name</label>
               <input
                 type="text"
-                id="name"
                 name="name"
                 value={user.name}
                 onChange={handleInputChange}
                 disabled={!isEditing}
-                placeholder="Enter your full name"
               />
             </div>
 
-            {/* Email Field */}
+            {/* Email */}
             <div className="form-group">
-              <label htmlFor="email">Email Address</label>
+              <label>Email</label>
               <input
                 type="email"
-                id="email"
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
                 disabled={!isEditing}
-                placeholder="Enter your email address"
               />
             </div>
 
-            {/* Phone Field */}
+            {/* Phone */}
             <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
+              <label>Phone</label>
               <input
                 type="tel"
-                id="phone"
                 name="phone"
                 value={user.phone}
                 onChange={handleInputChange}
                 disabled={!isEditing}
-                placeholder="Enter your phone number"
                 maxLength="15"
               />
             </div>
 
-            {/* Date of Birth Field - Not Editable */}
+            {/* DOB */}
             <div className="form-group">
-              <label htmlFor="dateOfBirth">Date of Birth</label>
-              <input
-                type="date"
-                id="dateOfBirth"
-                name="dateOfBirth"
-                value={user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : ''}
-                disabled
-                className="disabled-field"
-              />
-              {user.age !== null && (
-                <div className="age-display">Age: {user.age} years</div>
-              )}
-              <div className="field-note">Date of birth cannot be changed</div>
+              <label>Date of Birth</label>
+              <input type="date" disabled value={user.dateOfBirth?.split("T")[0]} />
+              <div className="field-note">DOB cannot be changed</div>
             </div>
 
-            {/* Bio Field */}
+            {/* Bio */}
             <div className="form-group full-width">
-              <label htmlFor="bio">
-                Bio <span className="char-count">({user.bio?.length || 0}/222)</span>
-              </label>
+              <label>Bio ({user.bio?.length || 0}/222)</label>
               <textarea
-                id="bio"
                 name="bio"
-                value={user.bio}
-                onChange={handleInputChange}
-                disabled={!isEditing}
-                placeholder="Tell us something about yourself..."
-                maxLength="222"
                 rows="4"
+                maxLength="222"
+                value={user.bio}
+                disabled={!isEditing}
+                onChange={handleInputChange}
               />
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {/* Buttons */}
           <div className="form-actions">
             {!isEditing ? (
-              <button 
-                type="button" 
-                className="edit-btn"
-                onClick={() => setIsEditing(true)}
-              >
-                Edit Profile
+              <button className="edit-btn" onClick={() => setIsEditing(true)}>
+                Edit
               </button>
             ) : (
-              <div className="edit-actions">
-                <button 
-                  type="button" 
-                  className="cancel-btn"
-                  onClick={handleCancel}
-                  disabled={loading}
-                >
+              <>
+                <button className="cancel-btn" onClick={() => setIsEditing(false)} type="button">
                   Cancel
                 </button>
-                <button 
-                  type="submit" 
-                  className="save-btn"
-                  disabled={loading}
-                >
-                  {loading ? 'Saving...' : 'Save Changes'}
+                <button className="save-btn" type="submit" disabled={loading}>
+                  {loading ? "Saving..." : "Save"}
                 </button>
-              </div>
+              </>
             )}
           </div>
         </form>

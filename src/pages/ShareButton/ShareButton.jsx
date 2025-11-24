@@ -10,7 +10,10 @@ const ShareButton = (data) => {
   // Current page URL
   const currentUrl = `${window.location.origin}/signup?ref=${data?.referralCode || ''}`;
   const shareMessage = "Check out this amazing confession platform! Find your inner peace and redemption.";
-
+  if (!data?.referralCode) {
+    console.log("Referral code not available yet");
+    return null; // Do not render if referral code is not available
+  }
   // Close share menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {

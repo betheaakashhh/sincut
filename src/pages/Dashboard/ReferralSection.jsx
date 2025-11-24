@@ -79,6 +79,7 @@ const ReferralSection = ({ data, onUpdate, userData }) => { // Added userData pr
           </div>
         </div>
         
+        
         {/* Display referral link for visibility */}
         {data?.referralCode && (
           <div className="referral-link-display">
