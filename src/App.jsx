@@ -22,6 +22,7 @@ import DebugAuth from './data/DebugAuth'
 
 import CoinDashboard from './pages/AccountSetting/CoinDashboard'
 import AccountSettings from './pages/AccountSetting/AccountSettings'
+import AppTest from './pages/ModerUIUX/AppText'
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('accessToken');
@@ -66,6 +67,7 @@ const App = () => {
         <Route path='/login' element={<PublicRoute><LoginPage /></PublicRoute>} />
         <Route path='/signup' element={<PublicRoute><MultiStepRegistration /></PublicRoute>} />
         <Route path='/debug-auth' element={<DebugAuth />} />
+        < Route path='/hero-test' element={<AppTest />} />
         
       </Routes>
     </div>
