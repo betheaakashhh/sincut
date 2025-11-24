@@ -248,7 +248,7 @@ const MultiStepRegistration = () => {
               {/* Referral Code Field */}
               <div className="form-grp">
                 <label>
-                  Referral Code <span className="optional">(Optional)</span>
+                  Referral Code <span className="optional">(If Any?)</span>
                 </label>
                 <input
                   type="text"

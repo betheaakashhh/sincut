@@ -46,7 +46,7 @@ const App = () => {
         < Route path='/contact' element={<Contact/>} />
         < Route path='/FAQs' element={<FAQ/>} /> 
         < Route path='/dashboard' element={<CoinDashboard />} />
-        < Route path='/accountsetting ' element={<AccountSettings />} />
+        < Route path='/accountsetting' element={<AccountSettings />} />
         < Route path='/terms' element={<TermCondition />} />
         < Route path='/gallery' element={<ProtectedRoute><PhotoGallery /></ProtectedRoute>} />
         < Route path='/announce' element={<Announce />} />
@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/main" element={
           <ProtectedRoute>
             <Home1/>
-            <Outlet /> {/* Add this to render child routes */}
+            <Outlet /> 
           </ProtectedRoute>
         }>
           <Route path="thankful" element={<ThankfulPage/>} />

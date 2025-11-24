@@ -154,14 +154,14 @@ const HeroSectionWithProfile = () => {
                 
                 {showMenu && (
                   <div className="snct-dropdown-menu">
-                    <div className="snct-menu-item" onClick={gotoDashboard}>
+                    <div className="snct-menu-item snct-dashboard-item" onClick={gotoDashboard}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                       </svg>
                       Dashboard
                     </div>
                     <div className="snct-menu-divider"></div>
-                    <div className="snct-menu-item snct-logout-item" onClick={gotoAccountSetting}>
+                    <div className="snct-menu-item snct-account-item" onClick={gotoAccountSetting}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <path d="M6 2H2v12h4v1H1V1h5v1zm7.707 5.707l-3 3a1 1 0 01-1.414-1.414L10.586 8H5V7h5.586L9.293 5.707a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414z"/>
                       </svg>

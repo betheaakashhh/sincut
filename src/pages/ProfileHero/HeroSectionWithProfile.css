@@ -131,6 +131,16 @@
   color: #ef4444;
   background: rgba(239, 68, 68, 0.1);
 }
+.snct-account-item:hover {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+
+}
+.snct-dashboard-item:hover {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
 
 .snct-menu-divider {
   height: 1px;
