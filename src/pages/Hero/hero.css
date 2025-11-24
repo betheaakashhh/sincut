@@ -146,24 +146,9 @@
   transition: all 0.3s ease;
 }
 
-.textarea-glow-effect {
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #9d50bb, #6e48aa);
-  border-radius: 22px;
-  filter: blur(15px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
 
-.modern-textarea-container.writing-active .textarea-glow-effect {
-  opacity: 0.6;
-  animation: glowPulse 2s ease-in-out infinite;
-}
+
+
 
 .dynamic-border {
   position: absolute;
