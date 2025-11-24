@@ -117,7 +117,14 @@ const HeroSectionWithProfile = () => {
         <div className="snct-navbar-content">
           {/* Logo */}
           <div className="snct-logo-section">
-            <h2 className="snct-logo">Sincut</h2>
+          <div className="snct-logo">
+            <div className="logo-circle">
+              <span>★</span>
+            </div>
+            <span className="logo-text">
+              Sinful<span className="logo-accent">Aura</span>
+            </span>
+          </div>
           </div>
 
           {/* Profile Section */}

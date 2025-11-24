@@ -60,6 +60,14 @@
   color: #dc2626;
 }
 
+/* Right Section */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+
 /* ===================== PROFILE SECTION ===================== */
 .snct-profile-section {
   display: flex;
