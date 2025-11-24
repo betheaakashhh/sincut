@@ -114,87 +114,81 @@ const HeroSectionWithProfile = () => {
     <div className="snct-navbar-container">
       {/* Modern Glass Navbar */}
       <nav className="snct-navbar">
-        <div className="snct-navbar-content">
-          {/* Logo */}
-          <div className="snct-logo-section">
-          <div className="snct-logo">
-            <div className="logo-circle">
-              <span>★</span>
-            </div>
-            <span className="logo-text">
-              Sinful<span className="logo-accent">Aura</span>
-            </span>
-          </div>
+  <div className="snct-navbar-content">
+
+    {/* Logo (REPLACED as requested) */}
+    <div className="nav-left">
+      <div className="logo-circle">
+        <span>★</span>
+      </div>
+      <span className="logo-text">
+        Sinful<span className="logo-accent">Aura</span>
+      </span>
+    </div>
+
+    {/* Profile Section (unchanged) */}
+    <div className="snct-profile-section">
+      {user ? (
+        <div className="snct-user-menu">
+          <div 
+            className="snct-user-trigger"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowMenu(!showMenu);
+            }}
+          >
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+              alt="profile"
+              className="snct-profile-photo"
+            />
+            {!isMobile && (
+              <span className="snct-username">
+                {user.name || user.email?.split('@')[0]}
+              </span>
+            )}
+            <svg 
+              className={`snct-dropdown-arrow ${showMenu ? 'snct-rotated' : ''}`}
+              width="12" 
+              height="12" 
+              viewBox="0 0 12 12"
+              fill="currentColor"
+            >
+              <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+            </svg>
           </div>
 
-          {/* Profile Section */}
-          <div className="snct-profile-section">
-            {user ? (
-              <div className="snct-user-menu">
-                <div 
-                  className="snct-user-trigger"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowMenu(!showMenu);
-                  }}
-                >
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                    alt="profile"
-                    className="snct-profile-photo"
-                  />
-                  {!isMobile && (
-                    <span className="snct-username">
-                      {user.name || user.email?.split('@')[0]}
-                    </span>
-                  )}
-                  <svg 
-                    className={`snct-dropdown-arrow ${showMenu ? 'snct-rotated' : ''}`}
-                    width="12" 
-                    height="12" 
-                    viewBox="0 0 12 12"
-                    fill="currentColor"
-                  >
-                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                  </svg>
-                </div>
-                
-                {showMenu && (
-                  <div className="snct-dropdown-menu">
-                    <div className="snct-menu-item snct-dashboard-item" onClick={gotoDashboard}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                      </svg>
-                      Dashboard
-                    </div>
-                    <div className="snct-menu-divider"></div>
-                    <div className="snct-menu-item snct-account-item" onClick={gotoAccountSetting}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M6 2H2v12h4v1H1V1h5v1zm7.707 5.707l-3 3a1 1 0 01-1.414-1.414L10.586 8H5V7h5.586L9.293 5.707a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414z"/>
-                      </svg>
-                      Account Setting
-                    </div>
-                    <div className="snct-menu-divider"></div>
-                    <div className="snct-menu-item snct-logout-item" onClick={handleLogout}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M6 2H2v12h4v1H1V1h5v1zm7.707 5.707l-3 3a1 1 0 01-1.414-1.414L10.586 8H5V7h5.586L9.293 5.707a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414z"/>
-                      </svg>
-                      Logout
-                    </div>
-                  </div>
-                )}
+          {showMenu && (
+            <div className="snct-dropdown-menu">
+              <div className="snct-menu-item snct-dashboard-item" onClick={gotoDashboard}>
+                Dashboard
               </div>
-            ) : (
-              <button
-                onClick={() => navigate("/login")}
-                className="snct-login-btn"
-              >
-                {isMobile ? 'Login' : 'Sign In'}
-              </button>
-            )}
-          </div>
+              <div className="snct-menu-divider"></div>
+
+              <div className="snct-menu-item snct-account-item" onClick={gotoAccountSetting}>
+                Account Setting
+              </div>
+              <div className="snct-menu-divider"></div>
+
+              <div className="snct-menu-item snct-logout-item" onClick={handleLogout}>
+                Logout
+              </div>
+            </div>
+          )}
         </div>
-      </nav>
+      ) : (
+        <button
+          onClick={() => navigate("/login")}
+          className="snct-login-btn"
+        >
+          {isMobile ? 'Login' : 'Sign In'}
+        </button>
+      )}
+    </div>
+
+  </div>
+</nav>
+
     </div>
   );
 };
