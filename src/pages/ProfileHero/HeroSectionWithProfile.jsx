@@ -122,7 +122,7 @@ const HeroSectionWithProfile = () => {
         <span>★</span>
       </div>
       <span className="logo-text">
-        Sinful<span className="logo-accent">Aura</span>
+        Sin<span className="logo-accent">Cut</span>
       </span>
     </div>
 
