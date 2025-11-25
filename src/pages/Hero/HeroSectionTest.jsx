@@ -33,11 +33,11 @@ const HeroSection = () => {
 
     return true;
   };
-
+  const REACT_APP_API = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
   const handlePaymentSuccess = async (amount, response) => {
     try {
       const verifyRes = await fetch(
-        `${process.env.REACT_APP_API}/api/confession/verify`,
+        `${REACT_APP_API}/api/confession/verify`,
         {
           method: "POST",
           headers: {
