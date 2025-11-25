@@ -566,3 +566,84 @@
   max-height: 90vh;
   overflow-y: auto;
 }
+/* BAR ABOVE CHARACTER COUNTER (category + visibility) */
+.confession-options-row {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6px;
+}
+
+/* CATEGORY SELECTOR */
+.category-chip {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.category-select {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 0.8rem;
+  outline: none;
+  cursor: pointer;
+}
+
+/* VISIBILITY TOGGLE SECTION */
+.visibility-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+}
+
+.visibility-label {
+  font-size: 0.75rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.visibility-label.public {
+  color: #ff4444;
+}
+
+.visibility-label.private {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Minimal toggle */
+.visibility-toggle-clean {
+  width: 36px;
+  height: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.visibility-circle {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 1.8px;
+  left: 2px;
+  transition: all 0.25s ease;
+}
+
+.visibility-toggle-clean.active {
+  border-color: #ff4444;
+}
+
+.visibility-toggle-clean.active .visibility-circle {
+  left: 20px;
+  background: #ff4444;
+  box-shadow: 0 0 6px #ff4444;
+}

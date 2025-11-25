@@ -14,6 +14,11 @@ const HeroSection = () => {
   const [showThankful, setShowThankful] = useState(false);
   const [paidAmount, setPaidAmount] = useState(0);
 
+  // NEW STATES
+  const [category, setCategory] = useState("general");
+  const [visibility, setVisibility] = useState("private");
+
+  
   const handleBeforePay = () => {
     if (!heroText.trim()) {
       alert("Please write your confession before proceeding.");
@@ -22,50 +27,62 @@ const HeroSection = () => {
     setIsProcessing(true);
 
     setTimeout(() => {
-      alert("May you find peace and redemption.");
       setHeroText("");
       setCharacterCount(0);
       setIsProcessing(false);
-    }, 1300);
+    }, 1200);
 
     return true;
   };
-  
-  const handlePaymentSuccess = (amount, response) => {
-    console.log("Payment successful:", response);
-    setPaidAmount(amount);
-    setShowThankful(true);
-  };
+ const REACT_APP_API = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+ const handlePaymentSuccess = async (amount, response) => {
+   
+    try {
+      const verifyRes = await fetch(
+        `${REACT_APP_API}/api/confession/verify`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+            text: heroText,
+            visibility,
+            type: category,
+          }),
+        }
+      );
 
+      const data = await verifyRes.json();
+
+      if (!data.success) {
+        alert("Payment verified but confession not saved.");
+        return;
+      }
+
+      // success UI reset
+      setHeroText("");
+      setCharacterCount(0);
+      setIsWriting(false);
+      setSuccessModal(true);
+    } catch (err) {
+      console.error("Verify Error:", err);
+      alert("Payment was successful but verification failed.");
+    }
+  };
   const handleTextChange = (e) => {
     const text = e.target.value;
     setHeroText(text);
     setCharacterCount(text.length);
     setIsWriting(text.length > 0);
   };
-
-  useEffect(() => {
-    const fetchUserCountry = async () => {
-      try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        console.log("Detected country:", data.country);
-        setUserCountry(data.country);
-      } catch (err) {
-        console.error("Country detection failed", err);
-      }
-    };
-    fetchUserCountry();
-  }, []);
-
   return (
     <div className="modern-hero-section">
-      <div className="hero-background">
-        {/* <div className="floating-orb orb-1"></div>
-        <div className="floating-orb orb-2"></div>
-        <div className="floating-orb orb-3"></div> */}
-        {/* <div className="grid-lines"></div> */}
-      </div>
+      <div className="hero-background"></div>
 
       <div className="hero-container">
         <div className="hero-heading-container">
@@ -75,6 +92,7 @@ const HeroSection = () => {
           </h1>
         </div>
 
+        {/* TEXTAREA SECTION */}
         <div
           className={`modern-textarea-container ${
             isWriting ? "writing-active" : ""
@@ -96,14 +114,51 @@ const HeroSection = () => {
             rows={5}
           ></textarea>
 
+          {/* ============================
+              CATEGORY + VISIBILITY ROW
+              ============================ */}
+          <div className="options-below-text">
+            {/* CATEGORY SELECTOR */}
+            
+
+            {/* VISIBILITY SELECTOR */}
+            <div className="visibility-container">
+              <span
+                className={`visibility-label ${
+                  visibility === "public" ? "public" : "private"
+                }`}
+                onClick={() =>
+                  setVisibility(
+                    visibility === "private" ? "public" : "private"
+                  )
+                }
+              >
+                {visibility === "public" ? "Public" : "Private"}
+              </span>
+
+              <div
+                className={`visibility-toggle-clean ${
+                  visibility === "public" ? "active" : ""
+                }`}
+                onClick={() =>
+                  setVisibility(
+                    visibility === "private" ? "public" : "private"
+                  )
+                }
+              >
+                <div className="visibility-circle"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* CHARACTER COUNTER */}
           <div className="character-feedback">
             <div className="character-counter">
               {characterCount} / 1000 characters
             </div>
-            
-
           </div>
 
+          {/* TYPING ANIMATION */}
           {isWriting && (
             <div className="typing-animation">
               <div className="glow-dot dot-1"></div>
@@ -113,6 +168,7 @@ const HeroSection = () => {
           )}
         </div>
 
+        {/* PROGRESS */}
         {characterCount > 0 && (
           <div className="progress-indicator">
             <div className="progress-track">
@@ -133,6 +189,7 @@ const HeroSection = () => {
           </div>
         )}
 
+        {/* PAYMENT */}
         <div className="hero-action-section">
           {isProcessing ? (
             <div className="processing-overlay">
@@ -147,7 +204,7 @@ const HeroSection = () => {
           ) : (
             <div className="payment-integration">
               <PaymentButton
-                baseAmount={1} // Base amount in USD
+                baseAmount={1}
                 userCountry={userCountry}
                 onBeforePay={handleBeforePay}
                 onPaymentSuccess={handlePaymentSuccess}
