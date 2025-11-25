@@ -18,7 +18,6 @@ const HeroSection = () => {
   const [category, setCategory] = useState("general");
   const [visibility, setVisibility] = useState("private");
 
-  
   const handleBeforePay = () => {
     if (!heroText.trim()) {
       alert("Please write your confession before proceeding.");
@@ -34,12 +33,11 @@ const HeroSection = () => {
 
     return true;
   };
- const REACT_APP_API = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
- const handlePaymentSuccess = async (amount, response) => {
-   
+
+  const handlePaymentSuccess = async (amount, response) => {
     try {
       const verifyRes = await fetch(
-        `${REACT_APP_API}/api/confession/verify`,
+        `${process.env.REACT_APP_API}/api/confession/verify`,
         {
           method: "POST",
           headers: {
@@ -50,6 +48,7 @@ const HeroSection = () => {
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
+
             text: heroText,
             visibility,
             type: category,
@@ -64,22 +63,41 @@ const HeroSection = () => {
         return;
       }
 
-      // success UI reset
+      // Reset UI
       setHeroText("");
       setCharacterCount(0);
       setIsWriting(false);
+      setPaidAmount(amount);
+      setShowThankful(true);
+
       setSuccessModal(true);
     } catch (err) {
       console.error("Verify Error:", err);
       alert("Payment was successful but verification failed.");
     }
   };
+
   const handleTextChange = (e) => {
     const text = e.target.value;
     setHeroText(text);
     setCharacterCount(text.length);
     setIsWriting(text.length > 0);
   };
+
+  // Detect location
+  useEffect(() => {
+    const detectCountry = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        setUserCountry(data.country);
+      } catch (error) {
+        console.log("Country detection failed");
+      }
+    };
+    detectCountry();
+  }, []);
+
   return (
     <div className="modern-hero-section">
       <div className="hero-background"></div>
